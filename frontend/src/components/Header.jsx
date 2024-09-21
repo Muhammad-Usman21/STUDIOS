@@ -83,7 +83,6 @@ const Header = () => {
 								{currentUser.email}
 							</span>
 						</Dropdown.Header>
-						<DropdownDivider />
 						<Dropdown.Item onClick={handleSignOut}>desconectar</Dropdown.Item>
 					</Dropdown>
 				) : (
@@ -106,16 +105,18 @@ const Header = () => {
 						Hogar
 					</Navbar.Link>
 				</Link>
-				<Link to="/reservations">
+				{/* <Link to="/reservations">
 					<Navbar.Link active={path === "/reservations"} as={"div"}>
 						Reservations
 					</Navbar.Link>
-				</Link>
-				<Link to="/createStudio">
-					<Navbar.Link active={path === "/createStudio"} as={"div"}>
-						Studio
-					</Navbar.Link>
-				</Link>
+				</Link> */}
+				{currentUser && (
+					<Link to="/createStudio">
+						<Navbar.Link active={path === "/createStudio"} as={"div"}>
+							Studio
+						</Navbar.Link>
+					</Link>
+				)}
 			</Navbar.Collapse>
 		</Navbar>
 	);
