@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, useMapEvents, Popup } from "react-leaflet";
+import {
+	MapContainer,
+	TileLayer,
+	Marker,
+	useMapEvents,
+	Popup,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 const LocationPicker = ({ pickLocation, lat, lng, currentLocation }) => {
@@ -14,6 +20,7 @@ const LocationPicker = ({ pickLocation, lat, lng, currentLocation }) => {
 					(pos) => {
 						const { latitude, longitude } = pos.coords;
 						setPosition([latitude, longitude]);
+						pickLocation({ lat: latitude, lng: longitude });
 						setMapKey((prevKey) => prevKey + 1);
 					},
 					(error) => {
@@ -48,8 +55,12 @@ const LocationPicker = ({ pickLocation, lat, lng, currentLocation }) => {
 				zoom={13}
 				style={{ height: "400px", width: "100%" }}>
 				<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-				<Marker position={position} >
-					<Popup>Latitude: {position[0]}<br/>Longitude: {position[1]}</Popup>
+				<Marker position={position}>
+					<Popup>
+						Latitude: {position[0]}
+						<br />
+						Longitude: {position[1]}
+					</Popup>
 				</Marker>
 				<HandleMapClick /> {/* Enable click functionality on the map */}
 			</MapContainer>

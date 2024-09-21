@@ -1,3 +1,6 @@
+import Studio from "../models/studio.model.js";
+import User from "../models/user.model.js";
+
 // Create a new studio
 export const createStudio = async (req, res) => {
 	const {
@@ -41,9 +44,17 @@ export const createStudio = async (req, res) => {
 		// Save to the database
 		await newStudio.save();
 
-		res
-			.status(201)
-			.json({ message: "Studio created successfully!", studio: newStudio });
+		const updatedUser = await User.findByIdAndUpdate(
+			userId,
+			{ $set: { isStudio: true } },
+			{ new: true }
+		);
+
+		res.status(201).json({
+			message: "Studio created successfully!",
+			studio: newStudio,
+			user: updatedUser,
+		});
 	} catch (error) {
 		console.error("Error creating studio:", error);
 		res.status(500).json({ message: "Failed to create studio." });

@@ -13,7 +13,6 @@ const studioSchema = new mongoose.Schema({
 	},
 	phone: {
 		type: String,
-		required: true,
 	},
 	images: [
 		{
@@ -31,7 +30,6 @@ const studioSchema = new mongoose.Schema({
 	},
 	country: {
 		type: String,
-		required: true,
 	},
 	socialMedia: {
 		instagram: { type: String },

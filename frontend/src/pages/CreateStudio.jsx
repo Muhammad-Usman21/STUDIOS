@@ -15,6 +15,17 @@ import { FaFacebook, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { MdCancelPresentation } from "react-icons/md";
 import LocationPicker from "../components/LocationPicker";
+import { app } from "../firebase";
+import {
+	deleteObject,
+	getDownloadURL,
+	getStorage,
+	ref,
+	uploadBytesResumable,
+} from "firebase/storage";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserSuccess } from "../redux/user/userSlice";
 
 const CreateStudio = () => {
 	const [formData, setFormData] = useState({
@@ -30,18 +41,92 @@ const CreateStudio = () => {
 		},
 	});
 	const [imageName, setImageName] = useState("");
-	const [file, setFile] = useState("");
+	const [file, setFile] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [imageUploading, setImageUploading] = useState(false);
 	const [imageUploadProgress, setImageUploadProgress] = useState(null);
 	const [imageUploadErrorMsg, setImageUploadErrorMsg] = useState(null);
 	const [studioErrorMsg, setStudioErrorMsg] = useState(null);
+	const { currentUser } = useSelector((state) => state.user);
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	// const [prevUrlData, setPrevUrlData] = useState([]);
 
-	const handleSubmit = (e) => {
+	const [errors, setErrors] = useState({});
+
+	const validateWorkingHours = (formData) => {
+		const { week } = formData;
+		const errors = {};
+
+		Object.keys(week).forEach((day) => {
+			const { working, start, end } = week[day];
+
+			if (working) {
+				if (!start || !end) {
+					errors[
+						day
+					] = `${day} requires both start and end times when working is enabled.`;
+				}
+			}
+		});
+
+		return errors;
+	};
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(formData);
+		setStudioErrorMsg(null);
+		setLoading(true);
+
+		const validationErrors = validateWorkingHours(formData);
+
+		if (Object.keys(validationErrors).length > 0) {
+			setErrors(validationErrors);
+			setLoading(false);
+			return;
+		}
+
+		if (
+			!formData.title ||
+			!formData.description ||
+			!formData.address ||
+			!formData.city ||
+			formData.images.length === 0 ||
+			!formData.location.latitude ||
+			!formData.location.longitude
+		) {
+			setLoading(false);
+			setStudioErrorMsg(
+				"Solo el enlace de video de Youtube, Acerca de y las redes sociales son opcionales.<br />Todos los demás campos son obligatorios."
+			);
+			return;
+		}
+
+		try {
+			const res = await fetch(`/api/studio/create-studio/${currentUser._id}`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(formData),
+			});
+			const data = await res.json();
+			if (!res.ok) {
+				setLoading(false);
+				setStudioErrorMsg(data.message);
+				return;
+			} else {
+				setLoading(false);
+				setStudioErrorMsg(null);
+				dispatch(updateUserSuccess(data.user));
+				// prevUrlData.map((item, index) => deleteFileByUrl(item));
+				navigate("/");
+			}
+		} catch (error) {
+			setStudioErrorMsg(error.message);
+			setLoading(false);
+		}
 	};
 
 	const handleUploadImage = async () => {
@@ -54,24 +139,26 @@ const CreateStudio = () => {
 				return;
 			}
 
-			for (let i = 0; i < file.length; i++) {
-				if (file[i].size >= 20 * 1024 * 1024) {
-					setImageUploadErrorMsg(
-						"El tamaño del archivo de audio debe ser inferior a 20 MB."
-					);
-					setImageUploading(false);
-					return;
-				}
+			if (file.size >= 5 * 1024 * 1024) {
+				setImageUploadErrorMsg(
+					"El tamaño del archivo de audio debe ser inferior a 20 MB."
+				);
+				setImageUploading(false);
+				return;
 			}
 
 			const promises = [];
 
-			for (let i = 0; i < file.length; i++) {
-				promises.push(storeImage(file[i]));
-			}
+			// const url = await storeImage(file[0]);
+			// console.log(url);
+
+			console.log(file);
+
+			promises.push(storeImage(file));
 
 			Promise.all(promises)
 				.then((urls) => {
+					console.log(urls);
 					setFormData({
 						...formData,
 						images: [
@@ -99,7 +186,35 @@ const CreateStudio = () => {
 	};
 
 	const storeImage = async (image) => {
-		return new Promise((resolve, reject) => {});
+		return new Promise((resolve, reject) => {
+			const storage = getStorage(app);
+			const fileName = new Date().getTime() + image.name;
+			const stoageRef = ref(storage, fileName);
+			console.log(fileName);
+			// const metadata = {
+			// 	customMetadata: {
+			// 		uid: currentUser.firebaseId,
+			// 	},
+			// };
+			const uploadTask = uploadBytesResumable(stoageRef, image);
+			uploadTask.on(
+				"state_changed",
+				(snapshot) => {
+					const progress =
+						(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+					console.log(`Upload is ${progress}% done`);
+				},
+				(error) => {
+					reject(error);
+				},
+				() => {
+					getDownloadURL(uploadTask.snapshot.ref).then((downlaodURL) => {
+						console.log(downlaodURL);
+						resolve(downlaodURL);
+					});
+				}
+			);
+		});
 	};
 
 	const handleRemoveImage = (index, url) => {
@@ -126,17 +241,36 @@ const CreateStudio = () => {
 		}));
 	};
 
+	// const handleCheckboxChange = (day) => {
+	// 	setFormData((prevFormData) => ({
+	// 		...prevFormData,
+	// 		week: {
+	// 			...prevFormData.week,
+	// 			[day]: {
+	// 				...prevFormData.week[day],
+	// 				working: !prevFormData.week[day].working,
+	// 			},
+	// 		},
+	// 	}));
+	// };
+
 	const handleCheckboxChange = (day) => {
-		setFormData((prevFormData) => ({
-			...prevFormData,
-			week: {
-				...prevFormData.week,
-				[day]: {
-					...prevFormData.week[day],
-					working: !prevFormData.week[day].working,
+		setFormData((prevFormData) => {
+			const isWorking = !prevFormData.week[day].working;
+
+			return {
+				...prevFormData,
+				week: {
+					...prevFormData.week,
+					[day]: {
+						...prevFormData.week[day],
+						working: isWorking,
+						start: isWorking ? prevFormData.week[day].start : "", // Clear if unchecked
+						end: isWorking ? prevFormData.week[day].end : "", // Clear if unchecked
+					},
 				},
-			},
-		}));
+			};
+		});
 	};
 
 	const handleLocationChange = (data) => {
@@ -170,7 +304,8 @@ const CreateStudio = () => {
 								onChange={(e) =>
 									setFormData({ ...formData, title: e.target.value })
 								}
-								// disabled={}
+								disabled={loading || imageUploading}
+								required
 							/>
 						</div>
 						<div className="flex flex-col gap-2 sm:items-center justify-center p-3">
@@ -182,7 +317,8 @@ const CreateStudio = () => {
 								onChange={(e) =>
 									setFormData({ ...formData, description: e.target.value })
 								}
-								// disabled={}
+								disabled={loading || imageUploading}
+								required
 							/>
 						</div>
 					</div>
@@ -197,7 +333,7 @@ const CreateStudio = () => {
 								onChange={(e) =>
 									setFormData({ ...formData, phone: e.target.value })
 								}
-								// disabled={}
+								disabled={loading || imageUploading}
 							/>
 						</div>
 						<div className="flex flex-col sm:flex-row gap-4 justify-around items-center p-3 w-full">
@@ -210,7 +346,8 @@ const CreateStudio = () => {
 									onChange={(e) =>
 										setFormData({ ...formData, address: e.target.value })
 									}
-									// disabled={}
+									disabled={loading || imageUploading}
+									required
 								/>
 							</div>
 							<div className="flex flex-col gap-1 w-full">
@@ -222,7 +359,8 @@ const CreateStudio = () => {
 									onChange={(e) =>
 										setFormData({ ...formData, city: e.target.value })
 									}
-									// disabled={}
+									disabled={loading || imageUploading}
+									required
 								/>
 							</div>
 						</div>
@@ -260,8 +398,9 @@ const CreateStudio = () => {
 								<TextInput
 									type="text"
 									placeholder="Image description"
+									value={imageName}
 									onChange={(e) => setImageName(e.target.value)}
-									// disabled={}
+									disabled={loading || imageUploading}
 								/>
 							</div>
 							<div className="flex flex-col w-full mb-4 sm:flex-row gap-4 items-center justify-between">
@@ -270,7 +409,7 @@ const CreateStudio = () => {
 									accept="image/*"
 									onChange={(e) => setFile(e.target.files[0])}
 									className="w-full sm:w-auto"
-									// disabled={}
+									disabled={loading || imageUploading}
 								/>
 								<Button
 									type="button"
@@ -279,8 +418,12 @@ const CreateStudio = () => {
 									outline
 									className="focus:ring-1 w-full sm:w-auto"
 									onClick={handleUploadImage}
-									// disabled={}
-								>
+									disabled={
+										loading ||
+										imageUploading ||
+										imageUploadErrorMsg ||
+										!imageName
+									}>
 									{imageUploading
 										? "Uploading... Please wait!"
 										: "Upload Image"}
@@ -307,9 +450,16 @@ const CreateStudio = () => {
 							formData.images.map((image, index) => (
 								<div
 									key={index}
-									className="flex flex-col px-3 py-1 border gap-1">
-									<div className="w-full">
+									className="flex flex-col sm:px-3 py-1 border gap-1">
+									<div className="flex flex-col md:flex-row justify-between sm:px-5 sm:py-3 p-1 items-center gap-1">
 										<Label value={`Palabras clave : ${image.name}`} />
+										<button
+											disabled={loading || imageUploading}
+											type="button"
+											onClick={() => handleRemoveImage(index, image.url)}
+											className="px-3 text-red-700 rounded-lg uppercase hover:opacity-75">
+											DELETE
+										</button>
 									</div>
 									<div className="flex flex-col md:flex-row justify-between px-3 py-1 items-center gap-1">
 										{console.log("URL:", image.url)}
@@ -317,15 +467,8 @@ const CreateStudio = () => {
 											src={image.url}
 											alt="upload"
 											className="w-full h-auto object-cover border 
-											border-gray-500 dark:border-gray-300 mt-4"
+											border-gray-500 dark:border-gray-300"
 										/>
-										<button
-											// disabled={}
-											type="button"
-											onClick={() => handleRemoveImage(index, image.url)}
-											className="px-3 text-red-700 rounded-lg uppercase hover:opacity-75">
-											DELETE
-										</button>
 									</div>
 								</div>
 							))}
@@ -394,6 +537,7 @@ const CreateStudio = () => {
 													className="focus:ring-0"
 													checked={formData.week[day].working}
 													onChange={() => handleCheckboxChange(day)}
+													disabled={loading || imageUploading}
 												/>
 											</div>
 										</Table.Cell>
@@ -402,6 +546,7 @@ const CreateStudio = () => {
 												<input
 													type="time"
 													value={formData.week[day].start}
+													disabled={loading || imageUploading}
 													onChange={(e) =>
 														handleTimeChange(day, "start", e.target.value)
 													}
@@ -416,6 +561,7 @@ const CreateStudio = () => {
 													onChange={(e) =>
 														handleTimeChange(day, "end", e.target.value)
 													}
+													disabled={loading || imageUploading}
 												/>
 											)}
 										</Table.Cell>
@@ -449,7 +595,7 @@ const CreateStudio = () => {
 											},
 										})
 									}
-									// disabled={}
+									disabled={loading || imageUploading}
 								/>
 							</div>
 							<div className="flex sm:flex-row flex-col gap-2 items-center">
@@ -471,7 +617,7 @@ const CreateStudio = () => {
 											},
 										})
 									}
-									// disabled={}
+									disabled={loading || imageUploading}
 								/>
 							</div>
 							<div className="flex sm:flex-row flex-col gap-2 items-center sm:pl-4">
@@ -493,7 +639,7 @@ const CreateStudio = () => {
 											},
 										})
 									}
-									// disabled={}
+									disabled={loading || imageUploading}
 								/>
 							</div>
 							<div className="flex sm:flex-row flex-col gap-2 items-center sm:pr-2">
@@ -515,7 +661,7 @@ const CreateStudio = () => {
 											},
 										})
 									}
-									// disabled={}
+									disabled={loading || imageUploading}
 								/>
 							</div>
 						</div>
@@ -526,8 +672,7 @@ const CreateStudio = () => {
 						gradientDuoTone="purpleToPink"
 						outline
 						className="focus:ring-1 uppercase"
-						// disabled={}
-					>
+						disabled={loading || imageUploading || studioErrorMsg}>
 						{loading ? (
 							<>
 								<Spinner size="sm" />
@@ -551,6 +696,32 @@ const CreateStudio = () => {
 						</div>
 					</Alert>
 				)}
+				{Object.keys(errors).map((day) => (
+					// <p key={day} style={{ color: "red" }}>
+					// 	{errors[day]}
+					// </p>
+					<Alert
+						className="flex-auto my-2"
+						color="failure"
+						withBorderAccent
+						key={day}>
+						<div className="flex justify-between">
+							<span dangerouslySetInnerHTML={{ __html: errors[day] }} />
+							<span className="w-5 h-5">
+								<MdCancelPresentation
+									className="cursor-pointer w-6 h-6"
+									onClick={() =>
+										setErrors((prevErrors) => {
+											const updatedErrors = { ...prevErrors };
+											delete updatedErrors[day]; // Remove the error for the clicked day
+											return updatedErrors;
+										})
+									}
+								/>
+							</span>
+						</div>
+					</Alert>
+				))}
 			</div>
 		</div>
 	);
