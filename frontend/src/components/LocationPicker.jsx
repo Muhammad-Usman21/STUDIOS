@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 
 const LocationPicker = ({ pickLocation, lat, lng, currentLocation }) => {
 	const [position, setPosition] = useState([lat, lng]); // To store the user's current location
-	const [coordinates, setCoordinates] = useState({ lat: lat, lng: lng }); // To store the coordinates after clicking
+	const [mapKey, setMapKey] = useState(0);
 
 	// Fetch the user's current location on component mount
 	useEffect(() => {
@@ -14,7 +14,7 @@ const LocationPicker = ({ pickLocation, lat, lng, currentLocation }) => {
 					(pos) => {
 						const { latitude, longitude } = pos.coords;
 						setPosition([latitude, longitude]);
-						setCoordinates({ lat: latitude, lng: longitude });
+						setMapKey((prevKey) => prevKey + 1);
 					},
 					(error) => {
 						console.error("Error fetching user location:", error);
@@ -32,7 +32,6 @@ const LocationPicker = ({ pickLocation, lat, lng, currentLocation }) => {
 			click(e) {
 				const { lat, lng } = e.latlng;
 				setPosition([lat, lng]);
-				setCoordinates({ lat, lng });
 				pickLocation({ lat, lng });
 			},
 		});
@@ -43,14 +42,15 @@ const LocationPicker = ({ pickLocation, lat, lng, currentLocation }) => {
 		<div className="my-3 mt-5">
 			<h2 className="text-center my-2 text-lg">Pick a Location</h2>
 
-				<MapContainer
-					center={position}
-					zoom={13}
-					style={{ height: "400px", width: "100%" }}>
-					<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-					<Marker position={position} />
-					<HandleMapClick /> {/* Enable click functionality on the map */}
-				</MapContainer>
+			<MapContainer
+				key={mapKey}
+				center={position}
+				zoom={13}
+				style={{ height: "400px", width: "100%" }}>
+				<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+				<Marker position={position} />
+				<HandleMapClick /> {/* Enable click functionality on the map */}
+			</MapContainer>
 
 			{/* {coordinates.lat && coordinates.lng && (
 				<div className="mt-2 text-center">
