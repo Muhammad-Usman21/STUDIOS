@@ -52,12 +52,12 @@ const LocationPicker = ({ pickLocation, lat, lng, currentLocation }) => {
 					<HandleMapClick /> {/* Enable click functionality on the map */}
 				</MapContainer>
 
-			{coordinates.lat && coordinates.lng && (
+			{/* {coordinates.lat && coordinates.lng && (
 				<div className="mt-2 text-center">
 					<p>Latitude: {coordinates.lat}</p>
 					<p>Longitude: {coordinates.lng}</p>
 				</div>
-			)}
+			)} */}
 		</div>
 	);
 };
