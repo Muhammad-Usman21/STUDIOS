@@ -1,7 +1,6 @@
 import LocationPicker from "../components/LocationPicker";
 import FreeTimeSlots from "../components/FreeTime";
 import DisplayMap from "../components/DisplayMap";
-import ImageThumbnails from "../components/ImageThumnails";
 
 
 const Home = () => {
@@ -12,7 +11,6 @@ const Home = () => {
             <FreeTimeSlots />
             <LocationPicker />
             <DisplayMap />
-            <ImageThumbnails />
         </div>
     )
 }
