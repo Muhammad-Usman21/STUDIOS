@@ -35,7 +35,6 @@ const Header = () => {
 
 	const handleSignOut = async () => {
 		try {
-
 			const res = await fetch("/api/auth/logout");
 
 			if (!res.ok) {
@@ -52,23 +51,15 @@ const Header = () => {
 	const handleSignIn = () => {
 		setSigninLoading(true);
 		window.location.href = "/api/auth/google-signin";
-	}
+	};
 
 	return (
 		<Navbar className="border-b-2 border-teal-600 lg:px-14 bg-cover bg-center sticky top-0 z-30">
 			<Link
 				to="/"
 				className="font-semibold dark:text-white text-md sm:text-xl flex items-center justify-center">
-				<img
-					src="logo3.png"
-					alt="logo"
-					className="object-cover w-10 h-10"
-				/>
-				<img
-					src="logo2.png"
-					alt="logo"
-					className="object-cover h-6 sm:h-8"
-				/>
+				<img src="logo3.png" alt="logo" className="object-cover w-10 h-10" />
+				<img src="logo2.png" alt="logo" className="object-cover h-6 sm:h-8" />
 			</Link>
 			<div className=" flex gap-2 md:order-2 items-center">
 				<Button
@@ -102,7 +93,7 @@ const Header = () => {
 						size="sm"
 						className="focus:ring-1"
 						onClick={handleSignIn}
-						disabled ={signinLoding}>
+						disabled={signinLoding}>
 						Iniciar sesión
 					</Button>
 				)}
@@ -120,31 +111,11 @@ const Header = () => {
 						Reservations
 					</Navbar.Link>
 				</Link>
-				<Link
-					to={
-						currentUser?.isSpeaker
-							? "/dashboard?tab=edit-speaker"
-							: "/dashboard?tab=speaker"
-					}>
-					<Navbar.Link
-						active={
-							path === "/dashboard?tab=speaker" ||
-							path === "/dashboard?tab=edit-speaker"
-						}
-						as={"div"}>
-						¿Eres orador?
+				<Link to="/createStudio">
+					<Navbar.Link active={path === "/createStudio"} as={"div"}>
+						Studio
 					</Navbar.Link>
 				</Link>
-				<Link to="/annoucements">
-					<Navbar.Link active={path === "/annoucements"} as={"div"}>
-						Anuncios
-					</Navbar.Link>
-				</Link>
-				{/* <Link to="/instructions">
-					<Navbar.Link active={path === "/instructions"} as={"div"}>
-						Instructions
-					</Navbar.Link>
-				</Link> */}
 			</Navbar.Collapse>
 		</Navbar>
 	);
