@@ -8,7 +8,7 @@ import CreateStudio from "./pages/CreateStudio";
 import PrivateRoute from "./components/PrivateRoute";
 import EditStudio from "./pages/EditStudio";
 import ScrollToTop from "./components/ScrollToTop";
-import StudioDetail from "./pages/StudioDetail";
+import Studio from "./pages/Studio";
 
 function App() {
 	return (
@@ -19,7 +19,7 @@ function App() {
 				<Header />
 				<Routes>
 					<Route path="/" element={<Home />} />
-					<Route path="/studio/:id" element={<StudioDetail />} />
+					<Route path="/studio/:id" element={<Studio />} />
 					<Route element={<PrivateRoute />}>
 						<Route path="/createStudio" element={<CreateStudio />} />
 						<Route path="/editStudio" element={<EditStudio />} />

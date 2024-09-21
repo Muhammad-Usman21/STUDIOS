@@ -1,4 +1,5 @@
 import Studio from "../models/studio.model.js";
+import User from "../models/user.model.js";
 import mongoose from "mongoose";
 
 
@@ -29,11 +30,6 @@ export const search = async (req, res) => {
       .skip(parseInt(startIndex))
       .limit(parseInt(limit));
 
-    studios.map((studio) => {
-      studio.images = studio.images[0];
-      return studio;
-    });
-
     res.status(200).json(studios);
   } catch (error) {
     console.error("Error searching for studios:", error);
@@ -61,7 +57,6 @@ export const getStudio = async (req, res) => {
 // Create a new studio
 export const createStudio = async (req, res) => {
   const {
-    userId,
     title,
     phone,
     images,
@@ -74,6 +69,7 @@ export const createStudio = async (req, res) => {
     description,
   } = req.body;
 
+  const { userId } = req.params;
   try {
     // Check if studio already exists for this user
     const existingStudio = await Studio.findOne({ userId });
@@ -85,7 +81,7 @@ export const createStudio = async (req, res) => {
 
     // Create a new Studio
     const newStudio = new Studio({
-      userId: mongoose.Types.ObjectId(userId), // Ensures that userId is stored as ObjectId
+      userId : new mongoose.Types.ObjectId(userId),
       title,
       phone,
       images,

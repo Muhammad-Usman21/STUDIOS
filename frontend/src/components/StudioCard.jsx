@@ -11,7 +11,7 @@ const StudioCard = ({ studio }) => {
 						<div className="relative flex">
 							<div className="h-[350px] w-full bg-slate-400">
 								<img
-									src={studio.images}
+									src={studio.images[0].url}
 									alt="img"
 									className="h-[350px] w-full object-cover
                     		hover:scale-105 transition-scale duration-300"

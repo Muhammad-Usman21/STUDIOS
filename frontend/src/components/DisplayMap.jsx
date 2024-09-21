@@ -15,15 +15,31 @@ L.Icon.Default.mergeOptions({
 });
 
 const DisplayMap = ({ lat, lng }) => {
-    lat = 34.0522;
-    lng = -118.2437;
     const handleGoogleMapsRedirect = () => {
         const url = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
         window.open(url, '_blank');
     };
 
     return (
-        <div>
+        <div className='w-full relative block'>
+           <h1 className="text-2xl font-semibold mb-2">Location:</h1>
+
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/3/39/Google_Maps_icon_%282015-2020%29.svg"
+                alt="Google Maps Icon"
+                onClick={handleGoogleMapsRedirect}
+                style={{
+                    position: 'absolute',
+                    bottom: '10px',  // adjust the positioning as needed
+                    left: '10px',
+                    width: '40px',
+                    height: '40px',
+                    zIndex: 1000, 
+                    cursor: 'pointer',
+                }}
+            />
+
+            {/* Map Container */}
             <MapContainer center={[lat, lng]} zoom={13} style={{ height: '400px', width: '100%' }}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -34,10 +50,8 @@ const DisplayMap = ({ lat, lng }) => {
                     </Popup>
                 </Marker>
             </MapContainer>
-            <button onClick={handleGoogleMapsRedirect} style={{ marginTop: '10px' }}>
-                Open in Google Maps
-            </button>
         </div>
+
     );
 };
 

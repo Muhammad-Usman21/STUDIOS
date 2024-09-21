@@ -9,6 +9,8 @@ import session from "express-session";
 import authRouter from "./routes/auth.routes.js";
 import userRouter from "./routes/user.routes.js";
 import studioRouter from "./routes/studio.routes.js";
+import bookingRouter from "./routes/booking.routes.js";
+
 import { google } from "googleapis";
 import User from "./models/user.model.js";
 
@@ -97,6 +99,7 @@ passport.deserializeUser(async (id, done) => {
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/studio", studioRouter);
+app.use("/api/booking", bookingRouter);
 
 app.get("/api/calendar/freebusy", async (req, res) => {
   const user = await User.findOne({ googleId: "106153794536198300860" });
