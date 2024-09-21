@@ -77,8 +77,8 @@ const studioSchema = new mongoose.Schema({
 		},
 	},
 	location: {
-		longitude: { type: String, required: true },
 		latitude: { type: String, required: true },
+		longitude: { type: String, required: true },
 	},
 	description: {
 		type: String,

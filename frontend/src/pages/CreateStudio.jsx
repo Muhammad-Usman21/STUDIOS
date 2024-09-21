@@ -14,18 +14,19 @@ import { useState } from "react";
 import { FaFacebook, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { MdCancelPresentation } from "react-icons/md";
+import LocationPicker from "../components/LocationPicker";
 
 const CreateStudio = () => {
 	const [formData, setFormData] = useState({
 		images: [],
 		week: {
-			monday: { start: "", end: "" },
-			tuesday: { start: "", end: "" },
-			wednesday: { start: "", end: "" },
-			thursday: { start: "", end: "" },
-			friday: { start: "", end: "" },
-			saturday: { start: "", end: "" },
-			sunday: { start: "", end: "" },
+			monday: { start: "", end: "", working: false },
+			tuesday: { start: "", end: "", working: false },
+			wednesday: { start: "", end: "", working: false },
+			thursday: { start: "", end: "", working: false },
+			friday: { start: "", end: "", working: false },
+			saturday: { start: "", end: "", working: false },
+			sunday: { start: "", end: "", working: false },
 		},
 	});
 	const [imageName, setImageName] = useState("");
@@ -40,9 +41,66 @@ const CreateStudio = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		console.log(formData);
 	};
 
-	const handleUploadImage = () => {};
+	const handleUploadImage = async () => {
+		setImageUploadErrorMsg(null);
+		setImageUploading(true);
+		try {
+			if (!file) {
+				setImageUploadErrorMsg("Seleccione un archivo de audio.");
+				setImageUploading(false);
+				return;
+			}
+
+			for (let i = 0; i < file.length; i++) {
+				if (file[i].size >= 20 * 1024 * 1024) {
+					setImageUploadErrorMsg(
+						"El tamaño del archivo de audio debe ser inferior a 20 MB."
+					);
+					setImageUploading(false);
+					return;
+				}
+			}
+
+			const promises = [];
+
+			for (let i = 0; i < file.length; i++) {
+				promises.push(storeImage(file[i]));
+			}
+
+			Promise.all(promises)
+				.then((urls) => {
+					setFormData({
+						...formData,
+						images: [
+							...formData.images,
+							{
+								name: imageName,
+								url: urls[0],
+							},
+						],
+					});
+					setImageUploadErrorMsg(null);
+					setImageUploading(false);
+					setImageName("");
+				})
+				.catch((err) => {
+					setImageUploadErrorMsg(
+						"El tamaño del archivo de audio debe ser inferior a 20 MB."
+					);
+					setImageUploading(false);
+				});
+		} catch (error) {
+			setImageUploadErrorMsg(error.message);
+			setImageUploading(false);
+		}
+	};
+
+	const storeImage = async (image) => {
+		return new Promise((resolve, reject) => {});
+	};
 
 	const handleRemoveImage = (index, url) => {
 		// Create a new array with the item removed
@@ -81,19 +139,29 @@ const CreateStudio = () => {
 		}));
 	};
 
+	const handleLocationChange = (data) => {
+		setFormData((prevFormData) => ({
+			...prevFormData,
+			location: {
+				latitude: data.lat,
+				longitude: data.lng,
+			},
+		}));
+	};
+
 	return (
 		<div
 			className="w-full bg-cover bg-center
 			bg-[url('../../bg-light.jpg')] dark:bg-[url('../../bg2-dark.jpg')]">
 			<div
 				className="max-w-3xl my-10 mx-3 p-3 sm:mx-12 lg:mx-auto sm:p-10 self-center dark:shadow-whiteLg
-			bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[9px] rounded-lg shadow-xl">
+			bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[20px] rounded-lg shadow-xl">
 				<h1 className="text-center text-3xl mb-7 font-semibold">
 					Create Studio
 				</h1>
 				<form className={`flex py-5 flex-col gap-6`} onSubmit={handleSubmit}>
 					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[9px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-						<div className="flex gap-2 items-center justify-center px-3">
+						<div className="flex gap-2 sm:flex-row flex-col sm:items-center justify-center px-3">
 							<Label value="Title" />
 							<TextInput
 								className="flex-grow w-full"
@@ -105,7 +173,7 @@ const CreateStudio = () => {
 								// disabled={}
 							/>
 						</div>
-						<div className="flex flex-col gap-2 items-center justify-center p-3">
+						<div className="flex flex-col gap-2 sm:items-center justify-center p-3">
 							<Label value="Description" />
 							<Textarea
 								className="mb-2"
@@ -120,7 +188,7 @@ const CreateStudio = () => {
 					</div>
 
 					<div className="flex flex-col justify-around items-center bg-transparent border-2 border-white/20 backdrop-blur-[9px] rounded-lg shadow-md p-3 dark:shadow-whiteLg">
-						<div className="flex gap-2 items-center justify-center w-full p-3">
+						<div className="flex sm:flex-row flex-col gap-2 sm:items-center justify-center w-full p-3">
 							<Label value="Phone Number" className="w-32" />
 							<TextInput
 								className="flex-grow w-full"
@@ -132,8 +200,8 @@ const CreateStudio = () => {
 								// disabled={}
 							/>
 						</div>
-						<div className="flex flex-row gap-4 justify-around items-center p-3 w-full">
-							<div className="flex flex-col gap-1 flex-grow">
+						<div className="flex flex-col sm:flex-row gap-4 justify-around items-center p-3 w-full">
+							<div className="flex flex-col gap-1 flex-grow w-full">
 								<Label value="Address" />
 								<TextInput
 									className="flex-grow w-full"
@@ -145,7 +213,7 @@ const CreateStudio = () => {
 									// disabled={}
 								/>
 							</div>
-							<div className="flex flex-col gap-1">
+							<div className="flex flex-col gap-1 w-full">
 								<Label value="City" />
 								<TextInput
 									className="flex-grow w-full"
@@ -157,6 +225,9 @@ const CreateStudio = () => {
 									// disabled={}
 								/>
 							</div>
+						</div>
+						<div className="w-full">
+							<LocationPicker pickLocation={handleLocationChange} />
 						</div>
 						{/* <div className="flex flex-col gap-1">
 							<Label value="City" />
@@ -178,7 +249,7 @@ const CreateStudio = () => {
 					</div>
 
 					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[9px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-						<Label value="Upload images! First image will be cover image" />
+						<Label value="Upload images. First image will be cover" />
 						<div className="flex flex-col mb-4 w-full gap-4 items-center justify-between">
 							<div className="w-full">
 								<TextInput
@@ -284,7 +355,7 @@ const CreateStudio = () => {
 						</div>
 						<Table
 							hoverable
-							className="backdrop-blur-[9px] bg-transparent border-2 border-white/20 
+							className="backdrop-blur-[9px] bg-transparent dark:bg-transparent border-2 border-white/20 
 										rounded-lg shadow-lg dark:shadow-whiteLg">
 							<Table.Head className=" lg:sticky lg:top-[60px] z-20 h-16">
 								<Table.HeadCell>Day</Table.HeadCell>
