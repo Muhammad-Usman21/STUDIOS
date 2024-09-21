@@ -9,6 +9,8 @@ router.get(
   "/google-signin",
   passport.authenticate("google", {
     scope: ["profile", "email", "https://www.googleapis.com/auth/calendar"],
+    accessType: "offline",
+    prompt: "consent",
   })
 );
 
@@ -17,30 +19,8 @@ router.get(
   "/google-callback",
   passport.authenticate("google", { failureRedirect: "/" }),
   async (req, res) => {
-    // Get user details from the authenticated Google profile
-    const { id, displayName, emails, photos } = req.user.profile;
-
-    try {
-      // Check if the user already exists in the database
-      let user = await User.findOne({ googleId: id });
-
-      if (!user) {
-        // If user doesn't exist, create a new user
-        user = new User({
-          googleId: id,
-          name: displayName,
-          email: emails[0].value,
-          profilePicture: photos[0].value,
-        });
-        await user.save();
-      }
-
-      // Redirect the user to the frontend after successful login
-      res.redirect("http://localhost:5173/");
-    } catch (error) {
-      console.error("Error storing user in database:", error);
-      res.redirect("/"); // Redirect on error
-    }
+    // Redirect the user to the frontend after successful login
+    res.redirect("http://localhost:5173/");
   }
 );
 
