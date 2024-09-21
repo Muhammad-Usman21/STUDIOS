@@ -1,18 +1,18 @@
+import LocationPicker from "../components/LocationPicker";
 import FreeTimeSlots from "../components/FreeTime";
+import DisplayMap from "../components/DisplayMap";
+import ImageThumbnails from "../components/ImageThumnails";
 
 
 const Home = () => {
-    const getFreeBusy = async () => {
-        const response = await fetch("/api/calendar/freebusy");
-        const data = await response.json();
-        console.log(data);
-    }
 
     return (
         <div>
             <h1>Home</h1>
-            <button onClick={getFreeBusy}>Get Free Busy</button>
             <FreeTimeSlots />
+            <LocationPicker />
+            <DisplayMap />
+            <ImageThumbnails />
         </div>
     )
 }

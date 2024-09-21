@@ -31,18 +31,16 @@ app.use(express.json());
 app.use(cors());
 
 app.use(
-	session({
-		secret: "your-secret-key",
-		resave: false,
-		saveUninitialized: false,
-		cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 },
-	})
+  session({
+    secret: "your-secret-key",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, maxAge: 30 * 24 * 60 * 60 * 1000 },
+  })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-console.log(process.env.GOOGLE_CALLBACK_URL);
 
 passport.use(
 	new GoogleStrategy(
@@ -101,11 +99,15 @@ app.use("/api/user", userRouter);
 app.use("/api/studio", studioRouter);
 
 app.get("/api/calendar/freebusy", async (req, res) => {
+<<<<<<< HEAD
 	// if (!req.isAuthenticated()) {
 	//   return res.status(401).send("User not authenticated");
 	// }
 	const user = await User.findOne({ googleId: "106153794536198300860" });
 	console.log(user);
+=======
+  const user = await User.findOne({ googleId: "106153794536198300860" });
+>>>>>>> d186d1b3ca6bbda9589b5a62f54be58c61c7dbde
 
 	const oauth2Client = new google.auth.OAuth2(
 		process.env.GOOGLE_CLIENT_ID,
@@ -121,14 +123,21 @@ app.get("/api/calendar/freebusy", async (req, res) => {
 	const { credentials } = await oauth2Client.refreshAccessToken();
 	const accessToken = credentials.access_token;
 
+<<<<<<< HEAD
 	console.log(accessToken);
 
 	oauth2Client.setCredentials({
 		access_token: accessToken,
 	});
+=======
+  oauth2Client.setCredentials({
+    access_token: accessToken,
+  });
+>>>>>>> d186d1b3ca6bbda9589b5a62f54be58c61c7dbde
 
 	const calendar = google.calendar({ version: "v3", auth: oauth2Client });
 
+<<<<<<< HEAD
 	const now = new Date();
 	const timeMin = now.toISOString();
 
@@ -136,6 +145,14 @@ app.get("/api/calendar/freebusy", async (req, res) => {
 	const timeMaxDate = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000); // 14 days ahead
 	timeMaxDate.setUTCHours(23, 59, 59, 999); // Set timeMax to 23:59:59.999 of the 14th day
 	const timeMax = timeMaxDate.toISOString();
+=======
+  const now = new Date(req.query.date);
+  const timeMin = now.toISOString();
+
+  const timeMaxDate = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000); // 14 days ahead
+  timeMaxDate.setUTCHours(23, 59, 59, 999); // Set timeMax to 23:59:59.999 of the 14th day
+  const timeMax = timeMaxDate.toISOString();
+>>>>>>> d186d1b3ca6bbda9589b5a62f54be58c61c7dbde
 
 	calendar.freebusy.query(
 		{

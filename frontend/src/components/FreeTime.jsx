@@ -21,10 +21,10 @@ const CalendarComponent = () => {
     // Fetch free/busy data on component mount
     useEffect(() => {
         const fetchFreeBusy = async () => {
-            const response = await fetch("/api/calendar/freebusy");
+            const date = new Date();
+            const response = await fetch("/api/calendar/freebusy?date=" + date.toISOString());
             const data = await response.json();
             const busyTimes = data.calendars.primary.busy;
-            console.log("Busy times:", busyTimes);
             setFreeBusyData(busyTimes);
         };
         fetchFreeBusy();
@@ -137,7 +137,6 @@ const CalendarComponent = () => {
             endDateTime: endDateTime.toISOString(),
         };
 
-        console.log("Booking event with details:", eventDetails);
 
         try {
             const response = await fetch("/api/calendar/create-event", {
