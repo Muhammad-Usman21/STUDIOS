@@ -1,9 +1,10 @@
 export const getUser = (req, res) => {
   if (req.isAuthenticated()) {
+    console.log(req.user);
     res.json({
-      name: req.user.profile.displayName,
-      email: req.user.profile.emails[0].value,
-      profilePicture: req.user.profile.photos[0].value,
+      name: req.user.name,
+      email: req.user.email,
+      profilePicture: req.user.profilePicture,
     });
   } else {
     res.json(null);

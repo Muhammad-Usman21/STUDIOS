@@ -152,6 +152,78 @@ app.get("/api/calendar/freebusy", async (req, res) => {
   );
 });
 
+app.post("/api/calendar/create-event", async (req, res) => {
+  try {
+    const user = await User.findOne({ googleId: "106153794536198300860" });
+
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    // Set up OAuth2 client
+    const oauth2Client = new google.auth.OAuth2(
+      process.env.GOOGLE_CLIENT_ID,
+      process.env.GOOGLE_CLIENT_SECRET,
+      process.env.GOOGLE_CALLBACK_URL
+    );
+
+    oauth2Client.setCredentials({
+      access_token: user.accessToken,
+      refresh_token: user.refreshToken,
+    });
+
+    // Refresh access token if necessary
+    const { credentials } = await oauth2Client.refreshAccessToken();
+    const accessToken = credentials.access_token;
+
+    oauth2Client.setCredentials({
+      access_token: accessToken,
+    });
+
+    // Google Calendar API instance
+    const calendar = google.calendar({ version: "v3", auth: oauth2Client });
+
+    // Extract event details from the request body
+    const { summary, description, startDateTime, endDateTime } = req.body;
+
+    if (!summary || !startDateTime || !endDateTime) {
+      return res.status(400).send("Missing required event details");
+    }
+
+    // Create the event
+    const event = {
+      summary: summary,
+      description: description || "No description provided", // Optional description
+      start: {
+        dateTime: new Date(startDateTime).toISOString(),
+        timeZone: "UTC",
+      },
+      end: {
+        dateTime: new Date(endDateTime).toISOString(),
+        timeZone: "UTC",
+      },
+    };
+
+    // Insert event into Google Calendar
+    calendar.events.insert(
+      {
+        calendarId: "primary",
+        resource: event,
+      },
+      (err, response) => {
+        if (err) {
+          return res.status(500).send(err);
+        }
+        res.send(response.data); // Send the created event data as the response
+      }
+    );
+  } catch (error) {
+    console.error("Error creating event:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+
 app.use(express.static(path.join(__dirname, "/frontend/dist")));
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
