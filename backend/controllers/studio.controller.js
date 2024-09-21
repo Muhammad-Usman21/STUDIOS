@@ -1,4 +1,6 @@
 import Studio from "../models/studio.model.js";
+import mongoose from "mongoose";
+
 
 export const search = async (req, res) => {
   try {
