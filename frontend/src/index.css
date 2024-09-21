@@ -1,3 +1,25 @@
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lightgallery.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-zoom.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-video.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.gallery {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.gallery__item img {
+  width: 100%;
+}

@@ -19,7 +19,7 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/" }),
   async (req, res) => {
     // Redirect the user to the frontend after successful login
-    res.redirect("http://localhost:5173/?login=true");
+    res.redirect("http://localhost:5173/");
   }
 );
 
