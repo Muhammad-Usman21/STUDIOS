@@ -8,7 +8,7 @@ const ThemeProvider = ({ children }) => {
 		<div className={theme}>
 			<div
 				className="min-h-screen bg-[url('../public/bg-light.jpg')] bg-fixed bg-center bg-no-repeat bg-cover text-gray-700
-                dark:text-[#f7f8f8] dark:bg-[#08090a]"
+                dark:text-[#f7f8f8]"
 				style={{ backgroundImage: theme === 'dark' ? `url(${bgDark})` : `url(${bgLight})` }}
 			>
 				{children}

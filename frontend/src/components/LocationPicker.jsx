@@ -2,25 +2,27 @@ import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-const LocationPicker = ({ pickLocation }) => {
-	const [position, setPosition] = useState(null); // To store the user's current location
-	const [coordinates, setCoordinates] = useState({ lat: null, lng: null }); // To store the coordinates after clicking
+const LocationPicker = ({ pickLocation, lat, lng, currentLocation }) => {
+	const [position, setPosition] = useState([lat, lng]); // To store the user's current location
+	const [coordinates, setCoordinates] = useState({ lat: lat, lng: lng }); // To store the coordinates after clicking
 
 	// Fetch the user's current location on component mount
 	useEffect(() => {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(
-				(pos) => {
-					const { latitude, longitude } = pos.coords;
-					setPosition([latitude, longitude]);
-					setCoordinates({ lat: latitude, lng: longitude });
-				},
-				(error) => {
-					console.error("Error fetching user location:", error);
-				}
-			);
-		} else {
-			alert("Geolocation is not supported by your browser");
+		if (currentLocation) {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(
+					(pos) => {
+						const { latitude, longitude } = pos.coords;
+						setPosition([latitude, longitude]);
+						setCoordinates({ lat: latitude, lng: longitude });
+					},
+					(error) => {
+						console.error("Error fetching user location:", error);
+					}
+				);
+			} else {
+				alert("Geolocation is not supported by your browser");
+			}
 		}
 	}, []);
 
