@@ -154,7 +154,7 @@ const CreateStudio = () => {
 			className="w-full bg-cover bg-center
 			bg-[url('../../bg-light.jpg')] dark:bg-[url('../../bg2-dark.jpg')]">
 			<div
-				className="max-w-3xl my-10 mx-3 p-3 sm:mx-12 lg:mx-auto sm:p-10 self-center dark:shadow-whiteLg
+				className="max-w-4xl my-10 mx-3 p-3 sm:mx-12 lg:mx-auto sm:p-10 self-center dark:shadow-whiteLg
 			bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[20px] rounded-lg shadow-xl">
 				<h1 className="text-center text-3xl mb-7 font-semibold">
 					Create Studio
@@ -227,7 +227,12 @@ const CreateStudio = () => {
 							</div>
 						</div>
 						<div className="w-full">
-							<LocationPicker pickLocation={handleLocationChange} />
+							<LocationPicker
+								pickLocation={handleLocationChange}
+								lat={-12}
+								lng={-77}
+								currentLocation={true}
+							/>
 						</div>
 						{/* <div className="flex flex-col gap-1">
 							<Label value="City" />
