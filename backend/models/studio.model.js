@@ -1,88 +1,91 @@
 import mongoose from "mongoose";
 
-const studioSchema = new mongoose.Schema({
-	userId: {
-		type: mongoose.Schema.Types.ObjectId,
-		required: true,
-		unique: true,
-		ref: "User",
-	},
-	title: {
-		type: String,
-		required: true,
-	},
-	phone: {
-		type: String,
-	},
-	images: [
-		{
-			name: { type: String, required: true },
-			url: { type: String, required: true },
+const studioSchema = new mongoose.Schema(
+	{
+		userId: {
+			type: mongoose.Schema.Types.ObjectId,
+			required: true,
+			unique: true,
+			ref: "User",
 		},
-	],
-	address: {
-		type: String,
-		required: true,
-	},
-	city: {
-		type: String,
-		required: true,
-	},
-	country: {
-		type: String,
-	},
-	socialMedia: {
-		instagram: { type: String },
-		twitter: { type: String },
-		facebook: { type: String },
-		whatsapp: { type: String },
-	},
-	week: {
-		monday: {
-			start: { type: String }, // Time in format "HH:mm" or use Date type
-			end: { type: String },
-			working: { type: Boolean, default: false }, // Indicates if it's a working day
+		title: {
+			type: String,
+			required: true,
 		},
-		tuesday: {
-			start: { type: String },
-			end: { type: String },
-			working: { type: Boolean, default: false }, // Indicates if it's a working day
+		phone: {
+			type: String,
 		},
-		wednesday: {
-			start: { type: String },
-			end: { type: String },
-			working: { type: Boolean, default: false }, // Indicates if it's a working day
+		images: [
+			{
+				name: { type: String, required: true },
+				url: { type: String, required: true },
+			},
+		],
+		address: {
+			type: String,
+			required: true,
 		},
-		thursday: {
-			start: { type: String },
-			end: { type: String },
-			working: { type: Boolean, default: false }, // Indicates if it's a working day
+		city: {
+			type: String,
+			required: true,
 		},
-		friday: {
-			start: { type: String },
-			end: { type: String },
-			working: { type: Boolean, default: false }, // Indicates if it's a working day
+		country: {
+			type: String,
 		},
-		saturday: {
-			start: { type: String },
-			end: { type: String },
-			working: { type: Boolean, default: false }, // Indicates if it's a working day
+		socialMedia: {
+			instagram: { type: String },
+			twitter: { type: String },
+			facebook: { type: String },
+			whatsapp: { type: String },
 		},
-		sunday: {
-			start: { type: String },
-			end: { type: String },
-			working: { type: Boolean, default: false }, // Indicates if it's a working day
+		week: {
+			monday: {
+				start: { type: String }, // Time in format "HH:mm" or use Date type
+				end: { type: String },
+				working: { type: Boolean, default: false }, // Indicates if it's a working day
+			},
+			tuesday: {
+				start: { type: String },
+				end: { type: String },
+				working: { type: Boolean, default: false }, // Indicates if it's a working day
+			},
+			wednesday: {
+				start: { type: String },
+				end: { type: String },
+				working: { type: Boolean, default: false }, // Indicates if it's a working day
+			},
+			thursday: {
+				start: { type: String },
+				end: { type: String },
+				working: { type: Boolean, default: false }, // Indicates if it's a working day
+			},
+			friday: {
+				start: { type: String },
+				end: { type: String },
+				working: { type: Boolean, default: false }, // Indicates if it's a working day
+			},
+			saturday: {
+				start: { type: String },
+				end: { type: String },
+				working: { type: Boolean, default: false }, // Indicates if it's a working day
+			},
+			sunday: {
+				start: { type: String },
+				end: { type: String },
+				working: { type: Boolean, default: false }, // Indicates if it's a working day
+			},
+		},
+		location: {
+			latitude: { type: String, required: true },
+			longitude: { type: String, required: true },
+		},
+		description: {
+			type: String,
+			required: true,
 		},
 	},
-	location: {
-		latitude: { type: String, required: true },
-		longitude: { type: String, required: true },
-	},
-	description: {
-		type: String,
-		required: true,
-	},
-});
+	{ timestamps: true }
+);
 
 const Studio = mongoose.model("Studio", studioSchema);
 
