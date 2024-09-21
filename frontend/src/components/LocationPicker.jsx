@@ -43,7 +43,6 @@ const LocationPicker = ({ pickLocation, lat, lng, currentLocation }) => {
 		<div className="my-3 mt-5">
 			<h2 className="text-center my-2 text-lg">Pick a Location</h2>
 
-			{position ? (
 				<MapContainer
 					center={position}
 					zoom={13}
@@ -52,11 +51,6 @@ const LocationPicker = ({ pickLocation, lat, lng, currentLocation }) => {
 					<Marker position={position} />
 					<HandleMapClick /> {/* Enable click functionality on the map */}
 				</MapContainer>
-			) : (
-				<>
-					<p>Getting Current Location...</p>
-				</>
-			)}
 
 			{coordinates.lat && coordinates.lng && (
 				<div className="mt-2 text-center">
