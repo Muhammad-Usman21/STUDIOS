@@ -7,7 +7,7 @@ import ImageThumbnails from "../components/ImageThumnails";
 const Home = () => {
 
     return (
-        <div>
+        <div className="h-[500vh]">
             <h1>Home</h1>
             <FreeTimeSlots />
             <LocationPicker />
