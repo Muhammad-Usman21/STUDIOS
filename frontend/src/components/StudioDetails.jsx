@@ -20,10 +20,10 @@ const StudioDetails = ({ studio }) => {
     };
 
     return (
-        <div className="min-h-screen py-20 w-full">
+        <div className="min-h-screen w-full">
             <div
                 className="flex p-5 md:p-10 max-w-2xl mx-5 sm:mx-10 md:mx-20 lg:mx-auto flex-col md:items-center gap-10
-				bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[20px] rounded-lg shadow-2xl dark:shadow-whiteLg">
+				bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
 
                 {/* Studio Description */}
                 <div className="w-full">
@@ -76,7 +76,7 @@ const StudioDetails = ({ studio }) => {
                         </div>
                     </div>
                 </div>
-                <div className="self-start mt-3 mb-3 flex flex-row gap-3 justify-center items-center w-full">
+                <div className="self-start mt-3 mb-3 flex flex-row gap-6 justify-center items-center w-full">
                     {studio.socialMedia?.instagram && (
                         <a
                             href={studio.socialMedia.instagram}

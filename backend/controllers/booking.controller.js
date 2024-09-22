@@ -1,6 +1,7 @@
 import { google } from "googleapis";
 import User from "../models/user.model.js";
 import dotenv from "dotenv";
+import { sendEmail } from "../utils/mail.js";
 
 dotenv.config();
 
@@ -52,7 +53,7 @@ export const getFreeBusy = async (req, res) => {
 };
 
 export const createBooking = async (req, res) => {
-  const { userId, title, name, email, note, startDateTime, endDateTime } =
+  const { userId, title,address, city, image, description, name, email, note, startDateTime, endDateTime, } =
     req.body;
 
     console.log(req.body);
@@ -119,6 +120,23 @@ export const createBooking = async (req, res) => {
           return res.status(500).send(err);
         }
         res.send(response.data); // Send the created event data as the response
+        sendEmail({
+          to: email,
+          subject: "Booking Confirmation - Studio",
+          userName: name,
+          userEmail: email,
+          userNote: note,
+          studioTitle: title,
+          studioAddress: address,
+          studioDescription: description,
+          studioImage: image,
+          managerName: user.name,
+          managerEmail: user.email,
+          managerPicture: user.profilePicture,
+          bookingDate: new Date(startDateTime).toDateString(),
+          startTime: new Date(startDateTime).toLocaleTimeString(),
+          endTime: new Date(endDateTime).toLocaleTimeString(),
+        });
       }
     );
   } catch (error) {

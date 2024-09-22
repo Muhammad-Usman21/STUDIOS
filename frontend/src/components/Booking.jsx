@@ -2,7 +2,7 @@ import { Alert, Button, Label, Select, Spinner, Textarea, TextInput } from "flow
 import { MdCancelPresentation } from "react-icons/md";
 import { useEffect, useState } from "react";
 
-const Booking = ({ userId, title }) => {
+const Booking = ({ userId, studio }) => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -152,7 +152,11 @@ const Booking = ({ userId, title }) => {
         // Prepare the event details for booking
         const details = {
             userId,
-            title,
+            title: studio.title,
+            address : studio.address,
+            city : studio.city,
+            image : studio.images[0].url,
+            description : studio.description,
             name: formData.name,
             email: formData.email,
             note: formData.note,
@@ -196,10 +200,10 @@ const Booking = ({ userId, title }) => {
 
 
     return (
-        <div className="min-h-screen py-20 w-full">
+        <div className="min-h-screen w-full">
             <div
                 className="flex p-5 md:p-10 max-w-2xl mx-5 sm:mx-10 md:mx-20 lg:mx-auto flex-col md:flex-row md:items-center gap-10
-				bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[9px] rounded-lg shadow-2xl dark:shadow-whiteLg">
+				bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
                 <div className="flex-1 md:px-5">
                     <form
                         className={`flex flex-col gap-3`}
