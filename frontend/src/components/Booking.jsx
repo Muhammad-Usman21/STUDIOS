@@ -153,8 +153,7 @@ const Booking = ({ userId, studio }) => {
         const details = {
             userId,
             title: studio.title,
-            address : studio.address,
-            city : studio.city,
+            address : studio.address + ", " + studio.city,
             image : studio.images[0].url,
             description : studio.description,
             name: formData.name,
@@ -163,6 +162,8 @@ const Booking = ({ userId, studio }) => {
             startDateTime: startDateTime.toISOString(),
             endDateTime: endDateTime.toISOString(),
         };
+
+        console.log("Booking details:", details);
 
 
         try {

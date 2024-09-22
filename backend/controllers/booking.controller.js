@@ -53,7 +53,7 @@ export const getFreeBusy = async (req, res) => {
 };
 
 export const createBooking = async (req, res) => {
-  const { userId, title,address, city, image, description, name, email, note, startDateTime, endDateTime, } =
+  const { userId, title,address, image, description, name, email, note, startDateTime, endDateTime, } =
     req.body;
 
     console.log(req.body);

@@ -12,13 +12,6 @@ import {
 
 const StudioDetails = ({ studio }) => {
 
-    studio.socialMedia = {
-        instagram: "https://www.instagram.com/",
-        facebook: "https://www.facebook.com/",
-        twitter: "https://www.twitter.com/",
-        whatsapp: "1234567890",
-    };
-
     return (
         <div className="min-h-screen w-full">
             <div
