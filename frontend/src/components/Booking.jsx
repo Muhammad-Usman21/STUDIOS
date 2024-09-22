@@ -1,6 +1,8 @@
 import { Alert, Button, Label, Select, Spinner, Textarea, TextInput } from "flowbite-react";
 import { MdCancelPresentation } from "react-icons/md";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Booking = ({ userId, studio }) => {
     const [formData, setFormData] = useState({
@@ -71,11 +73,20 @@ const Booking = ({ userId, studio }) => {
 
     const getAvailableTimesForDay = (busyTimes, selectedDate) => {
         const times = [];
-        const startOfDay = new Date(`${selectedDate}T09:00:00`);
-        const endOfDay = new Date(`${selectedDate}T17:00:00`);
+        const date = new Date(selectedDate);
+        const dayOfWeek = date.toLocaleString('en-US', { weekday: 'long' }).toLowerCase();
+
+        const workingDay = studio.week[dayOfWeek];
+
+        if (!workingDay || !workingDay.working) {
+            return []; // If the studio is not working on this day, return an empty array
+        }
+
+        const startOfDay = new Date(`${selectedDate}T${workingDay.start}`);
+        const endOfDay = new Date(`${selectedDate}T${workingDay.end}`);
         const now = new Date();
 
-        for (let time = startOfDay; time <= endOfDay; time.setMinutes(time.getMinutes() + 30)) {
+        for (let time = startOfDay; time < endOfDay; time.setMinutes(time.getMinutes() + 30)) {
             if (time < now && selectedDate === now.toISOString().split("T")[0]) {
                 continue;
             }
@@ -107,11 +118,16 @@ const Booking = ({ userId, studio }) => {
 
     // Helper function to get end times based on selected start time
     const getAvailableEndTimes = (busyTimes, startTime) => {
+        const dayOfWeek = new Date(selectedDate).toLocaleString('en-US', { weekday: 'long' }).toLowerCase();
+        const workingDay = studio.week[dayOfWeek];
 
+        if (!workingDay || !workingDay.working) {
+            return []; // If the studio is not working on this day, return an empty array
+        }
 
         const times = [];
         const start = new Date(`${selectedDate}T${convertTo24HourFormat(startTime)}`);
-        const endOfDay = new Date(`${selectedDate}T17:00:00`);
+        const endOfDay = new Date(`${selectedDate}T${workingDay.end}`);
 
         start.setMinutes(start.getMinutes() + 30); // Add 30 minutes to the start time
 
@@ -151,7 +167,7 @@ const Booking = ({ userId, studio }) => {
             setErrorMessage("Please enter a valid email address");
             return;
         }
-        // setLoading(true);
+        setLoading(true);
         // Convert selectedDate and times to UTC
         const startDateTime = new Date(`${selectedDate}T${convertTo24HourFormat(selectedStartTime)}`);
         const endDateTime = new Date(`${selectedDate}T${convertTo24HourFormat(selectedEndTime)}`);
@@ -195,14 +211,15 @@ const Booking = ({ userId, studio }) => {
             setFormData({
                 name: "",
                 email: "",
-                description: "",
+                note: "",
             });
             setSelectedDate("");
             setSelectedStartTime("");
             setSelectedEndTime("");
-            // setLoading(false);
+            setLoading(false);
             setErrorMessage(null);
             setFreeBusyData(null);
+            toast.success("Meeting booked successfully!");
         }
     };
 
@@ -299,14 +316,7 @@ const Booking = ({ userId, studio }) => {
                             type="submit"
                             className="uppercase focus:ring-1 mt-1"
                             disabled={loading || errorMessage}>
-                            {loading ? (
-                                <>
-                                    <Spinner size="sm" />
-                                    <span className="pl-3">Cargando...</span>
-                                </>
-                            ) : (
-                                "Reservar"
-                            )}
+                            Reservar
                         </Button>
                     </form>
                     {errorMessage && (
