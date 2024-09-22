@@ -110,13 +110,20 @@ const Header = () => {
 						Reservations
 					</Navbar.Link>
 				</Link> */}
-				{currentUser && (
-					<Link to="/createStudio">
-						<Navbar.Link active={path === "/createStudio"} as={"div"}>
-							Studio
-						</Navbar.Link>
-					</Link>
-				)}
+				{currentUser &&
+					(currentUser.isStudio ? (
+						<Link to="/editStudio">
+							<Navbar.Link active={path === "/editStudio"} as={"div"}>
+								Studio
+							</Navbar.Link>
+						</Link>
+					) : (
+						<Link to="/createStudio">
+							<Navbar.Link active={path === "/createStudio"} as={"div"}>
+								Studio
+							</Navbar.Link>
+						</Link>
+					))}
 			</Navbar.Collapse>
 		</Navbar>
 	);

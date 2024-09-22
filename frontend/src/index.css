@@ -7,17 +7,25 @@
 @tailwind utilities;
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body {
-  min-height: 100vh;
+	min-height: 100vh;
 }
 
 .gallery {
-  max-width: 900px;
-  margin: 0 auto;
+	max-width: 900px;
+	margin: 0 auto;
 }
 .gallery__item img {
-  width: 100%;
+	width: 100%;
+}
+
+[data-testid="flowbite-avatar-img"] {
+	object-fit: cover;
+}
+
+[data-testid="flowbite-alert-wrapper"] > div {
+	width: 100%;
 }

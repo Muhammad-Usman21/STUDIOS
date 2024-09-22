@@ -98,7 +98,7 @@ const CreateStudio = () => {
 		) {
 			setLoading(false);
 			setStudioErrorMsg(
-				"Solo el enlace de video de Youtube, Acerca de y las redes sociales son opcionales.<br />Todos los demás campos son obligatorios."
+				"Only Phone number and Social media accounts are optional.<br />All other fields are required."
 			);
 			return;
 		}
@@ -134,15 +134,13 @@ const CreateStudio = () => {
 		setImageUploading(true);
 		try {
 			if (!file) {
-				setImageUploadErrorMsg("Seleccione un archivo de audio.");
+				setImageUploadErrorMsg("Select an image file to upload");
 				setImageUploading(false);
 				return;
 			}
 
 			if (file.size >= 5 * 1024 * 1024) {
-				setImageUploadErrorMsg(
-					"El tamaño del archivo de audio debe ser inferior a 20 MB."
-				);
+				setImageUploadErrorMsg("Image size must be less than 5 MBs");
 				setImageUploading(false);
 				return;
 			}
@@ -174,9 +172,7 @@ const CreateStudio = () => {
 					setImageName("");
 				})
 				.catch((err) => {
-					setImageUploadErrorMsg(
-						"El tamaño del archivo de audio debe ser inferior a 20 MB."
-					);
+					setImageUploadErrorMsg("Image size must be less than 5 MBs");
 					setImageUploading(false);
 				});
 		} catch (error) {
@@ -229,6 +225,7 @@ const CreateStudio = () => {
 
 	// Handle input changes for each time field
 	const handleTimeChange = (day, field, value) => {
+		setErrors({});
 		setFormData((prevFormData) => ({
 			...prevFormData,
 			week: {
@@ -255,6 +252,7 @@ const CreateStudio = () => {
 	// };
 
 	const handleCheckboxChange = (day) => {
+		setErrors({});
 		setFormData((prevFormData) => {
 			const isWorking = !prevFormData.week[day].working;
 
