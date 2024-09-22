@@ -49,13 +49,7 @@ const EditStudio = () => {
 	const [studioErrorMsg, setStudioErrorMsg] = useState(null);
 	const { currentUser } = useSelector((state) => state.user);
 	const [updateMsg, setUpdateMsg] = useState(null);
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
 
-	// const [prevUrlData, setPrevUrlData] = useState([]);
-
-	console.log(formData);
-	// console.log(currentUser);
 
 	useEffect(() => {
 		try {
@@ -63,7 +57,6 @@ const EditStudio = () => {
 				const res = await fetch(`/api/studio/getstudio/${currentUser._id}`);
 				const data = await res.json();
 				if (!res.ok) {
-					console.log(data.message);
 					return;
 				}
 				if (res.ok) {
@@ -175,16 +168,11 @@ const EditStudio = () => {
 
 			const promises = [];
 
-			// const url = await storeImage(file[0]);
-			// console.log(url);
-
-			console.log(file);
 
 			promises.push(storeImage(file));
 
 			Promise.all(promises)
 				.then((urls) => {
-					console.log(urls);
 					setFormData({
 						...formData,
 						images: [
@@ -233,7 +221,6 @@ const EditStudio = () => {
 				},
 				() => {
 					getDownloadURL(uploadTask.snapshot.ref).then((downlaodURL) => {
-						console.log(downlaodURL);
 						resolve(downlaodURL);
 					});
 				}
@@ -503,7 +490,6 @@ const EditStudio = () => {
 										</button>
 									</div>
 									<div className="flex flex-col md:flex-row justify-between px-3 py-1 items-center gap-1">
-										{console.log("URL:", image.url)}
 										<img
 											src={image.url}
 											alt="upload"

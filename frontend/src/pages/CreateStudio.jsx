@@ -147,16 +147,11 @@ const CreateStudio = () => {
 
 			const promises = [];
 
-			// const url = await storeImage(file[0]);
-			// console.log(url);
-
-			console.log(file);
 
 			promises.push(storeImage(file));
 
 			Promise.all(promises)
 				.then((urls) => {
-					console.log(urls);
 					setFormData({
 						...formData,
 						images: [
@@ -186,12 +181,6 @@ const CreateStudio = () => {
 			const storage = getStorage(app);
 			const fileName = new Date().getTime() + image.name;
 			const stoageRef = ref(storage, fileName);
-			console.log(fileName);
-			// const metadata = {
-			// 	customMetadata: {
-			// 		uid: currentUser.firebaseId,
-			// 	},
-			// };
 			const uploadTask = uploadBytesResumable(stoageRef, image);
 			uploadTask.on(
 				"state_changed",
@@ -205,7 +194,6 @@ const CreateStudio = () => {
 				},
 				() => {
 					getDownloadURL(uploadTask.snapshot.ref).then((downlaodURL) => {
-						console.log(downlaodURL);
 						resolve(downlaodURL);
 					});
 				}
@@ -460,7 +448,6 @@ const CreateStudio = () => {
 										</button>
 									</div>
 									<div className="flex flex-col md:flex-row justify-between px-3 py-1 items-center gap-1">
-										{console.log("URL:", image.url)}
 										<img
 											src={image.url}
 											alt="upload"

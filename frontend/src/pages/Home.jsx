@@ -14,7 +14,6 @@ const Home = () => {
 	const location = useLocation();
 	const navigate = useNavigate(); // Replaces useHistory
 
-	// Handle input changes
 	const handleChange = (e) => {
 		setFormData({
 			...formData,
@@ -22,27 +21,20 @@ const Home = () => {
 		});
 	};
 
-	// Parse URL search params on component mount
 	useEffect(() => {
 		const params = new URLSearchParams(location.search);
-		console.log(params.toString());
 		const searchTerm = params.get("searchTerm") || "";
 		const sort = params.get("sort") || "desc";
 		const selectedDate = params.get("selectedDate") || "";
 
-		// console.log(searchTerm, sort, selectedDate);
-
-		// Set the form data from URL params
 		setFormData({ searchTerm, sort, selectedDate });
 
 		fetchSearchResults({ searchTerm, sort, selectedDate });
 	}, [location]);
 
-	// Fetch search results based on formData or URL params
 	const fetchSearchResults = async (searchData) => {
 		let queryParams = new URLSearchParams(searchData).toString();
 		queryParams += `&startIndex=0&limit=9`;
-		console.log(queryParams);
 		const response = await fetch(`/api/studio/search?${queryParams}`);
 		const data = await response.json();
 		if (data.length < 9) {
@@ -54,12 +46,7 @@ const Home = () => {
 	// Handle search button click
 	const handleSearch = () => {
 		const query = new URLSearchParams(formData).toString();
-		console.log(query);
-
-		// Update URL without refreshing the page
 		navigate(`?${query}`, { replace: true }); // Replaces history.push()
-
-		// Fetch search results
 		fetchSearchResults(formData);
 	};
 

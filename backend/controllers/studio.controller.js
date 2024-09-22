@@ -11,7 +11,6 @@ export const search = async (req, res) => {
 			startIndex = 0,
 			limit = 9,
 		} = req.query;
-		// console.log(city, title, description, startIndex, limit);
 
 		// Construct the search query object
 		let searchQuery = {};
@@ -198,16 +197,8 @@ export const getStudioByUserId = async (req, res) => {
 	try {
 		const { userId } = req.params; // Assuming the userId is passed in the request parameters
 
-		console.log(userId);
-
-		// // Find studios by the userId
-		// const studios = await Studio.find({
-		// 	userId: mongoose.Types.ObjectId(userId),
-		// });
-
 		const studios = await Studio.find({ userId });
 
-		console.log(studios);
 
 		if (studios.length === 0) {
 			return res

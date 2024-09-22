@@ -8,12 +8,10 @@ dotenv.config();
 export const getFreeBusy = async (req, res) => {
   const { userId, date } = req.query;
 
-  console.log(userId, date);
   if (!userId || !date) {
     return res.status(400).send("Missing required parameters");
   }
   const user = await User.findById(userId);
-  console.log(user);
   if (!user) {
     return res.status(404).send("User not found");
   }
@@ -28,10 +26,8 @@ export const getFreeBusy = async (req, res) => {
     access_token: user.accessToken,
     refresh_token: user.refreshToken,
   });
-  console.log("OLD TOKEN", user.accessToken);
   const { credentials } = await oauth2Client.refreshAccessToken();
   const accessToken = credentials.access_token;
-  console.log("NEW TOKEN", accessToken);
 
   oauth2Client.setCredentials({
     access_token: accessToken,
@@ -39,7 +35,6 @@ export const getFreeBusy = async (req, res) => {
 
   const calendar = google.calendar({ version: "v3", auth: oauth2Client });
 
-  console.log(calendar);
 
   const now = new Date(date);
   const timeMin = now.toISOString();
@@ -60,7 +55,6 @@ export const getFreeBusy = async (req, res) => {
       if (err) {
         return res.status(500).send(err);
       }
-      console.log(response.data);
       res.send(response.data);
     }
   );

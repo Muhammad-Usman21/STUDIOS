@@ -52,7 +52,7 @@ const StudioDetails = ({ studio }) => {
 
                 <DisplayMap lat={studio.location.latitude} lng={studio.location.longitude} />
 
-                <div className="w-full max-w-md mx-auto shadow-lg rounded-lg overflow-hidden">
+                <div className="w-full max-w-md mx-auto shadow-2xl dark:shadow-whiteLg rounded-lg overflow-hidden">
                     <div className="p-4 flex flex-col gap-4">
                         <h1 className="text-2xl font-semibold  self-center">Studio Working Hours</h1>
                         <div className="mt-4">

@@ -22,7 +22,6 @@ const Booking = ({ userId, studio }) => {
 
     const fetchFreeBusy = async () => {
         const date = new Date();
-        console.log(userId);
         const response = await fetch(`/api/booking/freebusy?date=${date.toISOString()}&userId=${userId}`);
         const data = await response.json();
         const busyTimes = data.calendars.primary.busy;
@@ -186,8 +185,6 @@ const Booking = ({ userId, studio }) => {
             endDateTime: endDateTime.toISOString(),
         };
 
-        console.log("Booking details:", details);
-
         try {
             const response = await fetch("/api/booking/create", {
                 method: "POST",
@@ -202,7 +199,6 @@ const Booking = ({ userId, studio }) => {
             }
 
             const data = await response.json();
-            console.log("Booking successful:", data);
         } catch (error) {
             console.error("Error during booking:", error);
             setErrorMessage("There was an issue booking the meeting. Please try again.");
