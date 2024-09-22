@@ -8,7 +8,7 @@ const Booking = ({ userId, studio }) => {
         email: "",
         note: "",
     });
-    const [freeBusyData, setFreeBusyData] = useState([]);
+    const [freeBusyData, setFreeBusyData] = useState(null);
     const [selectedDate, setSelectedDate] = useState("");
     const [availableStartTimes, setAvailableStartTimes] = useState([]);
     const [selectedStartTime, setSelectedStartTime] = useState("");
@@ -27,13 +27,20 @@ const Booking = ({ userId, studio }) => {
         setFreeBusyData(busyTimes);
     };
     useEffect(() => {
-        fetchFreeBusy();
-    }, []);
+        if (freeBusyData == null) {
+            fetchFreeBusy();
+        }
+    }, [freeBusyData]);
 
     const getNext14Days = () => {
         const days = [];
         for (let i = 0; i < 14; i++) {
             const date = new Date(Date.now() + i * 24 * 60 * 60 * 1000);
+            const day = date.toLocaleDateString("en-US", { weekday: "long" });
+            const workingDay = studio.week[day.toLowerCase()];
+            if (!workingDay || !workingDay.working) {
+                continue;
+            }
             days.push(date.toISOString().split("T")[0]); // Format to yyyy-mm-dd
         }
         return days;
@@ -144,7 +151,7 @@ const Booking = ({ userId, studio }) => {
             setErrorMessage("Please enter a valid email address");
             return;
         }
-        setLoading(true);
+        // setLoading(true);
         // Convert selectedDate and times to UTC
         const startDateTime = new Date(`${selectedDate}T${convertTo24HourFormat(selectedStartTime)}`);
         const endDateTime = new Date(`${selectedDate}T${convertTo24HourFormat(selectedEndTime)}`);
@@ -153,9 +160,9 @@ const Booking = ({ userId, studio }) => {
         const details = {
             userId,
             title: studio.title,
-            address : studio.address + ", " + studio.city,
-            image : studio.images[0].url,
-            description : studio.description,
+            address: studio.address + ", " + studio.city,
+            image: studio.images[0].url,
+            description: studio.description,
             name: formData.name,
             email: formData.email,
             note: formData.note,
@@ -164,7 +171,6 @@ const Booking = ({ userId, studio }) => {
         };
 
         console.log("Booking details:", details);
-
 
         try {
             const response = await fetch("/api/booking/create", {
@@ -186,7 +192,6 @@ const Booking = ({ userId, studio }) => {
             setErrorMessage("There was an issue booking the meeting. Please try again.");
         }
         finally {
-            setLoading(false);
             setFormData({
                 name: "",
                 email: "",
@@ -195,7 +200,9 @@ const Booking = ({ userId, studio }) => {
             setSelectedDate("");
             setSelectedStartTime("");
             setSelectedEndTime("");
-            fetchFreeBusy();
+            // setLoading(false);
+            setErrorMessage(null);
+            setFreeBusyData(null);
         }
     };
 
@@ -207,7 +214,7 @@ const Booking = ({ userId, studio }) => {
 				bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
                 <div className="flex-1 md:px-5">
                     <form
-                        className={`flex flex-col gap-3`}
+                        className={`flex flex-col gap-3 justify-center`}
                         onSubmit={handleSubmit}
                     >
                         <div className="flex flex-col gap-1">
@@ -232,41 +239,49 @@ const Booking = ({ userId, studio }) => {
                                 required
                             />
                         </div>
+                        {freeBusyData != null ? (
+                            <>
+                                <div className="flex flex-col gap-1">
+                                    <Label value="Select Date" />
+                                    <Select id="date" value={selectedDate} onChange={handleDateChange} disabled={freeBusyData == null}>
+                                        <option value="">--Select Date--</option>
+                                        {getNext14Days().map((date) => (
+                                            <option key={date} value={date}>
+                                                {date}-{new Date(date).toLocaleDateString('en-US', { weekday: 'short' })}
+                                            </option>
+                                        ))}
+                                    </Select>
+                                </div>
 
-                        <div className="flex flex-col gap-1">
-                            <Label value="Select Date" />
-                            <Select id="date" value={selectedDate} onChange={handleDateChange} disabled={freeBusyData.length == 0}>
-                                <option value="">--Select Date--</option>
-                                {getNext14Days().map((date) => (
-                                    <option key={date} value={date}>
-                                        {date}
-                                    </option>
-                                ))}
-                            </Select>
-                        </div>
+                                <div className="flex flex-col gap-1">
+                                    <Label value="Select Start Time" />
+                                    <Select id="startTime" value={selectedStartTime} onChange={handleStartTimeChange} disabled={freeBusyData == null}>
+                                        <option value="">--Select Start Time--</option>
+                                        {availableStartTimes.map((time, index) => (
+                                            <option key={index} value={time}>
+                                                {time}
+                                            </option>
+                                        ))}
+                                    </Select>
+                                </div>
+                                <div className="flex flex-col gap-1">
+                                    <Label value="Select End Time" />
+                                    <Select id="endTime" value={selectedEndTime} onChange={(e) => setSelectedEndTime(e.target.value)} disabled={freeBusyData == null}>
+                                        <option value="">--Select End Time--</option>
+                                        {availableEndTimes.map((time, index) => (
+                                            <option key={index} value={time}>
+                                                {time}
+                                            </option>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </>
+                        ) : (
+                            <div className="flex flex-col gap-1 w-full items-center">
+                                <Spinner size="lg" />
+                            </div>
+                        )}
 
-                        <div className="flex flex-col gap-1">
-                            <Label value="Select Start Time" />
-                            <Select id="startTime" value={selectedStartTime} onChange={handleStartTimeChange} disabled={freeBusyData.length == 0}>
-                                <option value="">--Select Start Time--</option>
-                                {availableStartTimes.map((time, index) => (
-                                    <option key={index} value={time}>
-                                        {time}
-                                    </option>
-                                ))}
-                            </Select>
-                        </div>
-                        <div className="flex flex-col gap-1">
-                            <Label value="Select End Time" />
-                            <Select id="endTime" value={selectedEndTime} onChange={(e) => setSelectedEndTime(e.target.value)} disabled={freeBusyData.length == 0}>
-                                <option value="">--Select End Time--</option>
-                                {availableEndTimes.map((time, index) => (
-                                    <option key={index} value={time}>
-                                        {time}
-                                    </option>
-                                ))}
-                            </Select>
-                        </div>
 
                         <div className="flex flex-col gap-1">
                             <Label value="Note (Optinal)" />

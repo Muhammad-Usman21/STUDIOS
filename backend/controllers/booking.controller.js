@@ -6,7 +6,17 @@ import { sendEmail } from "../utils/mail.js";
 dotenv.config();
 
 export const getFreeBusy = async (req, res) => {
-  const user = await User.findOne({ googleId: "106153794536198300860" });
+  const { userId, date } = req.query;
+
+  console.log(userId, date);
+  if (!userId || !date) {
+    return res.status(400).send("Missing required parameters");
+  }
+  const user = await User.findById(userId);
+  console.log(user);
+  if (!user) {
+    return res.status(404).send("User not found");
+  }
 
   const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
@@ -18,9 +28,10 @@ export const getFreeBusy = async (req, res) => {
     access_token: user.accessToken,
     refresh_token: user.refreshToken,
   });
-
+  console.log("OLD TOKEN", user.accessToken);
   const { credentials } = await oauth2Client.refreshAccessToken();
   const accessToken = credentials.access_token;
+  console.log("NEW TOKEN", accessToken);
 
   oauth2Client.setCredentials({
     access_token: accessToken,
@@ -28,7 +39,9 @@ export const getFreeBusy = async (req, res) => {
 
   const calendar = google.calendar({ version: "v3", auth: oauth2Client });
 
-  const now = new Date(req.query.date);
+  console.log(calendar);
+
+  const now = new Date(date);
   const timeMin = now.toISOString();
 
   const timeMaxDate = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000); // 14 days ahead
@@ -47,25 +60,33 @@ export const getFreeBusy = async (req, res) => {
       if (err) {
         return res.status(500).send(err);
       }
+      console.log(response.data);
       res.send(response.data);
     }
   );
 };
 
 export const createBooking = async (req, res) => {
-  const { userId, title,address, image, description, name, email, note, startDateTime, endDateTime, } =
-    req.body;
+  const {
+    userId,
+    title,
+    address,
+    image,
+    description,
+    name,
+    email,
+    note,
+    startDateTime,
+    endDateTime,
+  } = req.body;
 
-    console.log(req.body);
   try {
     const user = await User.findById(userId);
-    console.log(user);
 
     if (!user) {
       return res.status(404).send("User not found");
     }
 
-    // Set up OAuth2 client
     const oauth2Client = new google.auth.OAuth2(
       process.env.GOOGLE_CLIENT_ID,
       process.env.GOOGLE_CLIENT_SECRET,
@@ -77,7 +98,6 @@ export const createBooking = async (req, res) => {
       refresh_token: user.refreshToken,
     });
 
-    // Refresh access token if necessary
     const { credentials } = await oauth2Client.refreshAccessToken();
     const accessToken = credentials.access_token;
 
@@ -85,16 +105,31 @@ export const createBooking = async (req, res) => {
       access_token: accessToken,
     });
 
-    // Google Calendar API instance
     const calendar = google.calendar({ version: "v3", auth: oauth2Client });
-
-    // Extract event details from the request body
 
     if (!startDateTime || !endDateTime || !name || !email) {
       return res.status(400).send("Missing required event details");
     }
 
-    // Create the event
+    const timeMin = new Date(startDateTime).toISOString();
+    const timeMax = new Date(endDateTime).toISOString();
+
+    const freeBusyResponse = await calendar.freebusy.query({
+      requestBody: {
+        timeMin,
+        timeMax,
+        items: [{ id: "primary" }],
+      },
+    });
+
+    const busyTimes = freeBusyResponse.data.calendars.primary.busy;
+
+    if (busyTimes.length > 0) {
+      return res
+        .status(409)
+        .send("The requested time overlaps with an existing booking.");
+    }
+
     const event = {
       summary: `Reservation: ${title} by ${name}`,
       description: "Name: " + name + "\nEmail: " + email + "\nNote: " + note,
@@ -109,7 +144,6 @@ export const createBooking = async (req, res) => {
       attendees: [{ email: email }],
     };
 
-    // Insert event into Google Calendar
     calendar.events.insert(
       {
         calendarId: "primary",
@@ -119,7 +153,6 @@ export const createBooking = async (req, res) => {
         if (err) {
           return res.status(500).send(err);
         }
-        res.send(response.data); // Send the created event data as the response
         sendEmail({
           to: email,
           subject: "Booking Confirmation - Studio",
@@ -137,6 +170,7 @@ export const createBooking = async (req, res) => {
           startTime: new Date(startDateTime).toLocaleTimeString(),
           endTime: new Date(endDateTime).toLocaleTimeString(),
         });
+        res.send(response.data);
       }
     );
   } catch (error) {
