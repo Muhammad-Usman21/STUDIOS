@@ -496,7 +496,7 @@ const CreateStudio = () => {
 					scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300
 					 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 dark:shadow-whiteLg
 					 bg-transparent border-2 border-white/40 dark:border-white/20 rounded-lg shadow-xl">
-						<div className="text-lg w-full text-center my-1">
+						<div className="text-lg w-full text-center my-2">
 							Select Working Days and Time
 						</div>
 						<Table
@@ -541,7 +541,7 @@ const CreateStudio = () => {
 										</Table.Cell>
 										<Table.Cell>
 											{formData.week[day].working && (
-												<input
+												<TextInput
 													type="time"
 													value={formData.week[day].start}
 													disabled={loading || imageUploading}
@@ -553,7 +553,7 @@ const CreateStudio = () => {
 										</Table.Cell>
 										<Table.Cell>
 											{formData.week[day].working && (
-												<input
+												<TextInput
 													type="time"
 													value={formData.week[day].end}
 													onChange={(e) =>

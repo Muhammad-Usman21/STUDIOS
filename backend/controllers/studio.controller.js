@@ -4,28 +4,58 @@ import mongoose from "mongoose";
 
 export const search = async (req, res) => {
 	try {
-		const { city, title, description, startIndex = 0, limit = 9 } = req.query;
-		console.log(city, title, description, startIndex, limit);
+		const {
+			searchTerm,
+			sort,
+			selectedDate,
+			startIndex = 0,
+			limit = 9,
+		} = req.query;
+		// console.log(city, title, description, startIndex, limit);
 
 		// Construct the search query object
-		const searchQuery = {};
+		let searchQuery = {};
 
-		if (city) {
-			searchQuery.city = { $regex: city, $options: "i" }; // Case-insensitive, partial match
+		// Add the searchTerm condition for city, description, title, and address
+		if (searchTerm) {
+			searchQuery = {
+				...searchQuery,
+				$or: [
+					{ city: { $regex: searchTerm, $options: "i" } },
+					{ description: { $regex: searchTerm, $options: "i" } },
+					{ title: { $regex: searchTerm, $options: "i" } },
+					{ address: { $regex: searchTerm, $options: "i" } },
+				],
+			};
 		}
 
-		if (title) {
-			searchQuery.title = { $regex: title, $options: "i" }; // Case-insensitive, partial match
-		}
+		// Add the day condition based on the selected date
+		if (selectedDate) {
+			// Map the day number to the correct field in the `week` object
+			// const daysOfWeek = [
+			// 	"sunday",
+			// 	"monday",
+			// 	"tuesday",
+			// 	"wednesday",
+			// 	"thursday",
+			// 	"friday",
+			// 	"saturday",
+			// ];
+			const dayField = `week.${selectedDate}.working`;
 
-		if (description) {
-			searchQuery.description = { $regex: description, $options: "i" }; // Case-insensitive, partial match
+			// Add the working day condition
+			searchQuery = {
+				...searchQuery,
+				[dayField]: true,
+			};
+			// // Add to search query: only find studios where the selected day is working
+			// searchQuery[dayField] = true;
 		}
 
 		// Fetch studios from the database
 		const studios = await Studio.find(searchQuery)
 			.select("_id title address city images")
-			.sort({ updatedAt: 1 })
+			.sort({ updatedAt: sort })
 			.skip(parseInt(startIndex))
 			.limit(parseInt(limit));
 
