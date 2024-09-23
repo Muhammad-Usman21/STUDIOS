@@ -36,17 +36,19 @@ const Studio = () => {
                             />
                             <h1 className="text-2xl lg:text-4xl font-bold text-center">{studio.title}</h1>
                             <p className="text-lg lg:text-xl"><FaLocationDot className="inline-block" /> {studio.address + ", " + studio.city}</p>
+                            <Booking calendarUrl={studio.calendarUrl} />
+
                         </div>
 
                         {/* Tab Navigation */}
                         <div className="flex sticky top-[60px] z-10 px-6 py-4 max-w-2xl mx-5 sm:mx-10 md:mx-20 lg:mx-auto flex-row md:items-center gap-10
 				bg-transparent backdrop-blur-[30px] rounded-full shadow-2xl dark:shadow-whiteLg bg-white dark:bg-black bg-opacity-60 dark:bg-opacity-60">
                             <button
-                                className={`px-5 py-2 text-lg font-semibold transition-colors duration-200 bg-slate-400 rounded-3xl ${activeTab === "booking" ? "border-b-4 border-red-500" : "text-gray-500"
+                                className={`px-5 py-2 text-lg font-semibold transition-colors duration-200 bg-slate-400 rounded-3xl ${activeTab === "details" ? "border-b-4 border-red-500" : "text-gray-500"
                                     }`}
-                                onClick={() => setActiveTab("booking")}
+                                onClick={() => setActiveTab("details")}
                             >
-                                Booking
+                                Details
                             </button>
                             <button
                                 className={`px-5 py-2 text-lg font-semibold transition-colors duration-200 bg-slate-400 rounded-3xl ${activeTab === "comments" ? "border-b-4 border-red-500" : "text-gray-500"
@@ -62,20 +64,13 @@ const Studio = () => {
                             >
                                 Portfolio
                             </button>
-                            <button
-                                className={`px-5 py-2 text-lg font-semibold transition-colors duration-200 bg-slate-400 rounded-3xl ${activeTab === "details" ? "border-b-4 border-red-500" : "text-gray-500"
-                                    }`}
-                                onClick={() => setActiveTab("details")}
-                            >
-                                Details
-                            </button>
+
 
 
                         </div>
 
                         <div className="w-full">
                             {activeTab === "details" && <StudioDetails studio={studio} />}
-                            {activeTab === "booking" && <Booking userId={studio.userId._id} studio={studio} />}
                             {activeTab === "portfolio" && <Portfolio images={studio.images} />}
                             {activeTab === "comments" && <Comments />}
                         </div>

@@ -1,5 +1,5 @@
 import express from "express";
-import { verifyUser } from "../utils/verifyUser.js";
+import { verifyToken } from "../utils/verifyUser.js";
 import {
 	createStudio,
 	editStudio,
@@ -11,9 +11,9 @@ import {
 const router = express.Router();
 
 router.get("/search", search);
-router.post("/create-studio/:userId", verifyUser, createStudio);
-router.put("/edit-studio/:userId", verifyUser, editStudio);
-router.get("/getstudio/:userId", verifyUser, getStudioByUserId);
+router.post("/create-studio/:userId", verifyToken, createStudio);
+router.put("/edit-studio/:userId", verifyToken, editStudio);
+router.get("/getstudio/:userId", verifyToken, getStudioByUserId);
 router.get("/:studioId", getStudio);
 
 export default router;

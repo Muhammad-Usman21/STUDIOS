@@ -52,23 +52,6 @@ const StudioDetails = ({ studio }) => {
 
                 <DisplayMap lat={studio.location.latitude} lng={studio.location.longitude} />
 
-                <div className="w-full max-w-md mx-auto shadow-2xl dark:shadow-whiteLg rounded-lg overflow-hidden">
-                    <div className="p-4 flex flex-col gap-4">
-                        <h1 className="text-2xl font-semibold  self-center">Studio Working Hours</h1>
-                        <div className="mt-4">
-                            <div className="flex flex-col gap-4">
-                                {Object.entries(studio.week).map(([day, { start, end, working }]) => (
-                                    <div key={day} className="flex justify-between px-20">
-                                        <span className="font-semibold capitalize">{day}:</span>
-                                        <span className="">
-                                            {working ? `${start} - ${end}` : 'Closed'}
-                                        </span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div className="self-start mt-3 mb-3 flex flex-row gap-6 justify-center items-center w-full">
                     {studio.socialMedia?.instagram && (
                         <a

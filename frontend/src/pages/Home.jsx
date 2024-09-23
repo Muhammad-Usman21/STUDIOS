@@ -2,13 +2,11 @@ import { useState, useEffect } from "react";
 import { Button, Select, TextInput } from "flowbite-react";
 import { useLocation, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory
 import StudioCard from "../components/StudioCard";
-import Comments from "../components/Comments";
 
 const Home = () => {
 	const [formData, setFormData] = useState({
 		searchTerm: "",
 		sort: "desc",
-		selectedDate: "",
 	});
 	const [showMore, setShowMore] = useState(true);
 	const [searchResults, setSearchResults] = useState([]);
@@ -26,11 +24,10 @@ const Home = () => {
 		const params = new URLSearchParams(location.search);
 		const searchTerm = params.get("searchTerm") || "";
 		const sort = params.get("sort") || "desc";
-		const selectedDate = params.get("selectedDate") || "";
 
-		setFormData({ searchTerm, sort, selectedDate });
+		setFormData({ searchTerm, sort });
 
-		fetchSearchResults({ searchTerm, sort, selectedDate });
+		fetchSearchResults({ searchTerm, sort });
 	}, [location]);
 
 	const fetchSearchResults = async (searchData) => {
@@ -114,7 +111,7 @@ const Home = () => {
 									});
 								}}
 							/> */}
-							<Select
+							{/* <Select
 								className="w-full md:w-40"
 								value={formData.selectedDate}
 								onChange={(e) =>
@@ -128,7 +125,7 @@ const Home = () => {
 								<option value="friday">Friday</option>
 								<option value="saturday">Saturday</option>
 								<option value="sunday">Sunday</option>
-							</Select>
+							</Select> */}
 							<Select
 								className="w-full md:w-36"
 								value={formData.sort}
@@ -174,7 +171,6 @@ const Home = () => {
 						<p>No hay oradores para esta búsqueda.</p>
 					)}
 				</div>
-				<Comments />
 			</div>
 		</div>
 	);

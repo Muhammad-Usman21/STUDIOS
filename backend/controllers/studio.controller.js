@@ -7,7 +7,6 @@ export const search = async (req, res) => {
 		const {
 			searchTerm,
 			sort,
-			selectedDate,
 			startIndex = 0,
 			limit = 9,
 		} = req.query;
@@ -28,28 +27,6 @@ export const search = async (req, res) => {
 			};
 		}
 
-		// Add the day condition based on the selected date
-		if (selectedDate) {
-			// Map the day number to the correct field in the `week` object
-			// const daysOfWeek = [
-			// 	"sunday",
-			// 	"monday",
-			// 	"tuesday",
-			// 	"wednesday",
-			// 	"thursday",
-			// 	"friday",
-			// 	"saturday",
-			// ];
-			const dayField = `week.${selectedDate}.working`;
-
-			// Add the working day condition
-			searchQuery = {
-				...searchQuery,
-				[dayField]: true,
-			};
-			// // Add to search query: only find studios where the selected day is working
-			// searchQuery[dayField] = true;
-		}
 
 		// Fetch studios from the database
 		const studios = await Studio.find(searchQuery)
@@ -92,7 +69,7 @@ export const createStudio = async (req, res) => {
 		city,
 		country,
 		socialMedia,
-		week,
+		calendarUrl,
 		location,
 		description,
 	} = req.body;
@@ -117,7 +94,7 @@ export const createStudio = async (req, res) => {
 			city,
 			country,
 			socialMedia,
-			week,
+			calendarUrl,
 			location,
 			description,
 		});
@@ -153,7 +130,7 @@ export const editStudio = async (req, res) => {
 		city,
 		country,
 		socialMedia,
-		week,
+		calendarUrl,
 		location,
 		description,
 	} = req.body;
@@ -175,7 +152,7 @@ export const editStudio = async (req, res) => {
 		if (city) existingStudio.city = city;
 		if (country) existingStudio.country = country;
 		if (socialMedia) existingStudio.socialMedia = socialMedia;
-		if (week) existingStudio.week = week;
+		if (calendarUrl) existingStudio.calendarUrl = calendarUrl;
 		if (location) existingStudio.location = location;
 		if (description) existingStudio.description = description;
 

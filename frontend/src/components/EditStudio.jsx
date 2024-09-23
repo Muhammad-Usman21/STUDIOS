@@ -11,10 +11,10 @@ import {
 	TextInput,
 } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { FaFacebook, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import { FaCalendarAlt, FaFacebook, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { MdCancelPresentation } from "react-icons/md";
-import LocationPicker from "../components/LocationPicker";
+import LocationPicker from "./LocationPicker";
 import { app } from "../firebase";
 import {
 	deleteObject,
@@ -30,15 +30,6 @@ import { updateUserSuccess } from "../redux/user/userSlice";
 const EditStudio = () => {
 	const [formData, setFormData] = useState({
 		images: [],
-		week: {
-			monday: { start: "", end: "", working: false },
-			tuesday: { start: "", end: "", working: false },
-			wednesday: { start: "", end: "", working: false },
-			thursday: { start: "", end: "", working: false },
-			friday: { start: "", end: "", working: false },
-			saturday: { start: "", end: "", working: false },
-			sunday: { start: "", end: "", working: false },
-		},
 	});
 	const [imageName, setImageName] = useState("");
 	const [file, setFile] = useState(null);
@@ -74,41 +65,16 @@ const EditStudio = () => {
 
 	const [errors, setErrors] = useState({});
 
-	const validateWorkingHours = (formData) => {
-		const { week } = formData;
-		const errors = {};
-
-		Object.keys(week).forEach((day) => {
-			const { working, start, end } = week[day];
-
-			if (working) {
-				if (!start || !end) {
-					errors[
-						day
-					] = `${day} requires both start and end times when working is enabled.`;
-				}
-			}
-		});
-
-		return errors;
-	};
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setStudioErrorMsg(null);
 		setLoading(true);
 		setUpdateMsg(null);
 
-		const validationErrors = validateWorkingHours(formData);
-
-		if (Object.keys(validationErrors).length > 0) {
-			setErrors(validationErrors);
-			setLoading(false);
-			return;
-		}
 
 		if (
 			!formData.title ||
+			!formData.calendarUrl ||
 			!formData.description ||
 			!formData.address ||
 			!formData.city ||
@@ -266,26 +232,6 @@ const EditStudio = () => {
 	// 	}));
 	// };
 
-	const handleCheckboxChange = (day) => {
-		setErrors({});
-		setFormData((prevFormData) => {
-			const isWorking = !prevFormData.week[day].working;
-
-			return {
-				...prevFormData,
-				week: {
-					...prevFormData.week,
-					[day]: {
-						...prevFormData.week[day],
-						working: isWorking,
-						start: isWorking ? prevFormData.week[day].start : "", // Clear if unchecked
-						end: isWorking ? prevFormData.week[day].end : "", // Clear if unchecked
-					},
-				},
-			};
-		});
-	};
-
 	const handleLocationChange = (data) => {
 		setFormData((prevFormData) => ({
 			...prevFormData,
@@ -320,6 +266,20 @@ const EditStudio = () => {
 								disabled={loading || imageUploading}
 								required
 								value={formData.title}
+							/>
+						</div>
+						<div className="flex gap-2 sm:flex-row flex-col sm:items-center justify-center px-3">
+							<FaCalendarAlt className="text-2xl" />
+							<TextInput
+								className="flex-grow w-full"
+								type="text"
+								placeholder="Calendar Appointment Link"
+								onChange={(e) =>
+									setFormData({ ...formData, calendarUrl: e.target.value })
+								}
+								disabled={loading || imageUploading}
+								required
+								value={formData.calendarUrl}
 							/>
 						</div>
 						<div className="flex flex-col gap-2 sm:items-center justify-center p-3">
@@ -520,83 +480,7 @@ const EditStudio = () => {
 						</div>
 					</div> */}
 
-					<div
-						className="overflow-x-scroll p-4 lg:overflow-visible md:max-w-md lg:max-w-5xl w-full mx-auto
-					scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300
-					 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 dark:shadow-whiteLg
-					 bg-transparent border-2 border-white/40 dark:border-white/20 rounded-lg shadow-xl">
-						<div className="text-lg w-full text-center my-2">
-							Select Working Days and Time
-						</div>
-						<Table
-							hoverable
-							className="backdrop-blur-[9px] bg-transparent dark:bg-transparent border-2 border-white/20 
-										rounded-lg shadow-lg dark:shadow-whiteLg">
-							<Table.Head className=" lg:sticky lg:top-[60px] z-20 h-16">
-								<Table.HeadCell>Day</Table.HeadCell>
-								<Table.HeadCell>Working Day</Table.HeadCell>
-								<Table.HeadCell>Start Time</Table.HeadCell>
-								<Table.HeadCell>End Time</Table.HeadCell>
-							</Table.Head>
-							<Table.Body>
-								{[
-									"monday",
-									"tuesday",
-									"wednesday",
-									"thursday",
-									"friday",
-									"saturday",
-									"sunday",
-								].map((day) => (
-									<Table.Row
-										key={day}
-										className="border border-gray-400 h-[75px]">
-										<Table.Cell>
-											<Label
-												value={`${day.charAt(0).toUpperCase() + day.slice(1)}`}
-											/>
-										</Table.Cell>
-										<Table.Cell>
-											<div className="flex items-center gap-2">
-												<Label htmlFor={`${day}Check`}>Working</Label>
-												<Checkbox
-													id={`${day}Check`}
-													className="focus:ring-0"
-													checked={formData.week[day].working}
-													onChange={() => handleCheckboxChange(day)}
-													disabled={loading || imageUploading}
-												/>
-											</div>
-										</Table.Cell>
-										<Table.Cell>
-											{formData.week[day].working && (
-												<TextInput
-													type="time"
-													value={formData.week[day].start}
-													disabled={loading || imageUploading}
-													onChange={(e) =>
-														handleTimeChange(day, "start", e.target.value)
-													}
-												/>
-											)}
-										</Table.Cell>
-										<Table.Cell>
-											{formData.week[day].working && (
-												<TextInput
-													type="time"
-													value={formData.week[day].end}
-													onChange={(e) =>
-														handleTimeChange(day, "end", e.target.value)
-													}
-													disabled={loading || imageUploading}
-												/>
-											)}
-										</Table.Cell>
-									</Table.Row>
-								))}
-							</Table.Body>
-						</Table>
-					</div>
+					
 
 					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[9px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
 						<span className="text-lg text-center my-2">
