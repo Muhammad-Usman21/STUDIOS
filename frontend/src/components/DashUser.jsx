@@ -570,7 +570,7 @@ const DashUser = () => {
 				</Button>
 
 				{!currentUser.isSpeaker && (
-					<Link to={"/dashboard?tab=speaker"}>
+					<Link to={"/dashboard?tab=studio"}>
 						<Button
 							type="button"
 							gradientDuoTone="purpleToPink"
