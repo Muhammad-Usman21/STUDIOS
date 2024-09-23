@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button, Select, TextInput } from "flowbite-react";
 import { useLocation, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory
 import StudioCard from "../components/StudioCard";
+import Comments from "../components/Comments";
 
 const Home = () => {
 	const [formData, setFormData] = useState({
@@ -173,6 +174,7 @@ const Home = () => {
 						<p>No hay oradores para esta búsqueda.</p>
 					)}
 				</div>
+				<Comments />
 			</div>
 		</div>
 	);
