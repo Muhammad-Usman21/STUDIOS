@@ -206,13 +206,13 @@ const CreateStudio = () => {
 			bg-[url('../../bg-light.jpg')] dark:bg-[url('../../bg2-dark.jpg')]">
 			<div
 				className="max-w-4xl my-10 mx-3 p-3 sm:mx-12 lg:mx-auto sm:p-10 self-center dark:shadow-whiteLg
-			bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[20px] rounded-lg shadow-xl">
+			bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-xl">
 				<h1 className="text-center text-3xl mb-7 font-semibold">
 					Create Studio
 				</h1>
 				<form className={`flex py-5 flex-col gap-6`} onSubmit={handleSubmit}>
-					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[9px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-						<div className="flex gap-2 sm:flex-row flex-col sm:items-center justify-center px-3">
+					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
+						<div className="flex gap-2 sm:flex-row flex-col sm:items-center justify-center px-3 pt-3">
 							<Label value="Title" />
 							<TextInput
 								className="flex-grow w-full"
@@ -228,7 +228,7 @@ const CreateStudio = () => {
 						<div className="flex gap-2 sm:flex-row flex-col sm:items-center justify-center px-3">
 							<FaCalendarAlt className="text-2xl" />
 							<TextInput
-								className="flex-grow w-full"
+								className="flex-grow w-full md:ml-1"
 								type="text"
 								placeholder="Calendar Appointment Link"
 								onChange={(e) =>
@@ -241,7 +241,7 @@ const CreateStudio = () => {
 						<div className="flex flex-col gap-2 sm:items-center justify-center p-3">
 							<Label value="Description" />
 							<Textarea
-								className="mb-2"
+								className=""
 								rows="4"
 								placeholder="Write someting about your studio...."
 								onChange={(e) =>
@@ -253,7 +253,7 @@ const CreateStudio = () => {
 						</div>
 					</div>
 
-					<div className="flex flex-col justify-around items-center bg-transparent border-2 border-white/20 backdrop-blur-[9px] rounded-lg shadow-md p-3 dark:shadow-whiteLg">
+					<div className="flex flex-col justify-around items-center bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 dark:shadow-whiteLg">
 						<div className="flex sm:flex-row flex-col gap-2 sm:items-center justify-center w-full p-3">
 							<Label value="Phone Number" className="w-32" />
 							<TextInput
@@ -321,7 +321,7 @@ const CreateStudio = () => {
 						</div> */}
 					</div>
 
-					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[9px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
+					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
 						<Label value="Upload images. First image will be cover" />
 						<div className="flex flex-col mb-4 w-full gap-4 items-center justify-between">
 							<div className="w-full">
@@ -424,7 +424,7 @@ const CreateStudio = () => {
 
 
 
-					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[9px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
+					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
 						<span className="text-lg text-center my-2">
 							Redes Sociales (opcional)
 						</span>

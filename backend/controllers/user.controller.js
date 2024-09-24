@@ -72,56 +72,56 @@ export const getUser = async (req, res, next) => {
 	}
 };
 
-export const makePremium = async (req, res, next) => {
-	if (!req.user.isAdmin) {
-		return next(errorHandler(403, "You are not allowed to update this user"));
-	}
+// export const makePremium = async (req, res, next) => {
+// 	if (!req.user.isAdmin) {
+// 		return next(errorHandler(403, "You are not allowed to update this user"));
+// 	}
 
-	const validUser = await User.findById(req.params.userId);
-	if (!validUser) {
-		return next(errorHandler(404, "Oops! User not found."));
-	}
+// 	const validUser = await User.findById(req.params.userId);
+// 	if (!validUser) {
+// 		return next(errorHandler(404, "Oops! User not found."));
+// 	}
 
-	try {
-		const updatedUser = await User.findByIdAndUpdate(
-			req.params.userId,
-			{
-				$set: {
-					isPremium: true,
-				},
-			},
-			{ new: true }
-		);
+// 	try {
+// 		const updatedUser = await User.findByIdAndUpdate(
+// 			req.params.userId,
+// 			{
+// 				$set: {
+// 					isPremium: true,
+// 				},
+// 			},
+// 			{ new: true }
+// 		);
 
-		res.status(200).json(updatedUser._doc);
-	} catch (error) {
-		next(error);
-	}
-};
+// 		res.status(200).json(updatedUser._doc);
+// 	} catch (error) {
+// 		next(error);
+// 	}
+// };
 
-export const makeFree = async (req, res, next) => {
-	if (!req.user.isAdmin) {
-		return next(errorHandler(403, "You are not allowed to update this user"));
-	}
+// export const makeFree = async (req, res, next) => {
+// 	if (!req.user.isAdmin) {
+// 		return next(errorHandler(403, "You are not allowed to update this user"));
+// 	}
 
-	const validUser = await User.findById(req.params.userId);
-	if (!validUser) {
-		return next(errorHandler(404, "Oops! User not found."));
-	}
+// 	const validUser = await User.findById(req.params.userId);
+// 	if (!validUser) {
+// 		return next(errorHandler(404, "Oops! User not found."));
+// 	}
 
-	try {
-		const updatedUser = await User.findByIdAndUpdate(
-			req.params.userId,
-			{
-				$set: {
-					isPremium: false,
-				},
-			},
-			{ new: true }
-		);
+// 	try {
+// 		const updatedUser = await User.findByIdAndUpdate(
+// 			req.params.userId,
+// 			{
+// 				$set: {
+// 					isPremium: false,
+// 				},
+// 			},
+// 			{ new: true }
+// 		);
 
-		res.status(200).json(updatedUser._doc);
-	} catch (error) {
-		next(error);
-	}
-};
+// 		res.status(200).json(updatedUser._doc);
+// 	} catch (error) {
+// 		next(error);
+// 	}
+// };

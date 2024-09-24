@@ -46,16 +46,8 @@ const Header = () => {
 			<Link
 				to="/"
 				className="font-semibold dark:text-white text-md sm:text-xl flex items-center justify-center">
-				<img
-					src="logo3.png"
-					alt="logo"
-					className="object-cover w-10 h-10"
-				/>
-				<img
-					src="logo2.png"
-					alt="logo"
-					className="object-cover h-6 sm:h-8"
-				/>
+				<img src="logo3.png" alt="logo" className="object-cover w-10 h-10" />
+				<img src="logo2.png" alt="logo" className="object-cover h-6 sm:h-8" />
 				{/* <span className="ml-1 text-xl sm:ml-2 sm:3xl">CASEVOX</span> */}
 			</Link>
 			<div className=" flex gap-2 md:order-2 items-center">
@@ -81,10 +73,10 @@ const Header = () => {
 							</span>
 						</Dropdown.Header>
 						<Link to={"/dashboard?tab=user"}>
-							<Dropdown.Item>Panel</Dropdown.Item>
+							<Dropdown.Item>Dashboard</Dropdown.Item>
 						</Link>
 						<DropdownDivider />
-						<Dropdown.Item onClick={handleSignOut}>desconectar</Dropdown.Item>
+						<Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
 					</Dropdown>
 				) : (
 					<Link to="/sign-in">
@@ -93,7 +85,7 @@ const Header = () => {
 							outline
 							size="sm"
 							className="focus:ring-1">
-							Iniciar sesión
+							Sign In
 						</Button>
 					</Link>
 				)}
@@ -103,7 +95,7 @@ const Header = () => {
 				<Navbar.Link className="h-0 p-0 m-0"></Navbar.Link>
 				<Link to="/">
 					<Navbar.Link active={path === "/"} as={"div"}>
-					Hogar
+						Home
 					</Navbar.Link>
 				</Link>
 				<Link
@@ -118,19 +110,9 @@ const Header = () => {
 							path === "/dashboard?tab=edit-studio"
 						}
 						as={"div"}>
-						¿Eres orador?
+						Studio
 					</Navbar.Link>
 				</Link>
-				<Link to="/annoucements">
-					<Navbar.Link active={path === "/annoucements"} as={"div"}>
-					Anuncios
-					</Navbar.Link>
-				</Link>
-				{/* <Link to="/instructions">
-					<Navbar.Link active={path === "/instructions"} as={"div"}>
-						Instructions
-					</Navbar.Link>
-				</Link> */}
 			</Navbar.Collapse>
 		</Navbar>
 	);

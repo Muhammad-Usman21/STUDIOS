@@ -29,3 +29,13 @@ body {
 [data-testid="flowbite-alert-wrapper"] > div {
 	width: 100%;
 }
+
+@media (min-width: 768px) {
+	nav[aria-label="Sidebar"] > div {
+		overflow: unset;
+	}
+	[data-testid="flowbite-sidebar-items"] {
+		position: sticky;
+		top: 90px;
+	}
+}
