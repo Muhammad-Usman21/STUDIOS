@@ -84,7 +84,7 @@ const Header = () => {
 							gradientDuoTone="purpleToBlue"
 							outline
 							size="sm"
-							className="focus:ring-1">
+							className="focus:ring-1 rounded-full header-button">
 							Sign In
 						</Button>
 					</Link>
@@ -98,21 +98,23 @@ const Header = () => {
 						Home
 					</Navbar.Link>
 				</Link>
-				<Link
-					to={
-						currentUser?.isStudio
-							? "/dashboard?tab=edit-studio"
-							: "/dashboard?tab=studio"
-					}>
-					<Navbar.Link
-						active={
-							path === "/dashboard?tab=studio" ||
-							path === "/dashboard?tab=edit-studio"
-						}
-						as={"div"}>
-						Studio
-					</Navbar.Link>
-				</Link>
+				{currentUser && (
+					<Link
+						to={
+							currentUser?.isStudio
+								? "/dashboard?tab=edit-studio"
+								: "/dashboard?tab=studio"
+						}>
+						<Navbar.Link
+							active={
+								path === "/dashboard?tab=studio" ||
+								path === "/dashboard?tab=edit-studio"
+							}
+							as={"div"}>
+							Studio
+						</Navbar.Link>
+					</Link>
+				)}
 			</Navbar.Collapse>
 		</Navbar>
 	);

@@ -1,4 +1,4 @@
-import { Footer } from "flowbite-react";
+import { Footer, Select } from "flowbite-react";
 import { Link } from "react-router-dom";
 import {
 	BsFacebook,
@@ -9,8 +9,11 @@ import {
 	BsLinkedin,
 	BsDiscord,
 } from "react-icons/bs";
+import { useState } from "react";
 
 const FooterComp = () => {
+	const [language, setLanguage] = useState("english");
+
 	return (
 		<Footer
 			container
@@ -63,18 +66,39 @@ const FooterComp = () => {
 						</div>
 					</div>
 				</div>
-				{/* <Footer.Divider />
-				<div className="flex flex-col justify-center items-center gap-4 sm:flex-row sm:justify-between sm:px-2">
+				<hr />
+				<div className="flex flex-col justify-center items-center gap-4 sm:flex-row sm:justify-between sm:px-2 mt-4">
+					<Select
+						className="w-full md:w-36"
+						value={language}
+						onChange={(e) => setLanguage(e.target.value)}>
+						<option value="english">English</option>
+						<option value="spanish">Spanish</option>
+					</Select>
 					<Footer.Copyright
-						href="/"
-						by="CaseVox"
+						href="#"
+						by="Studio"
 						year={new Date().getFullYear()}
 					/>
 					<div className="flex gap-4">
-						<Footer.Icon href="#" icon={BsFacebook} />
-						<Footer.Icon href="#" icon={BsInstagram} />
+						<Footer.Icon
+							href="#"
+							icon={BsFacebook}
+							className="hover:text-blue-500 dark:hover:text-blue-500"
+						/>
+						<Footer.Icon
+							href="#"
+							icon={BsInstagram}
+							className="hover:text-pink-500 dark:hover:text-pink-500"
+						/>
+						<Footer.Icon
+							href="#"
+							icon={BsTwitter}
+							className="hover:text-blue-500 dark:hover:text-blue-500"
+						/>
+						<Footer.Icon href="#" icon={BsTwitterX} />
 					</div>
-				</div> */}
+				</div>
 			</div>
 		</Footer>
 	);

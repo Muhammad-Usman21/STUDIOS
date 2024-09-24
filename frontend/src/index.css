@@ -39,3 +39,7 @@ body {
 		top: 90px;
 	}
 }
+
+.header-button > span {
+	border-radius: 9999px; /* Fully rounded corners */
+}
