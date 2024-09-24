@@ -2,8 +2,14 @@ import { useState, useEffect } from "react";
 import { Button, Select, TextInput } from "flowbite-react";
 import { useLocation, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory
 import StudioCard from "../components/StudioCard";
+import homeLight from "../public/home-light5.png";
+import homeDark from "../public/home-dark5.png";
+import { useSelector } from "react-redux";
+
 
 const Home = () => {
+	const { theme } = useSelector((state) => state.theme);
+	const bgImage = theme === "dark" ? homeDark : homeLight;
 	const [formData, setFormData] = useState({
 		searchTerm: "",
 		sort: "desc",
@@ -68,7 +74,29 @@ const Home = () => {
 
 	return (
 		<div className="min-h-screen w-full">
-			<div className="max-w-7xl mx-3 sm:mx-5 lg:mx-auto items-center justify-center flex flex-col gap-12 lg:gap-24 my-10 lg:my-24">
+			<div className="w-full relative bg-white dark:bg-black bg-opacity-90 dark:bg-opacity-60"
+			>
+				<div className="absolute left-[5%] top-[20%] flex flex-col gap-2 z-20">
+					<h1 className=" text-blue-600 font-extrabold md:text-6xl dark:text-yellow-400"><span className="text-blue-400 md:text-5xl dark:text-yellow-300">APPOINTMENT</span><br />BOOKING<br /> NOW</h1>
+					<p className="w-96 text-xs md:text-lg">Discover and book the perfect studio for your next project with ease. Explore top-rated spaces tailored to your creative needs, all in one place</p>
+					<a className="self-center mt-5" href="#search" onClick={(e) => {
+						e.preventDefault();
+						document.getElementById("search").scrollIntoView({ behavior: "smooth" });
+					}}>
+						<button className=" flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br dark:from-red-200 from-green-200 dark:via-red-300 via-blue-300 dark:to-yellow-200 to-blue-200  group-hover:from-red-200 group-hover:via-red-300 group-hover:to-yellow-200 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400">
+							<span className=" px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0 text-xl">
+								Read More!
+							</span>
+						</button>
+					</a>
+				</div>
+				<img
+					className="w-full relative z-0"
+					src={bgImage}
+					alt="home-light"
+				/>
+			</div>
+			<div id="search" className="max-w-7xl mx-3 sm:mx-5 lg:mx-auto items-center justify-center flex flex-col gap-12 lg:gap-24 py-10 lg:py-24">
 				<div className="flex flex-col items-center justify-center gap-4 md:gap-8 p-5 md:p-10 bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
 					<span className="text-2xl md:text-4xl text-center">
 						Capture Your Creative Moments
