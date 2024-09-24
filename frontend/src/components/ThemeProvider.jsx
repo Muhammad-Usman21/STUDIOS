@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import bgLight from "../public/bg-light.jpg";
+import bgLight from "../public/bg-light-2.jpg";
 import bgDark from "../public/bg-dark.jpg";
 
 const ThemeProvider = ({ children }) => {

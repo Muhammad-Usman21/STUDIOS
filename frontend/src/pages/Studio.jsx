@@ -82,7 +82,7 @@ const Studio = () => {
 							{activeTab === "portfolio" && (
 								<Portfolio images={studio.images} />
 							)}
-							{activeTab === "comments" && <Comments />}
+							{activeTab === "comments" && <Comments studioId={studio._id} />}
 						</div>
 					</>
 				) : (

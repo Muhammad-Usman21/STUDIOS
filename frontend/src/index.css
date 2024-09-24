@@ -43,3 +43,21 @@ body {
 .header-button > span {
 	border-radius: 9999px; /* Fully rounded corners */
 }
+
+nav,
+nav > div,
+footer,
+textarea,
+select,
+[data-testid="flowbite-dropdown"],
+input {
+	background-color: #d8e2f3 !important; /* Light background color */
+}
+.dark nav,
+.dark nav > div,
+.dark footer,
+.dark textarea,
+.dark select,
+.dark input {
+	background-color: #2a1e04 !important; /* Dark background color */
+}
