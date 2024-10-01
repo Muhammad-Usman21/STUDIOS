@@ -1,3 +1,4 @@
+import { FaLocationDot } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const StudioCard = ({ studio }) => {
@@ -17,9 +18,9 @@ const StudioCard = ({ studio }) => {
                     		hover:scale-105 transition-scale duration-300"
 								/>
 							</div>
-							<div className="absolute bottom-[15%] z-20 w-full flex flex-col items-center justify-center bg-black bg-opacity-50 font-serif text-white dark:text-white">
+							<div className="absolute bottom-[15%] z-20 w-full flex flex-col items-center justify-center bg-black bg-opacity-90 p-2 font-serif text-white dark:text-white">
 								<span className="text-3xl">{studio.title}</span>
-								<span className="text-sm">{studio.address}, {studio.city}</span>
+								<span className="text-sm"><span className="inline-block"><FaLocationDot/></span>{studio.address}, {studio.city}</span>
 							</div>
 						</div>
 					</Link>
