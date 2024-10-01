@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { MdCancelPresentation } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import Comment from "./Comment";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import Comment from "./Comment";
 
 const CommentSection = ({ studioId }) => {
 	const { currentUser } = useSelector((state) => state.user);
