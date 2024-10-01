@@ -230,7 +230,7 @@ const CreateStudio = () => {
 							<TextInput
 								className="flex-grow w-full md:ml-1"
 								type="text"
-								placeholder="Calendar Appointment Link"
+								placeholder="Calendar Appointment Link (e.g https://calendar.app.google/DhsirdQ5ZYoCmm7p6)"
 								onChange={(e) =>
 									setFormData({ ...formData, calendarUrl: e.target.value })
 								}
