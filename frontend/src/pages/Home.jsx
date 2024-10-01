@@ -72,20 +72,18 @@ const Home = () => {
 			<div className="w-full relative bg-white dark:bg-black bg-opacity-80 dark:bg-opacity-60">
 				<div className="absolute left-[5%] top-[20%] flex flex-col gap-2 z-20">
 					<h1 className=" text-blue-600 font-extrabold md:text-6xl">
-						<span className="text-blue-400 md:text-5xl">
-							APPOINTMENT
-						</span>
+						<span className="text-blue-400 md:text-5xl">APPOINTMENT</span>
 						<br />
 						BOOKING
 						<br /> NOW
 					</h1>
-					<p className="w-96 text-xs md:text-lg">
+					<p className="w-96 text-xs md:text-lg hidden sm:inline">
 						Discover and book the perfect studio for your next project with
 						ease. Explore top-rated spaces tailored to your creative needs, all
 						in one place
 					</p>
 					<a
-						className="self-center mt-5"
+						className="self-center mt-5 hidden sm:inline"
 						href="#search"
 						onClick={(e) => {
 							e.preventDefault();
@@ -112,7 +110,7 @@ const Home = () => {
 					<span className="text-lg md:text-2xl text-center">
 						Book Your Studio in Seconds!
 					</span>
-					<span className="text-lg md:text-2xl text-center px-5 mt-5">
+					<span className="text-md md:text-2xl text-center px-5 mt-5">
 						Search for affordable studios and start recording your best work
 						today.
 					</span>

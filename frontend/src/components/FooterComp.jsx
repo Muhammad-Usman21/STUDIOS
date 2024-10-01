@@ -24,7 +24,7 @@ const FooterComp = () => {
 					<div className="mt-4 sm:mt-0">
 						<Link
 							to="/"
-							className="font-semibold dark:text-white text-md sm:text-xl flex items-center h-20 sm:w-24 sm:h-24">
+							className="font-semibold dark:text-white text-md sm:text-xl flex items-center h-10 sm:h-24">
 							{/* <img
 								src="logo3.png"
 								alt="logo"
