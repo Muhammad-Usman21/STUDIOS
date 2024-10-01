@@ -59,5 +59,5 @@ input {
 .dark textarea,
 .dark select,
 .dark input {
-	background-color: rgb(8, 7, 0) !important; /* Dark background color */
+	background-color: #010E16 !important; /* Dark background color */
 }

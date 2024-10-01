@@ -3,12 +3,8 @@ import { Button, Select, TextInput } from "flowbite-react";
 import { useLocation, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory
 import StudioCard from "../components/StudioCard";
 import homeLight from "../public/home-light5.png";
-import homeDark from "../public/home-dark5.png";
-import { useSelector } from "react-redux";
 
 const Home = () => {
-	const { theme } = useSelector((state) => state.theme);
-	const bgImage = theme === "dark" ? homeDark : homeLight;
 	const [formData, setFormData] = useState({
 		searchTerm: "",
 		sort: "desc",
@@ -73,10 +69,10 @@ const Home = () => {
 
 	return (
 		<div className="min-h-screen w-full">
-			<div className="w-full relative bg-white dark:bg-black bg-opacity-90 dark:bg-opacity-60">
+			<div className="w-full relative bg-white dark:bg-black bg-opacity-80 dark:bg-opacity-60">
 				<div className="absolute left-[5%] top-[20%] flex flex-col gap-2 z-20">
-					<h1 className=" text-blue-600 font-extrabold md:text-6xl dark:text-yellow-400">
-						<span className="text-blue-400 md:text-5xl dark:text-yellow-300">
+					<h1 className=" text-blue-600 font-extrabold md:text-6xl">
+						<span className="text-blue-400 md:text-5xl">
 							APPOINTMENT
 						</span>
 						<br />
@@ -97,14 +93,14 @@ const Home = () => {
 								.getElementById("search")
 								.scrollIntoView({ behavior: "smooth" });
 						}}>
-						<button className=" flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br dark:from-red-200 from-green-200 dark:via-red-300 via-blue-300 dark:to-yellow-200 to-blue-200  group-hover:from-red-200 group-hover:via-red-300 group-hover:to-yellow-200 dark:text-white dark:hover:text-gray-900 focus:ring-1 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400">
-							<span className=" px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0 text-xl">
+						<button className=" flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br  from-green-200  via-blue-300  to-blue-200  group-hover:from-red-200 group-hover:via-red-300  dark:text-white dark:hover:text-gray-900 focus:ring-1 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400">
+							<span className=" px-5 py-2.5 transition-all ease-in duration-75 bg-blue-300 dark:bg-blue-500 rounded-md group-hover:bg-opacity-0 text-xl">
 								View Studios!
 							</span>
 						</button>
 					</a>
 				</div>
-				<img className="w-full relative z-0" src={bgImage} alt="home-light" />
+				<img className="w-full relative z-0" src={homeLight} alt="home-light" />
 			</div>
 			<div
 				id="search"
