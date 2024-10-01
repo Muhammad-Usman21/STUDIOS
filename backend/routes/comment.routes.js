@@ -26,10 +26,6 @@ router.get(
 	verifyToken,
 	countTotalCommentsByUser
 );
-router.get(
-	"/countTotalCommentsByStudio/:studioId",
-	verifyToken,
-	countTotalCommentsByStudio
-);
+router.get("/countTotalCommentsByStudio/:studioId", countTotalCommentsByStudio);
 
 export default router;

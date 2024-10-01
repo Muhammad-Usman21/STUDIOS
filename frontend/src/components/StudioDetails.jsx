@@ -13,7 +13,7 @@ const StudioDetails = ({ studio }) => {
 	return (
 		<div className="min-h-screen w-full sm:px-10 ">
 			<div
-				className="flex p-3 md:p-16 max-w-4xl w-full lg:mx-auto flex-col md:items-center gap-10
+				className="flex p-3 md:p-16 max-w-4xl w-full lg:mx-auto flex-col md:items-center gap-6 md:gap-10
 				bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
 				{/* Studio Description */}
 				<div className="w-full">
@@ -24,7 +24,7 @@ const StudioDetails = ({ studio }) => {
 				</div>
 
 				{/* Manager Details */}
-				<div className="w-full mt-5">
+				<div className="w-full">
 					<h1 className="text-2xl font-semibold mb-2">Manager:</h1>
 					<div className="flex items-center gap-4">
 						<img

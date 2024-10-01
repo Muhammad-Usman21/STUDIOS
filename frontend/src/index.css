@@ -53,11 +53,13 @@ select,
 input {
 	background-color: #d8e2f3 !important; /* Light background color */
 }
+
 .dark nav,
 .dark nav > div,
 .dark footer,
 .dark textarea,
 .dark select,
+[data-testid="flowbite-dropdown"],
 .dark input {
-	background-color: #010E16 !important; /* Dark background color */
+	background-color: #010e16 !important; /* Dark background color */
 }
