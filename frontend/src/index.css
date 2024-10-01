@@ -59,7 +59,7 @@ input {
 .dark footer,
 .dark textarea,
 .dark select,
-[data-testid="flowbite-dropdown"],
+.dark [data-testid="flowbite-dropdown"],
 .dark input {
 	background-color: #010e16 !important; /* Dark background color */
 }
