@@ -44,9 +44,9 @@ const OAuth = () => {
 				gradientDuoTone="pinkToOrange"
 				outline
 				onClick={handleGoogleClick}
-				className="focus:ring-1 animate-shimmer mt-1">
+				className="focus:ring-1 animate-shimmer mt-1 w-full">
 				<AiFillGoogleCircle className="w-6 h-6 mr-2" />
-				Continuar con Google
+				Google
 			</Button>
 		</>
 	);

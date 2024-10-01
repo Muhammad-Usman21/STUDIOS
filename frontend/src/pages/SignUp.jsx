@@ -39,20 +39,28 @@ const SignUp = () => {
 			return setErrorMessage("Todos los campos son obligatorios!");
 		}
 		if (formData.password !== formData.confirmPassword) {
-			return setErrorMessage("Tu contraseña no es la misma. ¡Intentar otra vez!");
+			return setErrorMessage(
+				"Tu contraseña no es la misma. ¡Intentar otra vez!"
+			);
 		}
 		if (formData.password.length < 8) {
-			return setErrorMessage("¡La contraseña debe tener al menos 8 caracteres!");
+			return setErrorMessage(
+				"¡La contraseña debe tener al menos 8 caracteres!"
+			);
 		}
 
 		if (formData.name === "") {
 			return setErrorMessage("Nombre requerido!");
 		}
 		if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-			return setErrorMessage("Introduzca un correo electrónico válido (nombre@empresa.com)");
+			return setErrorMessage(
+				"Introduzca un correo electrónico válido (nombre@empresa.com)"
+			);
 		}
 		if (formData.email !== formData.email.toLowerCase()) {
-			return setErrorMessage("¡El correo electrónico debe estar en minúsculas!");
+			return setErrorMessage(
+				"¡El correo electrónico debe estar en minúsculas!"
+			);
 		}
 
 		try {
@@ -93,10 +101,33 @@ const SignUp = () => {
 	};
 
 	return (
-		<div className="min-h-screen py-20">
+		<div className="min-h-screen py-10">
 			<div
-				className="flex p-5 md:p-10 max-w-2xl mx-5 sm:mx-10 md:mx-20 lg:mx-auto flex-col md:flex-row md:items-center gap-10
+				className="flex p-5 md:p-10 max-w-4xl mx-5 sm:mx-10 md:mx-20 lg:mx-auto flex-col md:flex-row md:items-center gap-10 lg:min-h-[540px]
 				bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
+				<div className="flex-1 md:px-5 flex flex-col gap-10 md:border-r-4 border-b-4 pb-10 md:border-b-0 border-gray-400">
+					<Link
+						to="/"
+						className="font-semibold dark:text-white text-md md:text-3xl flex items-center justify-center">
+						{/* <img
+							src="logo3.png"
+							alt="logo"
+							className="object-cover w-10 h-10"
+						/>
+						<img
+							src="logo2.png"
+							alt="logo"
+							className="object-cover h-6 sm:h-8"
+						/> */}
+						<span className="ml-1 text-3xl sm:ml-2 md:text-5xl">STUDIO</span>
+					</Link>
+					<div className="w-full flex flex-col gap-1 text-center">
+						<span className="text-center">
+							Continue with your Google account?
+						</span>
+						<OAuth />
+					</div>
+				</div>
 				<div className="flex-1 md:px-5">
 					<form
 						className={`flex flex-col gap-3 ${theme}`}
@@ -166,12 +197,11 @@ const SignUp = () => {
 								"Inscribirse"
 							)}
 						</Button>
-						<OAuth />
 					</form>
 					<div className="flex gap-2 text-sm mt-4">
 						<span>¿Tienes una cuenta?</span>
 						<Link to="/sign-in" className="text-blue-500">
-						Iniciar sesión
+							Iniciar sesión
 						</Link>
 					</div>
 					{errorMessage && (

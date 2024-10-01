@@ -24,8 +24,8 @@ const FooterComp = () => {
 					<div className="mt-4 sm:mt-0">
 						<Link
 							to="/"
-							className="font-semibold dark:text-white text-md sm:text-xl flex items-center">
-							<img
+							className="font-semibold dark:text-white text-md sm:text-xl flex items-center h-20 sm:w-24 sm:h-24">
+							{/* <img
 								src="logo3.png"
 								alt="logo"
 								className="object-cover w-20 h-20 sm:w-24 sm:h-24"
@@ -34,8 +34,8 @@ const FooterComp = () => {
 								src="logo2.png"
 								alt="logo"
 								className="object-cover h-8 sm:h-14"
-							/>
-							{/* <span className="ml-1 text-xl sm:ml-2 sm:3xl">CASEVOX</span> */}
+							/> */}
+							<span className="ml-1 text-2xl sm:ml-2 sm:4xl">STUDIO</span>
 						</Link>
 					</div>
 					<div
@@ -51,16 +51,16 @@ const FooterComp = () => {
 						<div>
 							<Footer.LinkGroup col className="space-y-2">
 								<div className="flex gap-8 md:gap-8 md:flex-row justify-around">
-									<Link to="/practice">Guiones para practicar</Link>
-									<Link to="/about">¿Quiénes somos?</Link>
+									<Link to="/">Guiones para practicar</Link>
+									<Link to="/">¿Quiénes somos?</Link>
 								</div>
 							</Footer.LinkGroup>
 						</div>
 						<div>
 							<Footer.LinkGroup col className="space-y-2">
 								<div className="flex gap-8 md:gap-8 md:flex-row justify-around">
-									<Link to="/privacy">Política de privacidad</Link>
-									<Link to="/legal">Términos legales</Link>
+									<Link to="/">Política de privacidad</Link>
+									<Link to="/">Términos legales</Link>
 								</div>
 							</Footer.LinkGroup>
 						</div>
@@ -68,13 +68,13 @@ const FooterComp = () => {
 				</div>
 				<hr />
 				<div className="flex flex-col justify-center items-center gap-4 sm:flex-row sm:justify-between sm:px-2 mt-4">
-					<Select
+					{/* <Select
 						className="w-full md:w-36"
 						value={language}
 						onChange={(e) => setLanguage(e.target.value)}>
 						<option value="english">English</option>
 						<option value="spanish">Spanish</option>
-					</Select>
+					</Select> */}
 					<Footer.Copyright
 						href="#"
 						by="Studio"

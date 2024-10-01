@@ -46,9 +46,9 @@ const Header = () => {
 			<Link
 				to="/"
 				className="font-semibold dark:text-white text-md sm:text-xl flex items-center justify-center">
-				<img src="logo3.png" alt="logo" className="object-cover w-10 h-10" />
-				<img src="logo2.png" alt="logo" className="object-cover h-6 sm:h-8" />
-				{/* <span className="ml-1 text-xl sm:ml-2 sm:3xl">CASEVOX</span> */}
+				{/* <img src="logo3.png" alt="logo" className="object-cover w-10 h-10" />
+				<img src="logo2.png" alt="logo" className="object-cover h-6 sm:h-8" /> */}
+				<span className="ml-1 text-xl sm:ml-2 sm:3xl">STUDIO</span>
 			</Link>
 			<div className=" flex gap-2 md:order-2 items-center">
 				<Button

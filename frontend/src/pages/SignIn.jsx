@@ -54,7 +54,10 @@ const SignIn = () => {
 			const res = await fetch("/api/auth/signin", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ ...formData, firebaseId: firebaseUser.user.uid }),
+				body: JSON.stringify({
+					...formData,
+					firebaseId: firebaseUser.user.uid,
+				}),
 			});
 			const data = await res.json();
 			if (data.success === false) {
@@ -84,18 +87,48 @@ const SignIn = () => {
 
 		try {
 			await sendPasswordResetEmail(auth, formData.email);
-			setMessage("¡Se envió un correo electrónico para restablecer la contraseña! Revisa tu bandeja de entrada.");
+			setMessage(
+				"¡Se envió un correo electrónico para restablecer la contraseña! Revisa tu bandeja de entrada."
+			);
 		} catch (error) {
-			console.error("Error al enviar el correo electrónico para restablecer la contraseña:", error);
+			console.error(
+				"Error al enviar el correo electrónico para restablecer la contraseña:",
+				error
+			);
 			setError(error.message);
 		}
 	};
 
 	return (
-		<div className="min-h-screen py-20">
+		<div className="min-h-screen py-10">
 			<div
-				className="flex p-5 md:p-10 max-w-2xl mx-5 sm:mx-10 md:mx-20 lg:mx-auto flex-col md:flex-row md:items-center gap-10
+				className="flex p-5 md:p-10 max-w-4xl mx-5 sm:mx-10 md:mx-20 lg:mx-auto flex-col md:flex-row md:items-center gap-10 lg:min-h-[540px]
 				bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
+				<div className="flex-1 md:px-5 flex flex-col gap-10 md:border-r-4 border-b-4 pb-10 md:border-b-0 border-gray-400">
+					<Link
+						to="/"
+						className="font-semibold dark:text-white text-md md:text-3xl flex items-center justify-center">
+						{/* <img
+							src="logo3.png"
+							alt="logo"
+							className="object-cover w-10 h-10"
+						/>
+						<img
+							src="logo2.png"
+							alt="logo"
+							className="object-cover h-6 sm:h-8"
+						/> */}
+						<span className="ml-1 text-3xl sm:ml-2 md:text-5xl">
+							STUDIO
+						</span>
+					</Link>
+					<div className="w-full flex flex-col gap-1 text-center">
+						<span className="text-center">
+							Continue with your Google account?
+						</span>
+						<OAuth />
+					</div>
+				</div>
 				<div className="flex-1 md:px-5">
 					<form
 						className={`flex flex-col gap-3 ${theme}`}
@@ -134,19 +167,18 @@ const SignIn = () => {
 								"Iniciar sesión"
 							)}
 						</Button>
-						<OAuth />
 					</form>
-					<div className="flex flex-col md:flex-row justify-between text-sm mt-4">
+					<div className="flex flex-col justify-between text-sm mt-4 gap-1">
+						<div className="text-red-500">
+							<span className="cursor-pointer" onClick={handleForgotPassword}>
+								¿Olvidaste tu contraseña?
+							</span>
+						</div>
 						<div className="flex gap-2 text-sm">
 							<span>¿No tienes una cuenta?</span>
 							<Link to="/sign-up" className="text-blue-500">
-							Inscribirse
+								Inscribirse
 							</Link>
-						</div>
-						<div className="text-red-500">
-							<span className="cursor-pointer" onClick={handleForgotPassword}>
-							¿Olvidaste tu contraseña?
-							</span>
 						</div>
 					</div>
 					{errorMessage && (
