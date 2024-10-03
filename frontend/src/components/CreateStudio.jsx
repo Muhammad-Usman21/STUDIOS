@@ -36,6 +36,10 @@ import { countries } from "countries-list";
 const CreateStudio = () => {
 	const [formData, setFormData] = useState({
 		images: [],
+		location: {
+			latitude: -12,
+			longitude: -77,
+		},
 	});
 	const [imageName, setImageName] = useState("");
 	const [file, setFile] = useState(null);
