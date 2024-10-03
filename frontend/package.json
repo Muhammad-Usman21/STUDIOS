@@ -11,6 +11,7 @@
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^2.2.7",
+		"countries-list": "^3.1.1",
 		"dotenv": "^16.4.5",
 		"firebase": "^10.13.2",
 		"flowbite-react": "^0.10.1",

@@ -4,12 +4,7 @@ import mongoose from "mongoose";
 
 export const search = async (req, res) => {
 	try {
-		const {
-			searchTerm,
-			sort,
-			startIndex = 0,
-			limit = 9,
-		} = req.query;
+		const { searchTerm, sort, startIndex = 0, limit = 9 } = req.query;
 
 		// Construct the search query object
 		let searchQuery = {};
@@ -26,7 +21,6 @@ export const search = async (req, res) => {
 				],
 			};
 		}
-
 
 		// Fetch studios from the database
 		const studios = await Studio.find(searchQuery)
@@ -67,7 +61,10 @@ export const createStudio = async (req, res) => {
 		images,
 		address,
 		city,
+		state,
 		country,
+		type,
+		facility,
 		socialMedia,
 		calendarUrl,
 		location,
@@ -92,7 +89,10 @@ export const createStudio = async (req, res) => {
 			images,
 			address,
 			city,
+			state,
 			country,
+			type,
+			facility,
 			socialMedia,
 			calendarUrl,
 			location,
@@ -175,7 +175,6 @@ export const getStudioByUserId = async (req, res) => {
 		const { userId } = req.params; // Assuming the userId is passed in the request parameters
 
 		const studios = await Studio.find({ userId });
-
 
 		if (studios.length === 0) {
 			return res

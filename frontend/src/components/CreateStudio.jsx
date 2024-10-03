@@ -4,13 +4,20 @@ import {
 	Checkbox,
 	FileInput,
 	Label,
+	Select,
 	Spinner,
 	Table,
 	Textarea,
 	TextInput,
 } from "flowbite-react";
 import { useState } from "react";
-import { FaCalendarAlt, FaFacebook, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import {
+	FaCalendarAlt,
+	FaFacebook,
+	FaInstagram,
+	FaTwitter,
+	FaWhatsapp,
+} from "react-icons/fa";
 import { MdCancelPresentation } from "react-icons/md";
 import LocationPicker from "./LocationPicker";
 import { app } from "../firebase";
@@ -24,6 +31,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserSuccess } from "../redux/user/userSlice";
+import { countries } from "countries-list";
 
 const CreateStudio = () => {
 	const [formData, setFormData] = useState({
@@ -43,7 +51,9 @@ const CreateStudio = () => {
 	// const [prevUrlData, setPrevUrlData] = useState([]);
 
 	const [errors, setErrors] = useState({});
-
+	const countryOptions = Object.values(countries).map(
+		(country) => country.name
+	);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -110,7 +120,6 @@ const CreateStudio = () => {
 			}
 
 			const promises = [];
-
 
 			promises.push(storeImage(file));
 
@@ -251,6 +260,22 @@ const CreateStudio = () => {
 								required
 							/>
 						</div>
+						<div className="flex flex-col gap-1 w-full md:w-auto">
+							<Label value="Type" />
+							<Select
+								disabled={loading || imageUploading}
+								className="w-full lg:w-64"
+								required
+								onChange={(e) =>
+									setFormData({ ...formData, type: e.target.value })
+								}>
+								<option value="">Select a type</option>
+								<option value="music">Music Studio</option>
+								<option value="recording">Recording Studio</option>
+								<option value="postcard">Postcard Studio</option>
+								<option value="rehersal">Rehersal Studio</option>
+							</Select>
+						</div>
 					</div>
 
 					<div className="flex flex-col justify-around items-center bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 dark:shadow-whiteLg">
@@ -280,10 +305,10 @@ const CreateStudio = () => {
 									required
 								/>
 							</div>
-							<div className="flex flex-col gap-1 w-full">
+							<div className="flex flex-col gap-1 w-full md:w-auto">
 								<Label value="City" />
 								<TextInput
-									className="flex-grow w-full"
+									className="w-full lg:w-64"
 									type="text"
 									placeholder="City"
 									onChange={(e) =>
@@ -292,6 +317,38 @@ const CreateStudio = () => {
 									disabled={loading || imageUploading}
 									required
 								/>
+							</div>
+						</div>
+						<div className="flex flex-col sm:flex-row gap-4 justify-around items-center p-3 w-full">
+							<div className="flex flex-col gap-1 flex-grow w-full">
+								<Label value="State" />
+								<TextInput
+									className="flex-grow w-full"
+									type="text"
+									placeholder="State"
+									onChange={(e) =>
+										setFormData({ ...formData, state: e.target.value })
+									}
+									disabled={loading || imageUploading}
+									required
+								/>
+							</div>
+							<div className="flex flex-col gap-1 w-full md:w-auto">
+								<Label value="Country" />
+								<Select
+									disabled={loading || imageUploading}
+									className="w-full lg:w-64"
+									required
+									onChange={(e) =>
+										setFormData({ ...formData, country: e.target.value })
+									}>
+									<option value="">Seleccione un país</option>
+									{countryOptions.map((country, index) => (
+										<option key={index} value={country}>
+											{country}
+										</option>
+									))}
+								</Select>
 							</div>
 						</div>
 						<div className="w-full">
@@ -421,8 +478,6 @@ const CreateStudio = () => {
 							</div>
 						</div>
 					</div> */}
-
-
 
 					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
 						<span className="text-lg text-center my-2">

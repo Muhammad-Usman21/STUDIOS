@@ -29,8 +29,23 @@ const studioSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		state: {
+			type: String,
+			required: true,
+		},
 		country: {
 			type: String,
+			required: true,
+		},
+		type: {
+			type: String,
+			required: true,
+		},
+		facility: {
+			remote: { type: String },
+			parking: { type: String },
+			wifi: { type: String },
+			air: { type: String },
 		},
 		socialMedia: {
 			instagram: { type: String },
@@ -39,7 +54,7 @@ const studioSchema = new mongoose.Schema(
 			whatsapp: { type: String },
 		},
 		calendarUrl: {
-			type: String, 
+			type: String,
 			required: true,
 		},
 		location: {
