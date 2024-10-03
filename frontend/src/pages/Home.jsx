@@ -3,16 +3,19 @@ import { Button, Select, TextInput } from "flowbite-react";
 import { useLocation, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory
 import StudioCard from "../components/StudioCard";
 import homeLight from "../public/home-light5.png";
+import { countries } from "countries-list";
 
 const Home = () => {
 	const [formData, setFormData] = useState({
 		searchTerm: "",
 		sort: "desc",
+		country: "",
 	});
 	const [showMore, setShowMore] = useState(true);
 	const [searchResults, setSearchResults] = useState([]);
 	const location = useLocation();
 	const navigate = useNavigate(); // Replaces useHistory
+	// const [country, setCountry] = useState("");
 
 	const handleChange = (e) => {
 		setFormData({
@@ -21,14 +24,19 @@ const Home = () => {
 		});
 	};
 
+	const countryOptions = Object.values(countries).map(
+		(country) => country.name
+	);
+
 	useEffect(() => {
 		const params = new URLSearchParams(location.search);
 		const searchTerm = params.get("searchTerm") || "";
 		const sort = params.get("sort") || "desc";
+		const country = params.get("country") || "";
 
-		setFormData({ searchTerm, sort });
+		setFormData({ searchTerm, sort, country });
 
-		fetchSearchResults({ searchTerm, sort });
+		fetchSearchResults({ searchTerm, sort, country });
 	}, [location]);
 
 	const fetchSearchResults = async (searchData) => {
@@ -160,6 +168,22 @@ const Home = () => {
 								<option value="saturday">Saturday</option>
 								<option value="sunday">Sunday</option>
 							</Select> */}
+							<Select
+								className="w-48"
+								value={formData.country}
+								onChange={(e) =>
+									setFormData({ ...formData, country: e.target.value })
+								}>
+								<option value="" disabled>
+									Seleccione un país
+								</option>
+								<option value="all">Todos los países</option>
+								{countryOptions.map((country, index) => (
+									<option key={index} value={country}>
+										{country}
+									</option>
+								))}
+							</Select>
 							<Select
 								className="w-full md:w-36"
 								value={formData.sort}

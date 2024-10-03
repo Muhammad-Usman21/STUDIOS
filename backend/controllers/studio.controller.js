@@ -4,7 +4,11 @@ import mongoose from "mongoose";
 
 export const search = async (req, res) => {
 	try {
-		const { searchTerm, sort, startIndex = 0, limit = 9 } = req.query;
+		let { searchTerm, country, sort, startIndex = 0, limit = 9 } = req.query;
+
+		if (country === "all") {
+			country = null;
+		}
 
 		// Construct the search query object
 		let searchQuery = {};
@@ -18,8 +22,14 @@ export const search = async (req, res) => {
 					{ description: { $regex: searchTerm, $options: "i" } },
 					{ title: { $regex: searchTerm, $options: "i" } },
 					{ address: { $regex: searchTerm, $options: "i" } },
+					{ state: { $regex: searchTerm, $options: "i" } },
+					{ country: { $regex: searchTerm, $options: "i" } },
 				],
 			};
+		}
+
+		if (country) {
+			searchQuery.country = country;
 		}
 
 		// Fetch studios from the database
