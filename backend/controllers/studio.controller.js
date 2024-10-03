@@ -128,7 +128,10 @@ export const editStudio = async (req, res) => {
 		images,
 		address,
 		city,
+		state,
 		country,
+		facility,
+		type,
 		socialMedia,
 		calendarUrl,
 		location,
@@ -150,6 +153,9 @@ export const editStudio = async (req, res) => {
 		if (images) existingStudio.images = images;
 		if (address) existingStudio.address = address;
 		if (city) existingStudio.city = city;
+		if (state) existingStudio.state = state;
+		if (facility) existingStudio.facility = facility;
+		if (type) existingStudio.type = type;
 		if (country) existingStudio.country = country;
 		if (socialMedia) existingStudio.socialMedia = socialMedia;
 		if (calendarUrl) existingStudio.calendarUrl = calendarUrl;

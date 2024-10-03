@@ -9,6 +9,7 @@ import {
 	Table,
 	Textarea,
 	TextInput,
+	ToggleSwitch,
 } from "flowbite-react";
 import { useEffect, useState } from "react";
 import {
@@ -32,6 +33,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserSuccess } from "../redux/user/userSlice";
+import { countries } from "countries-list";
 
 const EditStudio = () => {
 	const [formData, setFormData] = useState({
@@ -46,6 +48,10 @@ const EditStudio = () => {
 	const [studioErrorMsg, setStudioErrorMsg] = useState(null);
 	const { currentUser } = useSelector((state) => state.user);
 	const [updateMsg, setUpdateMsg] = useState(null);
+
+	const countryOptions = Object.values(countries).map(
+		(country) => country.name
+	);
 
 	useEffect(() => {
 		try {
@@ -75,6 +81,18 @@ const EditStudio = () => {
 		setStudioErrorMsg(null);
 		setLoading(true);
 		setUpdateMsg(null);
+
+		if (!formData.type || formData.type === "") {
+			setLoading(false);
+			setStudioErrorMsg("Type of Studio is required.");
+			return;
+		}
+
+		if (!formData.country || formData.country === "") {
+			setLoading(false);
+			setStudioErrorMsg("Country is required.");
+			return;
+		}
 
 		if (
 			!formData.title ||
@@ -299,6 +317,80 @@ const EditStudio = () => {
 								value={formData.description}
 							/>
 						</div>
+						<div className="flex flex-col w-full lg:w-auto self-center gap-2">
+							<Label value="Type" className="self-center" />
+							<Select
+								disabled={loading || imageUploading}
+								className="w-full lg:w-64"
+								required
+								value={formData.type}
+								onChange={(e) =>
+									setFormData({ ...formData, type: e.target.value })
+								}>
+								<option value="">Select a type</option>
+								<option value="music">Music Studio</option>
+								<option value="recording">Recording Studio</option>
+								<option value="podcast">Podcast Studio</option>
+								<option value="rehersal">Rehersal Studio</option>
+							</Select>
+						</div>
+
+						<Label value="Facilities" className="self-center mt-5" />
+						<div className="flex flex-col md:flex-row gap-2 md:flex-wrap md:justify-between lg:justify-around my-1">
+							<ToggleSwitch
+								// className="focus:ring-1"
+								checked={formData.facility?.remote}
+								label="Remote Recording via Zoom"
+								onChange={() =>
+									setFormData({
+										...formData,
+										facility: {
+											...formData.facility,
+											remote: !formData.facility.remote,
+										},
+									})
+								}
+							/>
+							<ToggleSwitch
+								checked={formData.facility?.wifi}
+								label="WiFi"
+								onChange={() =>
+									setFormData({
+										...formData,
+										facility: {
+											...formData.facility,
+											wifi: !formData.facility.wifi,
+										},
+									})
+								}
+							/>
+							<ToggleSwitch
+								checked={formData.facility?.air}
+								label="Air Conditioning"
+								onChange={() =>
+									setFormData({
+										...formData,
+										facility: {
+											...formData.facility,
+											air: !formData.facility.air,
+										},
+									})
+								}
+							/>
+							<ToggleSwitch
+								checked={formData.facility?.parking}
+								label="Parking"
+								onChange={() =>
+									setFormData({
+										...formData,
+										facility: {
+											...formData.facility,
+											parking: !formData.facility.parking,
+										},
+									})
+								}
+							/>
+						</div>
 					</div>
 
 					<div className="flex flex-col justify-around items-center bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 dark:shadow-whiteLg">
@@ -343,6 +435,40 @@ const EditStudio = () => {
 									required
 									value={formData.city}
 								/>
+							</div>
+						</div>
+						<div className="flex flex-col sm:flex-row gap-4 justify-around items-center py-3 w-full">
+							<div className="flex flex-col gap-1 flex-grow w-full">
+								<Label value="State" />
+								<TextInput
+									className="flex-grow w-full"
+									type="text"
+									placeholder="State"
+									value={formData.state}
+									onChange={(e) =>
+										setFormData({ ...formData, state: e.target.value })
+									}
+									disabled={loading || imageUploading}
+									required
+								/>
+							</div>
+							<div className="flex flex-col gap-1 w-full md:w-auto">
+								<Label value="Country" />
+								<Select
+									disabled={loading || imageUploading}
+									className="w-full lg:w-64"
+									required
+									value={formData.country}
+									onChange={(e) =>
+										setFormData({ ...formData, country: e.target.value })
+									}>
+									<option value="">Seleccione un país</option>
+									{countryOptions.map((country, index) => (
+										<option key={index} value={country}>
+											{country}
+										</option>
+									))}
+								</Select>
 							</div>
 						</div>
 						{/* <div className="w-full">

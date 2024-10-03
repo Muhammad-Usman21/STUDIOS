@@ -42,10 +42,10 @@ const studioSchema = new mongoose.Schema(
 			required: true,
 		},
 		facility: {
-			remote: { type: String },
-			parking: { type: String },
-			wifi: { type: String },
-			air: { type: String },
+			remote: { type: Boolean, default: false },
+			parking: { type: Boolean, default: false },
+			wifi: { type: Boolean, default: false },
+			air: { type: Boolean, default: false },
 		},
 		socialMedia: {
 			instagram: { type: String },

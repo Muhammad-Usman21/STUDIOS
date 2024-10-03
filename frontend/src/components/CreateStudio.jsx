@@ -9,6 +9,7 @@ import {
 	Table,
 	Textarea,
 	TextInput,
+	ToggleSwitch,
 } from "flowbite-react";
 import { useState } from "react";
 import {
@@ -40,6 +41,12 @@ const CreateStudio = () => {
 			latitude: -12,
 			longitude: -77,
 		},
+		facility: {
+			remote: false,
+			wifi: false,
+			air: false,
+			parking: false,
+		},
 	});
 	const [imageName, setImageName] = useState("");
 	const [file, setFile] = useState(null);
@@ -63,6 +70,18 @@ const CreateStudio = () => {
 		e.preventDefault();
 		setStudioErrorMsg(null);
 		setLoading(true);
+
+		if (!formData.type || formData.type === "") {
+			setLoading(false);
+			setStudioErrorMsg("Type of Studio is required.");
+			return;
+		}
+
+		if (!formData.country || formData.country === "") {
+			setLoading(false);
+			setStudioErrorMsg("Country is required.");
+			return;
+		}
 
 		if (
 			!formData.title ||
@@ -225,7 +244,7 @@ const CreateStudio = () => {
 				</h1>
 				<form className={`flex py-5 flex-col gap-6`} onSubmit={handleSubmit}>
 					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-						<div className="flex gap-2 sm:flex-row flex-col sm:items-center justify-center px-3 pt-3">
+						<div className="flex gap-2 sm:flex-row flex-col sm:items-center justify-center pt-3">
 							<Label value="Title" />
 							<TextInput
 								className="flex-grow w-full"
@@ -238,7 +257,7 @@ const CreateStudio = () => {
 								required
 							/>
 						</div>
-						<div className="flex gap-2 sm:flex-row flex-col sm:items-center justify-center px-3">
+						<div className="flex gap-2 sm:flex-row flex-col sm:items-center justify-center">
 							<FaCalendarAlt className="text-2xl" />
 							<TextInput
 								className="flex-grow w-full md:ml-1"
@@ -251,7 +270,7 @@ const CreateStudio = () => {
 								required
 							/>
 						</div>
-						<div className="flex flex-col gap-2 sm:items-center justify-center p-3">
+						<div className="flex flex-col gap-2 sm:items-center justify-center py-3">
 							<Label value="Description" />
 							<Textarea
 								className=""
@@ -264,8 +283,8 @@ const CreateStudio = () => {
 								required
 							/>
 						</div>
-						<div className="flex flex-col gap-1 w-full md:w-auto">
-							<Label value="Type" />
+						<div className="flex flex-col w-full lg:w-auto self-center gap-2">
+							<Label value="Type" className="self-center" />
 							<Select
 								disabled={loading || imageUploading}
 								className="w-full lg:w-64"
@@ -276,14 +295,71 @@ const CreateStudio = () => {
 								<option value="">Select a type</option>
 								<option value="music">Music Studio</option>
 								<option value="recording">Recording Studio</option>
-								<option value="postcard">Postcard Studio</option>
+								<option value="podcast">Podcast Studio</option>
 								<option value="rehersal">Rehersal Studio</option>
 							</Select>
+						</div>
+
+						<Label value="Facilities" className="self-center mt-5" />
+						<div className="flex flex-col md:flex-row gap-2 md:flex-wrap md:justify-between lg:justify-around my-1">
+							<ToggleSwitch
+								// className="focus:ring-1"
+								checked={formData.facility.remote}
+								label="Remote Recording via Zoom"
+								onChange={() =>
+									setFormData({
+										...formData,
+										facility: {
+											...formData.facility,
+											remote: !formData.facility.remote,
+										},
+									})
+								}
+							/>
+							<ToggleSwitch
+								checked={formData.facility.wifi}
+								label="WiFi"
+								onChange={() =>
+									setFormData({
+										...formData,
+										facility: {
+											...formData.facility,
+											wifi: !formData.facility.wifi,
+										},
+									})
+								}
+							/>
+							<ToggleSwitch
+								checked={formData.facility.air}
+								label="Air Conditioning"
+								onChange={() =>
+									setFormData({
+										...formData,
+										facility: {
+											...formData.facility,
+											air: !formData.facility.air,
+										},
+									})
+								}
+							/>
+							<ToggleSwitch
+								checked={formData.facility.parking}
+								label="Parking"
+								onChange={() =>
+									setFormData({
+										...formData,
+										facility: {
+											...formData.facility,
+											parking: !formData.facility.parking,
+										},
+									})
+								}
+							/>
 						</div>
 					</div>
 
 					<div className="flex flex-col justify-around items-center bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 dark:shadow-whiteLg">
-						<div className="flex sm:flex-row flex-col gap-2 sm:items-center justify-center w-full p-3">
+						<div className="flex sm:flex-row flex-col gap-2 sm:items-center justify-center w-full py-3">
 							<Label value="Phone Number" className="w-32" />
 							<TextInput
 								className="flex-grow w-full"
@@ -295,7 +371,7 @@ const CreateStudio = () => {
 								disabled={loading || imageUploading}
 							/>
 						</div>
-						<div className="flex flex-col sm:flex-row gap-4 justify-around items-center p-3 w-full">
+						<div className="flex flex-col sm:flex-row gap-4 justify-around items-center py-3 w-full">
 							<div className="flex flex-col gap-1 flex-grow w-full">
 								<Label value="Address" />
 								<TextInput
@@ -323,7 +399,7 @@ const CreateStudio = () => {
 								/>
 							</div>
 						</div>
-						<div className="flex flex-col sm:flex-row gap-4 justify-around items-center p-3 w-full">
+						<div className="flex flex-col sm:flex-row gap-4 justify-around items-center py-3 w-full">
 							<div className="flex flex-col gap-1 flex-grow w-full">
 								<Label value="State" />
 								<TextInput
