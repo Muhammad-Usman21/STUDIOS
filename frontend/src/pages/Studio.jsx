@@ -32,16 +32,16 @@ const Studio = () => {
 							<img
 								src={studio.images[0].url}
 								alt={studio.name}
-								className="w-full md:h-96 object-cover rounded-lg md:min-w-[300px] mx-auto"
+								className="w-full object-cover rounded-lg md:min-w-[300px] mx-auto"
 							/>
 							<h1 className="text-2xl lg:text-4xl font-bold text-center">
 								{studio.title}
 							</h1>
 							<p className="text-lg lg:text-xl text-center">
 								<FaLocationDot className="inline-block" />{" "}
-								{studio.address + ", " + studio.city}
+								{studio.address + ", " + studio.city + ", " + studio.state + ", " + studio.country} 
 							</p>
-							<Booking calendarUrl={studio.calendarUrl} />
+							<Booking calendarUrl={studio.calendarUrl} price={studio.price}/>
 						</div>
 
 						{/* Tab Navigation */}

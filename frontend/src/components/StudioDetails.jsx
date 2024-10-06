@@ -7,7 +7,10 @@ import {
 	FaTwitter,
 	FaEnvelope,
 	FaPhone,
+	FaWifi,
+	FaParking,
 } from "react-icons/fa";
+import { RiBaseStationLine, RiTempColdLine } from "react-icons/ri";
 
 const StudioDetails = ({ studio }) => {
 	return (
@@ -15,6 +18,38 @@ const StudioDetails = ({ studio }) => {
 			<div
 				className="flex p-3 md:p-16 max-w-4xl w-full lg:mx-auto flex-col md:items-center gap-6 md:gap-10
 				bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
+				{/* Studio Facilities */}
+				<div className="w-full">
+					<h1 className="text-2xl font-semibold mb-2">Facilities:</h1>
+					<div className="flex flex-wrap justify-between">
+						{studio.facility.remote && (
+							<p className="">
+								<RiBaseStationLine className="inline-block mx-3" />
+								Remote
+							</p>
+						)}
+						{studio.facility.parking && (
+							<p className=" ">
+								<FaParking className="inline-block mx-3" />
+								Parking
+							</p>
+						)}
+						{studio.facility.wifi && (
+							<p className="">
+								<FaWifi className="inline-block mx-3" />Wifi
+							</p>
+						)}
+						{studio.facility.air && (
+							<p className="">
+								<RiTempColdLine className="inline-block mx-3" />
+								Air Conditioned
+							</p>
+						)}
+					</div>
+				</div>
+
+
+
 				{/* Studio Description */}
 				<div className="w-full">
 					<h1 className="text-2xl font-semibold mb-2">Description:</h1>
