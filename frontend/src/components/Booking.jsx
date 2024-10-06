@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const Booking = ({ calendarUrl }) => {
+const Booking = ({ calendarUrl, price }) => {
     // Get the current theme from the Redux store
     useEffect(() => {
         // Load the Google Calendar Scheduling script
@@ -21,7 +21,7 @@ const Booking = ({ calendarUrl }) => {
                 window.calendar.schedulingButton.load({
                     url: calendarUrl,
                     color: "#039BE5",
-                    label: 'Book an appointment',
+                    label: `Book an appointment ($${price}/hour)`,
                     target: document.getElementById('appointment-button'),
                 });
             }
