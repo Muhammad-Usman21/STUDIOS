@@ -128,7 +128,7 @@ const Home = () => {
 								className="flex-grow"
 								type="text"
 								name="searchTerm"
-								placeholder="Search by Title or Address"
+								placeholder="Search"
 								value={formData.searchTerm}
 								onChange={handleChange}
 							/>

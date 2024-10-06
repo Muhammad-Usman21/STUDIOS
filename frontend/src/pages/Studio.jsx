@@ -27,7 +27,7 @@ const Studio = () => {
 				{studio ? (
 					<>
 						<div
-							className="flex py-3 md:py-5 w-full p-3 md:p-16 max-w-4xl mx-5 sm:mx-10 md:mx-20 lg:mx-auto flex-col md:items-center gap-2 md:gap-5
+							className="flex py-3 md:py-10 w-full p-3 md:p-16 max-w-4xl mx-5 sm:mx-10 md:mx-20 lg:mx-auto flex-col md:items-center gap-2 md:gap-5
 				bg-transparent backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
 							<img
 								src={studio.images[0].url}
@@ -37,11 +37,28 @@ const Studio = () => {
 							<h1 className="text-2xl lg:text-4xl font-bold text-center">
 								{studio.title}
 							</h1>
+							<h1 className="text-xl lg:text-3xl font-semibold text-center">
+								{studio.type === "music"
+									? "Music Studio"
+									: studio.type === "recording"
+									? "Recording Studio"
+									: studio.type === "podcast"
+									? "Podcast Studio"
+									: studio.type === "rehersal"
+									? "Rehersal Studio"
+									: ""}
+							</h1>
 							<p className="text-lg lg:text-xl text-center">
 								<FaLocationDot className="inline-block" />{" "}
-								{studio.address + ", " + studio.city + ", " + studio.state + ", " + studio.country} 
+								{studio.address +
+									", " +
+									studio.city +
+									", " +
+									studio.state +
+									", " +
+									studio.country}
 							</p>
-							<Booking calendarUrl={studio.calendarUrl} price={studio.price}/>
+							<Booking calendarUrl={studio.calendarUrl} price={studio.price} />
 						</div>
 
 						{/* Tab Navigation */}

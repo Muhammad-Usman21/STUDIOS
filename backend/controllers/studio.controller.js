@@ -18,10 +18,11 @@ export const search = async (req, res) => {
 			searchQuery = {
 				...searchQuery,
 				$or: [
-					{ city: { $regex: searchTerm, $options: "i" } },
-					{ description: { $regex: searchTerm, $options: "i" } },
 					{ title: { $regex: searchTerm, $options: "i" } },
+					{ type: { $regex: searchTerm, $options: "i" } },
+					{ description: { $regex: searchTerm, $options: "i" } },
 					{ address: { $regex: searchTerm, $options: "i" } },
+					{ city: { $regex: searchTerm, $options: "i" } },
 					{ state: { $regex: searchTerm, $options: "i" } },
 					{ country: { $regex: searchTerm, $options: "i" } },
 				],
@@ -73,6 +74,7 @@ export const createStudio = async (req, res) => {
 		city,
 		state,
 		country,
+		price,
 		type,
 		facility,
 		socialMedia,
@@ -101,6 +103,7 @@ export const createStudio = async (req, res) => {
 			city,
 			state,
 			country,
+			price,
 			type,
 			facility,
 			socialMedia,
@@ -140,6 +143,7 @@ export const editStudio = async (req, res) => {
 		city,
 		state,
 		country,
+		price,
 		facility,
 		type,
 		socialMedia,
@@ -171,6 +175,7 @@ export const editStudio = async (req, res) => {
 		if (calendarUrl) existingStudio.calendarUrl = calendarUrl;
 		if (location) existingStudio.location = location;
 		if (description) existingStudio.description = description;
+		if (price) existingStudio.price = price;
 
 		// Save the updated studio
 		await existingStudio.save();

@@ -100,6 +100,7 @@ const EditStudio = () => {
 			!formData.description ||
 			!formData.address ||
 			!formData.city ||
+			!formData.price ||
 			formData.images.length === 0 ||
 			!formData.location.latitude ||
 			!formData.location.longitude
@@ -317,22 +318,39 @@ const EditStudio = () => {
 								value={formData.description}
 							/>
 						</div>
-						<div className="flex flex-col w-full lg:w-auto self-center gap-2">
-							<Label value="Type" className="self-center" />
-							<Select
-								disabled={loading || imageUploading}
-								className="w-full lg:w-64"
-								required
-								value={formData.type}
-								onChange={(e) =>
-									setFormData({ ...formData, type: e.target.value })
-								}>
-								<option value="">Select a type</option>
-								<option value="music">Music Studio</option>
-								<option value="recording">Recording Studio</option>
-								<option value="podcast">Podcast Studio</option>
-								<option value="rehersal">Rehersal Studio</option>
-							</Select>
+						<div className="flex flex-col lg:flex-row w-full lg:w-auto justify-around gap-3">
+							<div className="flex flex-col w-full lg:w-auto gap-1">
+								<Label value="Type" className="" />
+								<Select
+									disabled={loading || imageUploading}
+									className="w-full lg:w-64"
+									required
+									value={formData.type}
+									onChange={(e) =>
+										setFormData({ ...formData, type: e.target.value })
+									}>
+									<option value="">Select a type</option>
+									<option value="music">Music Studio</option>
+									<option value="recording">Recording Studio</option>
+									<option value="podcast">Podcast Studio</option>
+									<option value="rehersal">Rehersal Studio</option>
+								</Select>
+							</div>
+							<div className="flex flex-col w-full lg:w-auto gap-1">
+								<Label value="Price ($) per Hour" className="" />
+								<TextInput
+									className="flex-grow w-full md:ml-1"
+									type="number"
+									placeholder=""
+									value={formData.price}
+									min={0}
+									onChange={(e) =>
+										setFormData({ ...formData, price: e.target.value })
+									}
+									disabled={loading || imageUploading}
+									required
+								/>
+							</div>
 						</div>
 
 						<Label value="Facilities" className="self-center mt-5" />

@@ -19,7 +19,9 @@ const StudioCard = ({ studio }) => {
 								/>
 							</div>
 							<div className="absolute bottom-[15%] z-20 w-full flex flex-col gap-2 py-3 items-center justify-center bg-black bg-opacity-90 p-2 font-serif text-white dark:text-white">
-								<span className="text-3xl">{studio.title}</span>
+								<span className="text-3xl items-center text-center">
+									{studio.title}
+								</span>
 								<span className="text-sm flex gap-1 items-center">
 									<span className="">
 										<FaLocationDot />

@@ -41,6 +41,10 @@ const studioSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		price: {
+			type: Number,
+			required: true,
+		},
 		facility: {
 			remote: { type: Boolean, default: false },
 			parking: { type: Boolean, default: false },

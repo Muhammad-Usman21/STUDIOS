@@ -21,34 +21,33 @@ const StudioDetails = ({ studio }) => {
 				{/* Studio Facilities */}
 				<div className="w-full">
 					<h1 className="text-2xl font-semibold mb-2">Facilities:</h1>
-					<div className="flex flex-wrap justify-between">
+					<div className="flex flex-col sm:flex-row sm:flex-wrap justify-between gap-1">
 						{studio.facility.remote && (
 							<p className="">
-								<RiBaseStationLine className="inline-block mx-3" />
-								Remote
+								<RiBaseStationLine className="inline-block mr-3" />
+								Remote Recording via Zoom
+							</p>
+						)}
+						{studio.facility.air && (
+							<p className="">
+								<RiTempColdLine className="inline-block mr-3" />
+								Air Conditioned
 							</p>
 						)}
 						{studio.facility.parking && (
 							<p className=" ">
-								<FaParking className="inline-block mx-3" />
+								<FaParking className="inline-block mr-3" />
 								Parking
 							</p>
 						)}
 						{studio.facility.wifi && (
 							<p className="">
-								<FaWifi className="inline-block mx-3" />Wifi
-							</p>
-						)}
-						{studio.facility.air && (
-							<p className="">
-								<RiTempColdLine className="inline-block mx-3" />
-								Air Conditioned
+								<FaWifi className="inline-block mr-3" />
+								WiFi
 							</p>
 						)}
 					</div>
 				</div>
-
-
 
 				{/* Studio Description */}
 				<div className="w-full">
