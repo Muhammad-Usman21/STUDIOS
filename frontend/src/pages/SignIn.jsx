@@ -118,9 +118,7 @@ const SignIn = () => {
 							alt="logo"
 							className="object-cover h-6 sm:h-8"
 						/> */}
-						<span className="ml-1 text-3xl sm:ml-2 md:text-5xl">
-							STUDIO
-						</span>
+						<span className="ml-1 text-3xl sm:ml-2 md:text-5xl">STUDIO</span>
 					</Link>
 					<div className="w-full flex flex-col gap-1 text-center">
 						<span className="text-center">

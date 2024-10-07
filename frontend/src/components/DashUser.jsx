@@ -98,7 +98,8 @@ const DashUser = () => {
 				setImageFileUploading(false);
 				setMyMessages((prevMessages) => ({
 					...prevMessages,
-					imageFileErrorMsg: "El tamaño de la imagen debe ser inferior a 5 MB.!",
+					imageFileErrorMsg:
+						"El tamaño de la imagen debe ser inferior a 5 MB.!",
 				}));
 				return;
 			}
@@ -419,7 +420,8 @@ const DashUser = () => {
 			await sendPasswordResetEmail(auth, currentUser.email);
 			setMyMessages((prevMessages) => ({
 				...prevMessages,
-				changePasswordMsg: "Correo electrónico enviado para cambiar contraseña! Revisa tu bandeja de entrada.",
+				changePasswordMsg:
+					"Correo electrónico enviado para cambiar contraseña! Revisa tu bandeja de entrada.",
 			}));
 			setChangePasswordLoading(false);
 		} catch (error) {
@@ -569,7 +571,7 @@ const DashUser = () => {
 					Cambiar la contraseña
 				</Button>
 
-				{!currentUser.isSpeaker && (
+				{/* {!currentUser.isSpeaker && (
 					<Link to={"/dashboard?tab=studio"}>
 						<Button
 							type="button"
@@ -578,7 +580,7 @@ const DashUser = () => {
 							Conviértete en orador
 						</Button>
 					</Link>
-				)}
+				)} */}
 
 				{/* <div className="text-red-500 flex justify-between my-3 mx-1">
 					<span onClick={() => setShowModal(true)} className="cursor-pointer ">
@@ -642,7 +644,7 @@ const DashUser = () => {
 							<div className="flex items-center mb-8 gap-8 self-center">
 								<HiOutlineExclamationCircle className="h-14 w-14 text-gray-500 dark:text-gray-200" />
 								<span className="text-2xl text-gray-600 dark:text-gray-200">
-								Eliminar cuenta
+									Eliminar cuenta
 								</span>
 							</div>
 							{!currentUser.googleAuth && (
@@ -664,7 +666,7 @@ const DashUser = () => {
 								</div>
 							)}
 							<h3 className="my-5 text-lg text-gray-600 dark:text-gray-300">
-							¿Estás seguro de que quieres eliminar tu cuenta?
+								¿Estás seguro de que quieres eliminar tu cuenta?
 							</h3>
 							<div className="flex justify-around">
 								<Button

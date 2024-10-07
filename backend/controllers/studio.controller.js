@@ -36,7 +36,7 @@ export const search = async (req, res) => {
 		// Fetch studios from the database
 		const studios = await Studio.find(searchQuery)
 			.select("_id title address city images")
-			.sort({ updatedAt: sort })
+			.sort({ createdAt: sort })
 			.skip(parseInt(startIndex))
 			.limit(parseInt(limit));
 

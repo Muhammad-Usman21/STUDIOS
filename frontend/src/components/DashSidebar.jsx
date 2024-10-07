@@ -46,13 +46,13 @@ const DashSidebar = () => {
 				<Sidebar.ItemGroup className="flex flex-col">
 					<Link to="/dashboard?tab=user">
 						<Sidebar.Item active={tab === "user"} icon={HiUser} as="div">
-						Usuario
+							Usuario
 						</Sidebar.Item>
 					</Link>
 					{currentUser.isAdmin && (
 						<Link to="/dashboard?tab=admin">
 							<Sidebar.Item active={tab === "admin"} icon={HiUser} as="div">
-							Administrador
+								Administrador
 							</Sidebar.Item>
 						</Link>
 					)}

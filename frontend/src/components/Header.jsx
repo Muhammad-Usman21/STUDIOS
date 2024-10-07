@@ -65,7 +65,12 @@ const Header = () => {
 						inline
 						label={
 							// <Avatar img={currentUser.profilePicture} alt="user" rounded/>
-							<img src={currentUser.profilePicture} alt="user" className="w-10 h-10 rounded-full" referrerPolicy="no-referrer"/>
+							<img
+								src={currentUser.profilePicture}
+								alt="user"
+								className="w-10 h-10 rounded-full object-cover items-center"
+								referrerPolicy="no-referrer"
+							/>
 						}>
 						<Dropdown.Header>
 							<span className="block text-sm">{currentUser.name}</span>

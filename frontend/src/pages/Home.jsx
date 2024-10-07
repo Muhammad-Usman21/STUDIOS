@@ -111,7 +111,7 @@ const Home = () => {
 			<div
 				id="search"
 				className="max-w-7xl mx-3 sm:mx-5 lg:mx-auto items-center justify-center flex flex-col gap-12 lg:gap-24 py-10 lg:py-24">
-				<div className="flex flex-col items-center justify-center gap-4 md:gap-8 p-5 md:p-10 bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
+				{/* <div className="flex flex-col items-center justify-center gap-4 md:gap-8 p-5 md:p-10 bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
 					<span className="text-2xl md:text-4xl text-center">
 						Capture Your Creative Moments
 					</span>
@@ -123,6 +123,58 @@ const Home = () => {
 						today.
 					</span>
 					<div className="flex flex-col gap-2 md:gap-4 w-full">
+						<div className="flex flex-col md:flex-row gap-2 md:gap-4">
+							<TextInput
+								className="flex-grow"
+								type="text"
+								name="searchTerm"
+								placeholder="Search"
+								value={formData.searchTerm}
+								onChange={handleChange}
+							/>
+
+							<Select
+								className="w-full md:w-48"
+								value={formData.country}
+								onChange={(e) =>
+									setFormData({ ...formData, country: e.target.value })
+								}>
+								<option value="" disabled>
+									Seleccione un país
+								</option>
+								<option value="all">Todos los países</option>
+								{countryOptions.map((country, index) => (
+									<option key={index} value={country}>
+										{country}
+									</option>
+								))}
+							</Select>
+							<Select
+								className="w-full md:w-36"
+								value={formData.sort}
+								onChange={(e) =>
+									setFormData({ ...formData, sort: e.target.value })
+								}>
+								<option value="desc">El último</option>
+								<option value="asc">más antiguo</option>
+							</Select>
+							<Button
+								className="w-full md:w-36 focus:ring-1"
+								gradientDuoTone={"purpleToPink"}
+								onClick={handleSearch}>
+								Search
+							</Button>
+						</div>
+					</div>
+				</div> */}
+
+				<div
+					className="flex flex-col w-full items-center justify-center gap-6 lg:gap-10 p-3 lg:p-10 mb-10 
+				bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
+					<span className="text-lg md:text-2xl text-center font-semibold">
+						Book Your Studio in Seconds!
+					</span>
+					<div className="flex flex-col gap-2 md:gap-4 w-full max-w-4xl">
 						<div className="flex flex-col md:flex-row gap-2 md:gap-4">
 							<TextInput
 								className="flex-grow"
@@ -169,7 +221,7 @@ const Home = () => {
 								<option value="sunday">Sunday</option>
 							</Select> */}
 							<Select
-								className="w-48"
+								className="w-full md:w-48"
 								value={formData.country}
 								onChange={(e) =>
 									setFormData({ ...formData, country: e.target.value })
@@ -201,12 +253,7 @@ const Home = () => {
 							</Button>
 						</div>
 					</div>
-				</div>
-
-				<div
-					className="flex flex-col w-full items-center justify-center gap-6 lg:gap-10 p-3 lg:p-10 mb-10 
-				bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
-					<h1 className="font-semibold text-center text-3xl">
+					<h1 className="font-semibold text-center text-lg md:text-3xl ">
 						Resultados de la búsqueda
 					</h1>
 					{searchResults.length > 0 && (

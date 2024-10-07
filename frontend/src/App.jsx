@@ -16,7 +16,6 @@ import Privacy from "./pages/Privacy";
 import Legal from "./pages/Legal";
 import Practice from "./pages/Practice";
 
-
 function App() {
 	return (
 		<>

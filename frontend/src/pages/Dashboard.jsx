@@ -27,9 +27,7 @@ const Dashboard = () => {
 			</div>
 			{tab === "user" && <DashUser />}
 			{tab === "studio" && <CreateStudio />}
-			{currentUser.isStudio && tab === "edit-studio" && (
-				<EditStudio />
-			)}
+			{currentUser.isStudio && tab === "edit-studio" && <EditStudio />}
 			{currentUser.isAdmin && tab === "admin" && <DashAdmin />}
 		</div>
 	);

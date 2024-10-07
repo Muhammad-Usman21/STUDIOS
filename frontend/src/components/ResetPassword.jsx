@@ -38,7 +38,9 @@ const ResetPassword = () => {
 				setIsCodeValid(true);
 			} catch (error) {
 				console.error("Invalid or expired password reset code:", error.message);
-				setError("Enlace de restablecimiento de contraseña no válido o caducado.");
+				setError(
+					"Enlace de restablecimiento de contraseña no válido o caducado."
+				);
 			}
 		};
 		if (oobCode) {
@@ -71,7 +73,9 @@ const ResetPassword = () => {
 			navigate("/"); // Redirect to login page or other appropriate page
 		} catch (error) {
 			console.error("Error resetting password:", error.message);
-			setError("No se pudo restablecer la contraseña. Por favor inténtalo de nuevo.");
+			setError(
+				"No se pudo restablecer la contraseña. Por favor inténtalo de nuevo."
+			);
 		}
 	};
 
