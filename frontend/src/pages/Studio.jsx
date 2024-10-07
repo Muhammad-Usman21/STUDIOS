@@ -32,7 +32,7 @@ const Studio = () => {
 							<img
 								src={studio.images[0].url}
 								alt={studio.name}
-								className="w-full object-cover rounded-lg md:min-w-[300px] mx-auto"
+								className="w-full object-cover rounded-lg md:min-w-[300px] h-[200px] md:h-[400px] mx-auto"
 							/>
 							<h1 className="text-2xl lg:text-4xl font-bold text-center">
 								{studio.title}
@@ -68,7 +68,7 @@ const Studio = () => {
 							<button
 								className={`px-5 py-2 text-lg max-w-64 md:max-w-40 w-full font-semibold transition-colors duration-200 bg-slate-400 rounded-3xl ${
 									activeTab === "details"
-										? "border-b-4 border-red-500"
+										? "border-b-4 border-blue-500"
 										: "text-gray-500"
 								}`}
 								onClick={() => setActiveTab("details")}>
@@ -77,7 +77,7 @@ const Studio = () => {
 							<button
 								className={`px-5 py-2 text-lg max-w-64 md:max-w-40 w-full font-semibold transition-colors duration-200 bg-slate-400 rounded-3xl ${
 									activeTab === "comments"
-										? "border-b-4 border-red-500"
+										? "border-b-4 border-blue-500"
 										: "text-gray-500"
 								}`}
 								onClick={() => setActiveTab("comments")}>
@@ -86,7 +86,7 @@ const Studio = () => {
 							<button
 								className={`px-5 py-2 text-lg max-w-64 md:max-w-40 w-full font-semibold transition-colors duration-200 bg-slate-400 rounded-3xl ${
 									activeTab === "portfolio"
-										? "border-b-4 border-red-500"
+										? "border-b-4 border-blue-500"
 										: "text-gray-500"
 								}`}
 								onClick={() => setActiveTab("portfolio")}>

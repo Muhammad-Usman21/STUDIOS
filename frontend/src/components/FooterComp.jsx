@@ -66,7 +66,7 @@ const FooterComp = () => {
 						</div>
 					</div>
 				</div>
-				<hr className="border-gray-500" />
+				<hr className="border-gray-500 mt-4 md:mt-0" />
 				<div className="flex flex-col justify-center items-center gap-4 sm:flex-row sm:justify-between sm:px-2 mt-4">
 					{/* <Select
 						className="w-full md:w-36"

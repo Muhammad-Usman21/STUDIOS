@@ -9,7 +9,7 @@ const Portfolio = ({ images }) => {
 						<img
 							src={image.url}
 							alt={image.name}
-							className="w-full md:h-96 object-cover rounded-lg"
+							className="w-full object-cover rounded-lg"
 						/>
 						<p className="text-sm lg:text-lg my-2 text-center">{image.name}</p>
 						<hr className="border-black dark:border-white" />
