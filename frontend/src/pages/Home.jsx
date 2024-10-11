@@ -1,15 +1,19 @@
-import { useState, useEffect } from "react";
-import { Button, Select, TextInput } from "flowbite-react";
+import { useState, useEffect, useRef } from "react";
+import { Button, Select, TextInput, Checkbox } from "flowbite-react";
 import { useLocation, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory
 import StudioCard from "../components/StudioCard";
 import homeLight from "../public/home-light5.png";
 import { countries } from "countries-list";
 
+const benefitsOptions = ["wifi", "parking", "air", "remote"];
 const Home = () => {
 	const [formData, setFormData] = useState({
 		searchTerm: "",
 		sort: "desc",
 		country: "",
+		minPrice: "",
+		maxPrice: "",
+		benefits: [],
 	});
 	const [showMore, setShowMore] = useState(true);
 	const [searchResults, setSearchResults] = useState([]);
@@ -33,10 +37,18 @@ const Home = () => {
 		const searchTerm = params.get("searchTerm") || "";
 		const sort = params.get("sort") || "desc";
 		const country = params.get("country") || "";
+		const minPrice = params.get("minPrice") || "";
+		const maxPrice = params.get("maxPrice") || "";
+		const benefitList = params.getAll("benefits") || [];
+		let benefits = [];
 
-		setFormData({ searchTerm, sort, country });
+		if(benefitList.length > 0) {
+			benefits= benefitList[0].split(",").map((benefit) => benefit.trim()).filter((benefit) => benefit !== "");
+		}
+		
+		setFormData({ searchTerm, sort, country, minPrice, maxPrice, benefits });
 
-		fetchSearchResults({ searchTerm, sort, country });
+		fetchSearchResults({ searchTerm, sort, country, minPrice, maxPrice, benefits });
 	}, [location]);
 
 	const fetchSearchResults = async (searchData) => {
@@ -74,6 +86,35 @@ const Home = () => {
 			console.error("Error fetching more search results:", error);
 		}
 	};
+	const [dropdownOpen, setDropdownOpen] = useState(false);
+	const dropdownRef = useRef(null);
+
+	// Handle checkbox changes for benefits
+	const handleCheckboxChange = (e) => {
+		const { value, checked } = e.target;
+		setFormData((prevFormData) => {
+			if (checked) {
+				// Add the benefit if checked
+				return { ...prevFormData, benefits: [...prevFormData.benefits, value] };
+			} else {
+				// Remove the benefit if unchecked
+				return { ...prevFormData, benefits: prevFormData.benefits.filter((benefit) => benefit !== value) };
+			}
+		});
+	};
+
+	// Close dropdown if clicked outside
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+				setDropdownOpen(false);
+			}
+		};
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, []);
 
 	return (
 		<div className="min-h-screen w-full">
@@ -174,7 +215,7 @@ const Home = () => {
 					<span className="text-lg md:text-2xl text-center font-semibold">
 						Book Your Studio in Seconds!
 					</span>
-					<div className="flex flex-col gap-2 md:gap-4 w-full max-w-4xl">
+					<div className="flex flex-col gap-2 md:gap-4 w-full">
 						<div className="flex flex-col md:flex-row gap-2 md:gap-4">
 							<TextInput
 								className="flex-grow"
@@ -236,6 +277,48 @@ const Home = () => {
 									</option>
 								))}
 							</Select>
+							<TextInput
+								type="number"
+								name="minPrice"
+								placeholder="Min Price"
+								value={formData.price}
+								onChange={handleChange}
+							/>
+							<TextInput
+								type="number"
+								name="maxPrice"
+								placeholder="Max Price"
+								value={formData.price}
+								onChange={handleChange}
+							/>
+							<div className="dropdown" ref={dropdownRef}>
+								<button
+									type="button"
+									onClick={() => setDropdownOpen(!dropdownOpen)}
+									className="w-40 h-10 border rounded-lg border-white bg-[#d8e2f3] dark:bg-[#010e16] dark:border-gray-600 flex items-center justify-between px-2"
+								>
+									Select Benefits..
+									<span className="ml-2">&#9660;</span> {/* Dropdown arrow */}
+								</button>
+								{dropdownOpen && (
+									<div className="dropdown-menu absolute mt-1 w-40 bg-white dark:bg-[#010e16] border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-10">
+										{benefitsOptions.map((benefit) => (
+											<label key={benefit} className="dropdown-item flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer">
+												<input
+													type="checkbox"
+													value={benefit}
+													checked={formData.benefits.includes(benefit)}
+													onChange={handleCheckboxChange}
+													className="mr-2 checked:!bg-blue-800 focus:ring-0 focus:ring-offset-0"
+												/>
+												{benefit !== "air" ? benefit : "Air Conditioning"}
+											</label>
+										))}
+									</div>
+								)}
+							</div>
+
+
 							<Select
 								className="w-full md:w-36"
 								value={formData.sort}
