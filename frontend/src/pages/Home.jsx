@@ -42,13 +42,23 @@ const Home = () => {
 		const benefitList = params.getAll("benefits") || [];
 		let benefits = [];
 
-		if(benefitList.length > 0) {
-			benefits= benefitList[0].split(",").map((benefit) => benefit.trim()).filter((benefit) => benefit !== "");
+		if (benefitList.length > 0) {
+			benefits = benefitList[0]
+				.split(",")
+				.map((benefit) => benefit.trim())
+				.filter((benefit) => benefit !== "");
 		}
-		
+
 		setFormData({ searchTerm, sort, country, minPrice, maxPrice, benefits });
 
-		fetchSearchResults({ searchTerm, sort, country, minPrice, maxPrice, benefits });
+		fetchSearchResults({
+			searchTerm,
+			sort,
+			country,
+			minPrice,
+			maxPrice,
+			benefits,
+		});
 	}, [location]);
 
 	const fetchSearchResults = async (searchData) => {
@@ -98,7 +108,12 @@ const Home = () => {
 				return { ...prevFormData, benefits: [...prevFormData.benefits, value] };
 			} else {
 				// Remove the benefit if unchecked
-				return { ...prevFormData, benefits: prevFormData.benefits.filter((benefit) => benefit !== value) };
+				return {
+					...prevFormData,
+					benefits: prevFormData.benefits.filter(
+						(benefit) => benefit !== value
+					),
+				};
 			}
 		});
 	};
@@ -216,124 +231,101 @@ const Home = () => {
 						Book Your Studio in Seconds!
 					</span>
 					<div className="flex flex-col gap-2 md:gap-4 w-full">
-						<div className="flex flex-col md:flex-row gap-2 md:gap-4">
-							<TextInput
-								className="flex-grow"
-								type="text"
-								name="searchTerm"
-								placeholder="Search"
-								value={formData.searchTerm}
-								onChange={handleChange}
-							/>
-							{/* <TextInput
-								type="date"
-								value={formData.selectedDate}
-								onChange={(event) => {
-									const selectedDate = event.target.value;
-
-									// Create a Date object from the selected date
-									const dateObj = new Date(selectedDate);
-
-									// Get the day of the week (0 = Sunday, 1 = Monday, etc.)
-									const dayOfWeek = dateObj.getDay();
-
-									// Set both the selectedDate and the dayOfWeek in formData
-									setFormData({
-										...formData,
-										// selectedDate: selectedDate,
-										// dayOfWeek: dayOfWeek,
-										selectedDate: dayOfWeek,
-									});
-								}}
-							/> */}
-							{/* <Select
-								className="w-full md:w-40"
-								value={formData.selectedDate}
-								onChange={(e) =>
-									setFormData({ ...formData, selectedDate: e.target.value })
-								}>
-								<option value="">Complete Week</option>
-								<option value="monday">Monday</option>
-								<option value="tuesday">Tuesday</option>
-								<option value="wednesday">Wednesday</option>
-								<option value="thursday">Thursday</option>
-								<option value="friday">Friday</option>
-								<option value="saturday">Saturday</option>
-								<option value="sunday">Sunday</option>
-							</Select> */}
-							<Select
-								className="w-full md:w-48"
-								value={formData.country}
-								onChange={(e) =>
-									setFormData({ ...formData, country: e.target.value })
-								}>
-								<option value="" disabled>
-									Seleccione un país
-								</option>
-								<option value="all">Todos los países</option>
-								{countryOptions.map((country, index) => (
-									<option key={index} value={country}>
-										{country}
-									</option>
-								))}
-							</Select>
-							<TextInput
-								type="number"
-								name="minPrice"
-								placeholder="Min Price"
-								value={formData.price}
-								onChange={handleChange}
-							/>
-							<TextInput
-								type="number"
-								name="maxPrice"
-								placeholder="Max Price"
-								value={formData.price}
-								onChange={handleChange}
-							/>
-							<div className="dropdown" ref={dropdownRef}>
-								<button
-									type="button"
-									onClick={() => setDropdownOpen(!dropdownOpen)}
-									className="w-40 h-10 border rounded-lg border-white bg-[#d8e2f3] dark:bg-[#010e16] dark:border-gray-600 flex items-center justify-between px-2"
-								>
-									Select Benefits..
-									<span className="ml-2">&#9660;</span> {/* Dropdown arrow */}
-								</button>
-								{dropdownOpen && (
-									<div className="dropdown-menu absolute mt-1 w-40 bg-white dark:bg-[#010e16] border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-10">
-										{benefitsOptions.map((benefit) => (
-											<label key={benefit} className="dropdown-item flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer">
-												<input
-													type="checkbox"
-													value={benefit}
-													checked={formData.benefits.includes(benefit)}
-													onChange={handleCheckboxChange}
-													className="mr-2 checked:!bg-blue-800 focus:ring-0 focus:ring-offset-0"
-												/>
-												{benefit !== "air" ? benefit : "Air Conditioning"}
-											</label>
-										))}
-									</div>
-								)}
+						<div className="flex flex-col gap-2 md:gap-4 max-w-5xl self-center">
+							<div className="flex flex-col md:flex-row gap-2 md:gap-4">
+								<TextInput
+									className="flex-grow"
+									type="text"
+									name="searchTerm"
+									placeholder="Search"
+									value={formData.searchTerm}
+									onChange={handleChange}
+								/>
+								<TextInput
+									type="number"
+									name="minPrice"
+									placeholder="Min Price"
+									min={0}
+									value={formData.minPrice}
+									onChange={handleChange}
+								/>
+								<TextInput
+									type="number"
+									name="maxPrice"
+									placeholder="Max Price"
+									value={formData.maxPrice}
+									min={formData.minPrice}
+									onChange={handleChange}
+								/>
 							</div>
-
-
-							<Select
-								className="w-full md:w-36"
-								value={formData.sort}
-								onChange={(e) =>
-									setFormData({ ...formData, sort: e.target.value })
-								}>
-								<option value="desc">El último</option>
-								<option value="asc">más antiguo</option>
-							</Select>
-							<Button
-								className="w-full md:w-36 focus:ring-1"
-								gradientDuoTone={"purpleToPink"}
-								onClick={handleSearch}>
-								Search
-							</Button>
+							<div className="flex flex-col md:flex-row gap-2 md:gap-4">
+								<div className="dropdown" ref={dropdownRef}>
+									<button
+										type="button"
+										onClick={() => setDropdownOpen(!dropdownOpen)}
+										className="w-full md:w-56 h-10 border rounded-lg border-white bg-[#d8e2f3] dark:bg-[#010e16] dark:border-gray-600 flex items-center justify-between px-2">
+										Select Facilities...
+										<span className="ml-2">&#9660;</span> {/* Dropdown arrow */}
+									</button>
+									{dropdownOpen && (
+										<div className="dropdown-menu absolute mt-1 w-full md:w-56 bg-white dark:bg-[#010e16] border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-10">
+											{benefitsOptions.map((benefit) => (
+												<label
+													key={benefit}
+													className="dropdown-item flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer">
+													<input
+														type="checkbox"
+														value={benefit}
+														checked={formData.benefits.includes(benefit)}
+														onChange={handleCheckboxChange}
+														className="mr-2 checked:!bg-blue-800 focus:ring-0 focus:ring-offset-0"
+													/>
+													{benefit === "remote"
+														? "Remote Recording"
+														: benefit === "air"
+														? "Air Conditioning"
+														: benefit === "parking"
+														? "Parking"
+														: benefit === "wifi"
+														? "WiFi"
+														: ""}
+												</label>
+											))}
+										</div>
+									)}
+								</div>
+								<Select
+									className="w-full md:w-56"
+									value={formData.country}
+									onChange={(e) =>
+										setFormData({ ...formData, country: e.target.value })
+									}>
+									<option value="" disabled>
+										Seleccione un país
+									</option>
+									<option value="all">Todos los países</option>
+									{countryOptions.map((country, index) => (
+										<option key={index} value={country}>
+											{country}
+										</option>
+									))}
+								</Select>
+								<Select
+									className="w-full md:w-36"
+									value={formData.sort}
+									onChange={(e) =>
+										setFormData({ ...formData, sort: e.target.value })
+									}>
+									<option value="desc">El último</option>
+									<option value="asc">más antiguo</option>
+								</Select>
+								<Button
+									className="w-full md:w-36 focus:ring-1"
+									gradientDuoTone={"purpleToPink"}
+									onClick={handleSearch}>
+									Search
+								</Button>
+							</div>
 						</div>
 					</div>
 					<h1 className="font-semibold text-center text-lg md:text-3xl ">
