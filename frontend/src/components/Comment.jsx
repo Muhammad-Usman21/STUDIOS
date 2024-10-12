@@ -70,7 +70,7 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
 								size="sm"
 								gradientDuoTone="purpleToBlue"
 								className="px-2 focus:ring-1">
-								Save
+								Ahorrar
 							</Button>
 							<Button
 								type="button"
@@ -79,7 +79,7 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
 								outline
 								onClick={() => setIsEdititng(false)}
 								className="focus:ring-1">
-								Cancel
+								Cancelar
 							</Button>
 						</div>
 					</form>
@@ -116,13 +116,13 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
 												type="button"
 												onClick={handleEdit}
 												className="dark:text-gray-300 text-gray-700 hover:text-blue-500 dark:hover:text-blue-500">
-												Edit
+												Editar
 											</button>
 											<button
 												type="button"
 												onClick={() => onDelete(comment._id)}
 												className="dark:text-gray-300 text-gray-700 hover:text-red-500 dark:hover:text-red-500">
-												Delete
+												Borrar
 											</button>
 										</div>
 									)}

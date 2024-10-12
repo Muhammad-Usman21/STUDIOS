@@ -39,13 +39,13 @@ const Studio = () => {
 							</h1>
 							<h1 className="text-xl lg:text-3xl font-semibold text-center">
 								{studio.type === "music"
-									? "Music Studio"
+									? "Estudio de música"
 									: studio.type === "recording"
-									? "Recording Studio"
+									? "Estudio de grabación"
 									: studio.type === "podcast"
-									? "Podcast Studio"
+									? "Estudio de podcasts"
 									: studio.type === "rehersal"
-									? "Rehersal Studio"
+									? "Estudio de ensayo"
 									: ""}
 							</h1>
 							<p className="text-lg lg:text-xl text-center">
@@ -72,7 +72,7 @@ const Studio = () => {
 										: "text-gray-500"
 								}`}
 								onClick={() => setActiveTab("details")}>
-								Details
+								Detalles
 							</button>
 							<button
 								className={`px-5 py-2 text-lg max-w-64 md:max-w-40 w-full font-semibold transition-colors duration-200 bg-slate-400 rounded-3xl ${
@@ -81,7 +81,7 @@ const Studio = () => {
 										: "text-gray-500"
 								}`}
 								onClick={() => setActiveTab("comments")}>
-								Comments
+								Comentarios
 							</button>
 							<button
 								className={`px-5 py-2 text-lg max-w-64 md:max-w-40 w-full font-semibold transition-colors duration-200 bg-slate-400 rounded-3xl ${

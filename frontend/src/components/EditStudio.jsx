@@ -85,13 +85,13 @@ const EditStudio = () => {
 
 		if (!formData.type || formData.type === "") {
 			setLoading(false);
-			setStudioErrorMsg("Type of Studio is required.");
+			setStudioErrorMsg("Se requiere tipo de estudio.");
 			return;
 		}
 
 		if (!formData.country || formData.country === "") {
 			setLoading(false);
-			setStudioErrorMsg("Country is required.");
+			setStudioErrorMsg("Se requiere país.");
 			return;
 		}
 
@@ -108,7 +108,7 @@ const EditStudio = () => {
 		) {
 			setLoading(false);
 			setStudioErrorMsg(
-				"Only Phone number and Social media accounts are optional.<br />All other fields are required."
+				"Solo el número de teléfono y las cuentas de redes sociales son opcionales.<br />Todos los demás campos son obligatorios.."
 			);
 			return;
 		}
@@ -129,7 +129,7 @@ const EditStudio = () => {
 			} else {
 				setLoading(false);
 				setStudioErrorMsg(null);
-				setUpdateMsg("Studio updated successfully!");
+				setUpdateMsg("Estudio actualizado exitosamente!");
 				// dispatch(updateUserSuccess(data.user));
 				// prevUrlData.map((item, index) => deleteFileByUrl(item));
 				// navigate("/");
@@ -145,13 +145,13 @@ const EditStudio = () => {
 		setImageUploading(true);
 		try {
 			if (!file) {
-				setImageUploadErrorMsg("Select an image file to upload");
+				setImageUploadErrorMsg("Seleccione un archivo de imagen para cargar");
 				setImageUploading(false);
 				return;
 			}
 
 			if (file.size >= 5 * 1024 * 1024) {
-				setImageUploadErrorMsg("Image size must be less than 5 MBs");
+				setImageUploadErrorMsg("El tamaño de la imagen debe ser inferior a 5 MB.");
 				setImageUploading(false);
 				return;
 			}
@@ -177,7 +177,7 @@ const EditStudio = () => {
 					setImageName("");
 				})
 				.catch((err) => {
-					setImageUploadErrorMsg("Image size must be less than 5 MBs");
+					setImageUploadErrorMsg("El tamaño de la imagen debe ser inferior a 5 MB.");
 					setImageUploading(false);
 				});
 		} catch (error) {
@@ -273,7 +273,7 @@ const EditStudio = () => {
 				className="max-w-4xl my-10 mx-3 p-3 sm:mx-12 lg:mx-auto sm:p-10 self-center dark:shadow-whiteLg
 			bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-xl">
 				<h1 className="text-center text-3xl mb-7 font-semibold">
-					Update Studio
+				Actualizar estudio
 				</h1>
 				<form className={`flex py-5 flex-col gap-6`} onSubmit={handleSubmit}>
 					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
@@ -330,11 +330,11 @@ const EditStudio = () => {
 									onChange={(e) =>
 										setFormData({ ...formData, type: e.target.value })
 									}>
-									<option value="">Select a type</option>
-									<option value="music">Music Studio</option>
-									<option value="recording">Recording Studio</option>
-									<option value="podcast">Podcast Studio</option>
-									<option value="rehersal">Rehersal Studio</option>
+									<option value="">Seleccione un tipo</option>
+									<option value="music">Estudio de música</option>
+									<option value="recording">Estudio de grabación</option>
+									<option value="podcast">Estudio de podcasts</option>
+									<option value="rehersal">Estudio de ensayo</option>
 								</Select>
 							</div>
 							<div className="flex flex-col w-full lg:w-auto gap-1">
@@ -359,7 +359,7 @@ const EditStudio = () => {
 							<ToggleSwitch
 								// className="focus:ring-1"
 								checked={formData.facility?.remote}
-								label="Remote Recording via Zoom"
+								label="Grabación remota a través de Zoom"
 								onChange={() =>
 									setFormData({
 										...formData,
@@ -372,7 +372,7 @@ const EditStudio = () => {
 							/>
 							<ToggleSwitch
 								checked={formData.facility?.wifi}
-								label="WiFi"
+								label="Wi-Fi"
 								onChange={() =>
 									setFormData({
 										...formData,
@@ -385,7 +385,7 @@ const EditStudio = () => {
 							/>
 							<ToggleSwitch
 								checked={formData.facility?.air}
-								label="Air Conditioning"
+								label="Aire acondicionado"
 								onChange={() =>
 									setFormData({
 										...formData,
@@ -398,7 +398,7 @@ const EditStudio = () => {
 							/>
 							<ToggleSwitch
 								checked={formData.facility?.parking}
-								label="Parking"
+								label="Aparcamiento"
 								onChange={() =>
 									setFormData({
 										...formData,
@@ -414,11 +414,11 @@ const EditStudio = () => {
 
 					<div className="flex flex-col justify-around items-center bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 dark:shadow-whiteLg">
 						<div className="flex sm:flex-row flex-col gap-2 sm:items-center justify-center w-full p-3">
-							<Label value="Phone Number" className="w-32" />
+							<Label value="Número de teléfono" className="w-32" />
 							<TextInput
 								className="flex-grow w-full"
 								type="text"
-								placeholder="Phone Number"
+								placeholder="Número de teléfono"
 								onChange={(e) =>
 									setFormData({ ...formData, phone: e.target.value })
 								}
@@ -428,11 +428,11 @@ const EditStudio = () => {
 						</div>
 						<div className="flex flex-col sm:flex-row gap-4 justify-around items-center p-3 w-full">
 							<div className="flex flex-col gap-1 flex-grow w-full">
-								<Label value="Address" />
+								<Label value="DIRECCIÓN" />
 								<TextInput
 									className="flex-grow w-full"
 									type="text"
-									placeholder="Studio's address"
+									placeholder="dirección del estudio"
 									onChange={(e) =>
 										setFormData({ ...formData, address: e.target.value })
 									}
@@ -442,11 +442,11 @@ const EditStudio = () => {
 								/>
 							</div>
 							<div className="flex flex-col gap-1 w-full">
-								<Label value="City" />
+								<Label value="Ciudad" />
 								<TextInput
 									className="flex-grow w-full"
 									type="text"
-									placeholder="City"
+									placeholder="Ciudad"
 									onChange={(e) =>
 										setFormData({ ...formData, city: e.target.value })
 									}
@@ -458,11 +458,11 @@ const EditStudio = () => {
 						</div>
 						<div className="flex flex-col sm:flex-row gap-4 justify-around items-center py-3 w-full">
 							<div className="flex flex-col gap-1 flex-grow w-full">
-								<Label value="State" />
+								<Label value="Estado" />
 								<TextInput
 									className="flex-grow w-full"
 									type="text"
-									placeholder="State"
+									placeholder="Estado"
 									value={formData.state}
 									onChange={(e) =>
 										setFormData({ ...formData, state: e.target.value })
@@ -472,7 +472,7 @@ const EditStudio = () => {
 								/>
 							</div>
 							<div className="flex flex-col gap-1 w-full md:w-auto">
-								<Label value="Country" />
+								<Label value="País" />
 								<Select
 									disabled={loading || imageUploading}
 									className="w-full lg:w-64"
@@ -533,7 +533,7 @@ const EditStudio = () => {
 							<div className="w-full">
 								<TextInput
 									type="text"
-									placeholder="Image description"
+									placeholder="Descripción de la imagen"
 									value={imageName}
 									onChange={(e) => setImageName(e.target.value)}
 									disabled={loading || imageUploading}
@@ -561,8 +561,8 @@ const EditStudio = () => {
 										!imageName
 									}>
 									{imageUploading
-										? "Uploading... Please wait!"
-										: "Upload Image"}
+										? "Subiendo... Por favor espera!"
+										: "Subir imagen"}
 								</Button>
 							</div>
 						</div>
@@ -594,7 +594,7 @@ const EditStudio = () => {
 											type="button"
 											onClick={() => handleRemoveImage(index, image.url)}
 											className="px-3 text-red-700 rounded-lg uppercase hover:opacity-75">
-											DELETE
+											BORRAR
 										</button>
 									</div>
 									<div className="flex flex-col md:flex-row justify-between px-3 py-1 items-center gap-1">
@@ -755,7 +755,7 @@ const EditStudio = () => {
 						{loading ? (
 							<>
 								<Spinner size="sm" />
-								<span className="pl-3">Updating.... Please wait!</span>
+								<span className="pl-3">Actualizando... Por favor espera!</span>
 							</>
 						) : (
 							"Update Studio"

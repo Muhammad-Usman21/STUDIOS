@@ -62,7 +62,7 @@ const DashSidebar = () => {
 								active={tab === "edit-studio"}
 								icon={RiUserVoiceFill}
 								as="div">
-								Orador
+								Estudio
 							</Sidebar.Item>
 						</Link>
 					) : (
@@ -71,7 +71,7 @@ const DashSidebar = () => {
 								active={tab === "studio"}
 								icon={RiUserVoiceFill}
 								as="div">
-								Orador
+								Estudio
 							</Sidebar.Item>
 						</Link>
 					)}
