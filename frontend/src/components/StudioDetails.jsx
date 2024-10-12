@@ -10,6 +10,7 @@ import {
 	FaWifi,
 	FaParking,
 } from "react-icons/fa";
+import { FaMoneyBill1Wave } from "react-icons/fa6";
 import { RiBaseStationLine, RiTempColdLine } from "react-icons/ri";
 
 const StudioDetails = ({ studio }) => {
@@ -20,30 +21,30 @@ const StudioDetails = ({ studio }) => {
 				bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
 				{/* Studio Facilities */}
 				<div className="w-full">
-					<h1 className="text-2xl font-semibold mb-2">Facilities:</h1>
+					<h1 className="text-2xl font-semibold mb-2">Beneficios:</h1>
 					<div className="flex flex-col sm:flex-row sm:flex-wrap justify-between gap-1">
 						{studio.facility.remote && (
 							<p className="">
 								<RiBaseStationLine className="inline-block mr-3" />
-								Remote Recording via Zoom
+								Grabación remota a través de Zoom
 							</p>
 						)}
 						{studio.facility.air && (
 							<p className="">
 								<RiTempColdLine className="inline-block mr-3" />
-								Air Conditioned
+								Aire Acondicionado
 							</p>
 						)}
 						{studio.facility.parking && (
 							<p className=" ">
 								<FaParking className="inline-block mr-3" />
-								Parking
+								Aparcamiento
 							</p>
 						)}
 						{studio.facility.wifi && (
 							<p className="">
 								<FaWifi className="inline-block mr-3" />
-								WiFi
+								Wi-Fi
 							</p>
 						)}
 					</div>
@@ -51,7 +52,7 @@ const StudioDetails = ({ studio }) => {
 
 				{/* Studio Description */}
 				<div className="w-full">
-					<h1 className="text-2xl font-semibold mb-2">Description:</h1>
+					<h1 className="text-2xl font-semibold mb-2">Descripción:</h1>
 					<p className="text-gray-700 dark:text-gray-300">
 						{studio.description}
 					</p>
@@ -59,7 +60,7 @@ const StudioDetails = ({ studio }) => {
 
 				{/* Manager Details */}
 				<div className="w-full">
-					<h1 className="text-2xl font-semibold mb-2">Manager:</h1>
+					<h1 className="text-2xl font-semibold mb-2">Gerente:</h1>
 					<div className="flex items-center gap-4">
 						<img
 							src={studio.userId.profilePicture}
@@ -119,6 +120,15 @@ const StudioDetails = ({ studio }) => {
 							<FaWhatsapp className="inline-block mr-2 text-3xl hover:text-green-500" />
 						</a>
 					)}
+					{studio.socialMedia?.deposit && (
+						<a
+							href={studio.socialMedia.deposit}
+							target="_blank"
+							rel="noreferrer">
+							<FaMoneyBill1Wave className="inline-block mr-2 text-3xl hover:text-green-500" />
+						</a>
+					)}
+					
 				</div>
 			</div>
 		</div>

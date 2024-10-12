@@ -24,11 +24,11 @@ const LocationPicker = ({ pickLocation, lat, lng, currentLocation }) => {
 						setMapKey((prevKey) => prevKey + 1);
 					},
 					(error) => {
-						console.error("Error fetching user location:", error);
+						console.error("Error al obtener la ubicación del usuario:", error);
 					}
 				);
 			} else {
-				alert("Geolocation is not supported by your browser");
+				alert("La geolocalización no es compatible con su navegador");
 			}
 		}
 	}, []);
@@ -47,7 +47,7 @@ const LocationPicker = ({ pickLocation, lat, lng, currentLocation }) => {
 
 	return (
 		<div className="my-3 mt-5">
-			<h2 className="text-center my-2 text-lg">Pick a Location</h2>
+			<h2 className="text-center my-2 text-lg">Elige una ubicación</h2>
 
 			<MapContainer
 				key={mapKey}

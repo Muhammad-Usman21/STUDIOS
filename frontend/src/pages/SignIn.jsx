@@ -122,7 +122,7 @@ const SignIn = () => {
 					</Link>
 					<div className="w-full flex flex-col gap-1 text-center">
 						<span className="text-center">
-							Continue with your Google account?
+						¿Continuar con tu cuenta de Google?
 						</span>
 						<OAuth />
 					</div>

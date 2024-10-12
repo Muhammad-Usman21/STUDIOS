@@ -20,7 +20,7 @@ const DisplayMap = ({ lat, lng }) => {
 
 	return (
 		<div className="w-full relative block">
-			<h1 className="text-2xl font-semibold mb-2">Location:</h1>
+			<h1 className="text-2xl font-semibold mb-2">Ubicación:</h1>
 
 			<img
 				src="https://upload.wikimedia.org/wikipedia/commons/3/39/Google_Maps_icon_%282015-2020%29.svg"

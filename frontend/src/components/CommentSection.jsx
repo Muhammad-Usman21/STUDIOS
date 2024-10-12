@@ -195,7 +195,7 @@ const CommentSection = ({ studioId }) => {
 			{currentUser ? (
 				<>
 					<div className="flex items-center gap-1 my-3 text-gray-500 text-sm pl-3">
-						<p>Signed in as:</p>
+						<p>Iniciado sesión como:</p>
 						<img
 							className="h-5 w-5 object-cover rounded-full ml-1"
 							src={currentUser.profilePicture}
@@ -223,14 +223,14 @@ const CommentSection = ({ studioId }) => {
 						/>
 						<div className="flex justify-between items-center mt-3 p-1">
 							<p className="text-gray-500 text-xs">
-								{200 - comment?.length} characters remaining
+								{200 - comment?.length} personajes restantes
 							</p>
 							<Button
 								outline
 								gradientDuoTone="purpleToBlue"
 								type="submit"
 								className="focus:ring-1">
-								Submit
+								Entregar
 							</Button>
 						</div>
 						{commentErrorMsg && (
@@ -255,18 +255,18 @@ const CommentSection = ({ studioId }) => {
 				</>
 			) : (
 				<div className="text-sm text-teal-500 my-5 flex gap-2 dark:text-gray-500 ml-3">
-					<p>You mush signed in to comment.</p>
+					<p>Debes iniciar sesión para comentar.</p>
 					<Link className="text-blue-500 hover:underline" to={"/sign-in"}>
-						Sign In
+					Iniciar sesión
 					</Link>
 				</div>
 			)}
 			{comments.length === 0 ? (
-				<p className="text-sm mt-7 mb-5 ml-3">No comments yet</p>
+				<p className="text-sm mt-7 mb-5 ml-3">Aún no hay comentarios</p>
 			) : (
 				<>
 					<div className="text-sm mt-7 mb-5 flex items-center gap-1 ml-3">
-						<p>Comments</p>
+						<p>Comentarios</p>
 						<div className="border border-gray-400 py-1 px-2 rounded-sm">
 							<p>{totalComments}</p>
 						</div>
@@ -288,7 +288,7 @@ const CommentSection = ({ studioId }) => {
 							<button
 								onClick={handleShowMore}
 								className="text-teal-400 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-500 mx-auto text-sm pb-4">
-								Show more
+								Mostrar más
 							</button>
 						</div>
 					)}
@@ -312,11 +312,11 @@ const CommentSection = ({ studioId }) => {
 								<div className="flex items-center mb-8 gap-8 self-center">
 									<HiOutlineExclamationCircle className="h-14 w-14 text-gray-500 dark:text-gray-200" />
 									<span className="text-2xl text-gray-600 dark:text-gray-200">
-										Delete Comment
+									Eliminar comentario
 									</span>
 								</div>
 								<h3 className="my-5 text-lg text-gray-600 dark:text-gray-300">
-									Are you sure you want to delete this comment?
+								¿Estás seguro de que quieres eliminar este comentario?
 								</h3>
 								<div className="flex justify-around">
 									<Button
@@ -330,7 +330,7 @@ const CommentSection = ({ studioId }) => {
 										color="gray"
 										onClick={() => setShowModal(false)}
 										className="focus:ring-1 dark:text-gray-300">
-										No, cancel
+										No, cancelar
 									</Button>
 								</div>
 							</form>

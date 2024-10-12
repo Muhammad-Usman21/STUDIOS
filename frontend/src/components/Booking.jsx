@@ -23,7 +23,7 @@ const Booking = ({ calendarUrl, price }) => {
 				window.calendar.schedulingButton.load({
 					url: calendarUrl,
 					color: "#039BE5",
-					label: `Book an appointment ($${price}/hour)`,
+					label: `Reservar una cita ($${price}/hora)`,
 					target: document.getElementById("appointment-button"),
 				});
 			}
