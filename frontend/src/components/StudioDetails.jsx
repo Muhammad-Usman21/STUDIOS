@@ -122,7 +122,7 @@ const StudioDetails = ({ studio }) => {
 					)}
 					{studio.socialMedia?.deposit && (
 						<a
-							href={studio.socialMedia.whatsapp}
+							href={studio.socialMedia.deposit}
 							target="_blank"
 							rel="noreferrer">
 							<FaMoneyBill1Wave className="inline-block mr-2 text-3xl hover:text-green-500" />
