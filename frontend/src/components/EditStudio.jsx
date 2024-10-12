@@ -34,6 +34,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserSuccess } from "../redux/user/userSlice";
 import { countries } from "countries-list";
+import { FaMoneyBill1Wave } from "react-icons/fa6";
 
 const EditStudio = () => {
 	const [formData, setFormData] = useState({
@@ -714,6 +715,28 @@ const EditStudio = () => {
 											socialMedia: {
 												...formData.socialMedia,
 												whatsapp: e.target.value,
+											},
+										})
+									}
+									disabled={loading || imageUploading}
+								/>
+							</div>
+							<div className="flex sm:flex-row flex-col gap-2 items-center sm:pr-2">
+								<div className="flex items-center justify-center gap-2">
+									<FaMoneyBill1Wave />
+									<Label value="Deposit" />
+								</div>
+								<TextInput
+									className="w-72"
+									type="text"
+									placeholder="deposit link"
+									value={formData.socialMedia?.deposit || ""}
+									onChange={(e) =>
+										setFormData({
+											...formData,
+											socialMedia: {
+												...formData.socialMedia,
+												deposit: e.target.value,
 											},
 										})
 									}

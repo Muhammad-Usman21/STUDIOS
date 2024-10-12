@@ -19,6 +19,7 @@ import {
 	FaTwitter,
 	FaWhatsapp,
 } from "react-icons/fa";
+import { FaMoneyBill1Wave } from "react-icons/fa6";
 import { MdCancelPresentation } from "react-icons/md";
 import LocationPicker from "./LocationPicker";
 import { app } from "../firebase";
@@ -663,6 +664,28 @@ const CreateStudio = () => {
 											socialMedia: {
 												...formData.socialMedia,
 												whatsapp: e.target.value,
+											},
+										})
+									}
+									disabled={loading || imageUploading}
+								/>
+							</div>
+							<div className="flex sm:flex-row flex-col gap-2 items-center sm:pr-2">
+								<div className="flex items-center justify-center gap-2">
+									<FaMoneyBill1Wave />
+									<Label value="Deposito" />
+								</div>
+								<TextInput
+									className="w-72"
+									type="text"
+									placeholder="deposito link"
+									value={formData.socialMedia?.deposit || ""}
+									onChange={(e) =>
+										setFormData({
+											...formData,
+											socialMedia: {
+												...formData.socialMedia,
+												deposit: e.target.value,
 											},
 										})
 									}

@@ -10,6 +10,7 @@ import {
 	FaWifi,
 	FaParking,
 } from "react-icons/fa";
+import { FaMoneyBill1Wave } from "react-icons/fa6";
 import { RiBaseStationLine, RiTempColdLine } from "react-icons/ri";
 
 const StudioDetails = ({ studio }) => {
@@ -119,6 +120,15 @@ const StudioDetails = ({ studio }) => {
 							<FaWhatsapp className="inline-block mr-2 text-3xl hover:text-green-500" />
 						</a>
 					)}
+					{studio.socialMedia?.deposit && (
+						<a
+							href={studio.socialMedia.whatsapp}
+							target="_blank"
+							rel="noreferrer">
+							<FaMoneyBill1Wave className="inline-block mr-2 text-3xl hover:text-green-500" />
+						</a>
+					)}
+					
 				</div>
 			</div>
 		</div>

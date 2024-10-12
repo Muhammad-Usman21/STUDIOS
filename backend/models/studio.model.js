@@ -56,6 +56,7 @@ const studioSchema = new mongoose.Schema(
 			twitter: { type: String },
 			facebook: { type: String },
 			whatsapp: { type: String },
+			deposit: { type: String },
 		},
 		calendarUrl: {
 			type: String,
