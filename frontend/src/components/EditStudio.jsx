@@ -151,7 +151,9 @@ const EditStudio = () => {
 			}
 
 			if (file.size >= 5 * 1024 * 1024) {
-				setImageUploadErrorMsg("El tamaño de la imagen debe ser inferior a 5 MB.");
+				setImageUploadErrorMsg(
+					"El tamaño de la imagen debe ser inferior a 5 MB."
+				);
 				setImageUploading(false);
 				return;
 			}
@@ -177,7 +179,9 @@ const EditStudio = () => {
 					setImageName("");
 				})
 				.catch((err) => {
-					setImageUploadErrorMsg("El tamaño de la imagen debe ser inferior a 5 MB.");
+					setImageUploadErrorMsg(
+						"El tamaño de la imagen debe ser inferior a 5 MB."
+					);
 					setImageUploading(false);
 				});
 		} catch (error) {
@@ -273,7 +277,7 @@ const EditStudio = () => {
 				className="max-w-4xl my-10 mx-3 p-3 sm:mx-12 lg:mx-auto sm:p-10 self-center dark:shadow-whiteLg
 			bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-xl">
 				<h1 className="text-center text-3xl mb-7 font-semibold">
-				Actualizar estudio
+					Actualizar estudio
 				</h1>
 				<form className={`flex py-5 flex-col gap-6`} onSubmit={handleSubmit}>
 					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
@@ -490,14 +494,7 @@ const EditStudio = () => {
 								</Select>
 							</div>
 						</div>
-						{/* <div className="w-full">
-							<LocationPicker
-								pickLocation={handleLocationChange}
-								lat={formData.location?.latitude || -12}
-								lng={formData.location?.longitude || -77}
-								currentLocation={false}
-							/>
-						</div> */}
+
 						{formData.location && (
 							<div className="w-full">
 								<LocationPicker
@@ -508,23 +505,6 @@ const EditStudio = () => {
 								/>
 							</div>
 						)}
-						{/* <div className="flex flex-col gap-1">
-							<Label value="City" />
-							<Select
-								// disabled={}
-								className="w-56"
-								required
-								onChange={(e) =>
-									setFormData({ ...formData, city: e.target.value })
-								}>
-								<option value="">Select an option</option>
-								{countryOptions.map((country, index) => (
-									<option key={index} value={country}>
-										{country}
-									</option>
-								))}
-							</Select>
-						</div> */}
 					</div>
 
 					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
@@ -608,25 +588,6 @@ const EditStudio = () => {
 								</div>
 							))}
 					</div>
-
-					{/* <div className="bg-transparent border-2 border-white/20 backdrop-blur-[9px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-						<span className="text-lg text-center my-2"></span>
-						<div className="flex flex-col mb-4 gap-4 items-center justify-between">
-							<div className="flex gap-2 items-center">
-								<Label value="Monday" />
-								<div className="flex items-center gap-2 ml-10">
-									<Label htmlFor="mondayCheck">Working Day</Label>
-									<Checkbox id="mondayCheck" className="focus:ring-0" />
-								</div>
-								<div>
-									<input
-										type="time"
-										onChange={(e) => setFormData({ ...formData })}
-									/>
-								</div>
-							</div>
-						</div>
-					</div> */}
 
 					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
 						<span className="text-lg text-center my-2">
@@ -721,7 +682,7 @@ const EditStudio = () => {
 									disabled={loading || imageUploading}
 								/>
 							</div>
-							<div className="flex sm:flex-row flex-col gap-2 items-center sm:pr-2">
+							<div className="flex sm:flex-row flex-col gap-2 items-center sm:pl-2">
 								<div className="flex items-center justify-center gap-2">
 									<FaMoneyBill1Wave />
 									<Label value="Deposit" />

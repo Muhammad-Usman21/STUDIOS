@@ -134,19 +134,16 @@ const Home = () => {
 	return (
 		<div className="min-h-screen w-full">
 			<div className="w-full relative bg-white dark:bg-black bg-opacity-80 dark:bg-opacity-60">
-				<div className="absolute left-[5%] top-[20%] flex flex-col gap-2 z-20">
+				<div className="flex flex-col gap-2 z-20 self-center justify-center items-center pt-36">
 					<h1 className=" text-blue-600 font-extrabold md:text-6xl">
-						<span className="text-blue-400 md:text-5xl">APPOINTMENT</span>
-						<br />
-						BOOKING
-						<br /> NOW
+						Estudio Alquila
 					</h1>
 					<p className="w-96 text-xs md:text-lg hidden sm:inline">
 						Discover and book the perfect studio for your next project with
 						ease. Explore top-rated spaces tailored to your creative needs, all
 						in one place
 					</p>
-					{/* <a
+					<a
 						className="self-center mt-5 hidden sm:inline"
 						href="#search"
 						onClick={(e) => {
@@ -160,9 +157,9 @@ const Home = () => {
 								View Studios!
 							</span>
 						</button>
-					</a> */}
+					</a>
 				</div>
-				<div className="min-h-screen">
+				<div className="min-h-96">
 					{/* <img
 						className="w-full relative z-0"
 						src={homeLight}

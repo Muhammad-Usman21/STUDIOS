@@ -139,7 +139,9 @@ const CreateStudio = () => {
 			}
 
 			if (file.size >= 5 * 1024 * 1024) {
-				setImageUploadErrorMsg("El tamaño de la imagen debe ser inferior a 5 MB.");
+				setImageUploadErrorMsg(
+					"El tamaño de la imagen debe ser inferior a 5 MB."
+				);
 				setImageUploading(false);
 				return;
 			}
@@ -165,7 +167,9 @@ const CreateStudio = () => {
 					setImageName("");
 				})
 				.catch((err) => {
-					setImageUploadErrorMsg("El tamaño de la imagen debe ser inferior a 5 MB.");
+					setImageUploadErrorMsg(
+						"El tamaño de la imagen debe ser inferior a 5 MB."
+					);
 					setImageUploading(false);
 				});
 		} catch (error) {
@@ -242,7 +246,7 @@ const CreateStudio = () => {
 				className="max-w-4xl my-10 mx-3 p-3 sm:mx-12 lg:mx-auto sm:p-10 self-center dark:shadow-whiteLg
 			bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-xl">
 				<h1 className="text-center text-3xl mb-7 font-semibold">
-				Crear estudio
+					Crear estudio
 				</h1>
 				<form className={`flex py-5 flex-col gap-6`} onSubmit={handleSubmit}>
 					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
@@ -670,7 +674,7 @@ const CreateStudio = () => {
 									disabled={loading || imageUploading}
 								/>
 							</div>
-							<div className="flex sm:flex-row flex-col gap-2 items-center sm:pr-2">
+							<div className="flex sm:flex-row flex-col gap-2 items-center sm:pl-2">
 								<div className="flex items-center justify-center gap-2">
 									<FaMoneyBill1Wave />
 									<Label value="Deposito" />
