@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import DashSidebar from "../components/DashSidebar";
 import { useSelector } from "react-redux";
 import DashUser from "../components/DashUser";
-import DashAdmin from "../components/DashAdmin";
 import CreateStudio from "../components/CreateStudio";
 import EditStudio from "../components/EditStudio";
 
