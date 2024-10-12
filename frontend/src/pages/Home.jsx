@@ -146,7 +146,7 @@ const Home = () => {
 						ease. Explore top-rated spaces tailored to your creative needs, all
 						in one place
 					</p>
-					<a
+					{/* <a
 						className="self-center mt-5 hidden sm:inline"
 						href="#search"
 						onClick={(e) => {
@@ -160,13 +160,19 @@ const Home = () => {
 								View Studios!
 							</span>
 						</button>
-					</a>
+					</a> */}
 				</div>
-				<img className="w-full relative z-0" src={homeLight} alt="home-light" />
+				<div className="min-h-screen">
+					{/* <img
+						className="w-full relative z-0"
+						src={homeLight}
+						alt="home-light"
+					/> */}
+				</div>
 			</div>
 			<div
 				id="search"
-				className="max-w-7xl mx-3 sm:mx-5 lg:mx-auto items-center justify-center flex flex-col gap-12 lg:gap-24 py-10 lg:py-24">
+				className="items-center justify-center flex flex-col gap-12 lg:gap-24">
 				{/* <div className="flex flex-col items-center justify-center gap-4 md:gap-8 p-5 md:p-10 bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
 					<span className="text-2xl md:text-4xl text-center">
 						Capture Your Creative Moments
@@ -225,8 +231,8 @@ const Home = () => {
 				</div> */}
 
 				<div
-					className="flex flex-col w-full items-center justify-center gap-6 lg:gap-10 p-3 lg:p-10 mb-10 
-				bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
+					className="flex flex-col w-full items-center justify-center gap-6 lg:gap-10 px-3 lg:px-10 py-5 lg:py-20
+				bg-transparent backdrop-blur-[30px]">
 					<span className="text-lg md:text-2xl text-center font-semibold">
 						Book Your Studio in Seconds!
 					</span>

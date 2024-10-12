@@ -23,7 +23,7 @@ const StudioCard = ({ studio }) => {
 							<p className=" text-lg md:text-xl font-semibold line-clamp-1">
 								{studio.title}
 							</p>
-							<div className="text-sm md:text-md flex gap-1 items-center">
+							<div className="text-sm md:text-md flex gap-1 items-center line-clamp-1">
 								<FaLocationDot />
 								<span>
 									{studio.address}, {studio.city}
