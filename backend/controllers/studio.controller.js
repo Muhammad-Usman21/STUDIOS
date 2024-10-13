@@ -56,6 +56,42 @@ export const search = async (req, res) => {
 			}
 		}
 
+		// Assuming `sort` is passed as a query parameter
+		let sortOption = {};
+
+		switch (sort) {
+			case "desc":
+				sortOption = { createdAt: -1 }; // Latest Studio
+				break;
+			case "asc":
+				sortOption = { createdAt: 1 }; // Oldest Studio
+				break;
+			case "priceDesc":
+				sortOption = { price: -1 }; // Highest Price
+				break;
+			case "priceAsc":
+				sortOption = { price: 1 }; // Lowest Price
+				break;
+			case "facilityDesc":
+				sortOption = {
+					"facility.remote": -1,
+					"facility.parking": -1,
+					"facility.wifi": -1,
+					"facility.air": -1,
+				}; // Most Benefits
+				break;
+			case "facilityAsc":
+				sortOption = {
+					"facility.remote": 1,
+					"facility.parking": 1,
+					"facility.wifi": 1,
+					"facility.air": 1,
+				}; // Least Benefits
+				break;
+			default:
+				sortOption = { createdAt: -1 }; // Default to Latest Studio
+		}
+
 		// Add benefits filter if provided
 		if (benefits && benefits.length > 0) {
 			const benefitsList = benefits
@@ -71,7 +107,7 @@ export const search = async (req, res) => {
 		// Fetch studios from the database
 		const studios = await Studio.find(searchQuery)
 			.select("_id title address city images price benefits facility")
-			.sort({ createdAt: sort })
+			.sort(sortOption)
 			.skip(parseInt(startIndex))
 			.limit(parseInt(limit));
 		res.status(200).json(studios);

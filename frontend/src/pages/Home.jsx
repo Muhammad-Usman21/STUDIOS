@@ -10,10 +10,10 @@ const Home = () => {
 	const [formData, setFormData] = useState({
 		searchTerm: "",
 		sort: "desc",
-		country: "",
-		minPrice: "",
-		maxPrice: "",
-		benefits: [],
+		// country: "",
+		// minPrice: "",
+		// maxPrice: "",
+		// benefits: [],
 	});
 	const [showMore, setShowMore] = useState(true);
 	const [searchResults, setSearchResults] = useState([]);
@@ -36,28 +36,29 @@ const Home = () => {
 		const params = new URLSearchParams(location.search);
 		const searchTerm = params.get("searchTerm") || "";
 		const sort = params.get("sort") || "desc";
-		const country = params.get("country") || "";
-		const minPrice = params.get("minPrice") || "";
-		const maxPrice = params.get("maxPrice") || "";
-		const benefitList = params.getAll("benefits") || [];
-		let benefits = [];
+		// const country = params.get("country") || "";
+		// const minPrice = params.get("minPrice") || "";
+		// const maxPrice = params.get("maxPrice") || "";
+		// const benefitList = params.getAll("benefits") || [];
+		// let benefits = [];
 
-		if (benefitList.length > 0) {
-			benefits = benefitList[0]
-				.split(",")
-				.map((benefit) => benefit.trim())
-				.filter((benefit) => benefit !== "");
-		}
+		// if (benefitList.length > 0) {
+		// 	benefits = benefitList[0]
+		// 		.split(",")
+		// 		.map((benefit) => benefit.trim())
+		// 		.filter((benefit) => benefit !== "");
+		// }
 
-		setFormData({ searchTerm, sort, country, minPrice, maxPrice, benefits });
+		// setFormData({ searchTerm, sort, country, minPrice, maxPrice, benefits });
+		setFormData({ searchTerm, sort });
 
 		fetchSearchResults({
 			searchTerm,
 			sort,
-			country,
-			minPrice,
-			maxPrice,
-			benefits,
+			// country,
+			// minPrice,
+			// maxPrice,
+			// benefits,
 		});
 	}, [location]);
 
@@ -73,7 +74,7 @@ const Home = () => {
 	};
 
 	// Handle search button click
-	const handleSearch = () => {
+	const handleSearch = async (formData) => {
 		const query = new URLSearchParams(formData).toString();
 		navigate(`?${query}`, { replace: true }); // Replaces history.push()
 		fetchSearchResults(formData);
@@ -234,8 +235,8 @@ const Home = () => {
 						Book Your Studio in Seconds!
 					</span>
 					<div className="flex flex-col gap-2 md:gap-4 w-full">
-						<div className="flex flex-col gap-2 md:gap-4 max-w-5xl self-center">
-							<div className="flex flex-col md:flex-row gap-2 md:gap-4">
+						<div className="flex flex-col gap-2 md:gap-4 max-w-3xl self-center w-full">
+							{/* <div className="flex flex-col md:flex-row gap-2 md:gap-4">
 								<TextInput
 									className="flex-grow"
 									type="text"
@@ -268,7 +269,7 @@ const Home = () => {
 										onClick={() => setDropdownOpen(!dropdownOpen)}
 										className="w-full md:w-56 h-10 border rounded-lg border-white bg-[#d8e2f3] dark:bg-[#010e16] dark:border-gray-600 flex items-center justify-between px-2">
 										Select Facilities...
-										<span className="ml-2">&#9660;</span> {/* Dropdown arrow */}
+										<span className="ml-2">&#9660;</span>
 									</button>
 									{dropdownOpen && (
 										<div className="dropdown-menu absolute mt-1 w-full md:w-56 bg-white dark:bg-[#010e16] border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-10">
@@ -328,6 +329,23 @@ const Home = () => {
 									onClick={handleSearch}>
 									Search
 								</Button>
+							</div> */}
+							<div className="flex flex-col md:flex-row gap-2 md:gap-4">
+								<TextInput
+									className="flex-grow w-full"
+									type="text"
+									name="searchTerm"
+									placeholder="Search"
+									value={formData.searchTerm}
+									onChange={handleChange}
+								/>
+								<Button
+									className="w-full md:w-44 focus:ring-1"
+									gradientDuoTone={"purpleToPink"}
+									onClick={() => handleSearch(formData)} // Pass current formData directly
+								>
+									Search
+								</Button>
 							</div>
 						</div>
 					</div>
@@ -336,6 +354,27 @@ const Home = () => {
 					</h1>
 					{searchResults.length > 0 && (
 						<>
+							<Select
+								className="w-full md:w-52 self-end mr-36"
+								value={formData.sort}
+								onChange={(e) => {
+									setFormData((prevFormData) => {
+										const updatedFormData = {
+											...prevFormData,
+											sort: e.target.value,
+										};
+										handleSearch(updatedFormData); // Pass the updated state to handleSearch if necessary
+										return updatedFormData;
+									});
+								}}>
+								<option value="desc">Latest Studio</option>
+								<option value="asc">Oldest Studio</option>
+								<option value="priceDesc">Highest Price</option>
+								<option value="priceAsc">Lowest Price</option>
+								<option value="facilityDesc">Highest Benefits</option>
+								<option value="facilityAsc">Lowest Benefits</option>
+							</Select>
+
 							<div className="flex flex-wrap gap-5 items-center justify-center w-full">
 								{searchResults.map((studio) => (
 									<StudioCard key={studio._id} studio={studio} />
