@@ -10,6 +10,7 @@ import {
 	Button,
 	FileInput,
 	Label,
+	Spinner,
 	Table,
 	TextInput,
 } from "flowbite-react";
@@ -76,6 +77,7 @@ const DashAdmin = () => {
 				const data = await res.json();
 				if (!res.ok) {
 					console.log(data.message);
+					setLoading(false);
 				} else {
 					setFormData(data);
 					prevUrlData.map((item, index) => deleteFileByUrl(item));
@@ -94,6 +96,7 @@ const DashAdmin = () => {
 				const data = await res.json();
 				if (!res.ok) {
 					console.log(data.message);
+					setLoading(false);
 				} else {
 					setFormData(data);
 					prevUrlData.map((item, index) => deleteFileByUrl(item));
@@ -103,6 +106,7 @@ const DashAdmin = () => {
 			}
 		} catch (error) {
 			console.log(error);
+			setLoading(false);
 		}
 	};
 
@@ -198,7 +202,9 @@ const DashAdmin = () => {
 				<h2 className="self-center text-2xl text-center font-semibold">
 					Sólo para administrador
 				</h2>
-				<form className="my-10 flex flex-col gap-10" onSubmit={handleSubmit}>
+				<form
+					className="mt-10 mb-5 flex flex-col gap-10"
+					onSubmit={handleSubmit}>
 					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
 						<h2 className="self-center text-xl text-center font-semibold mb-2">
 							Background Image
@@ -264,7 +270,7 @@ const DashAdmin = () => {
 							Guiones para practicar
 						</h2>
 						<div className="bg-transparent border-2 border-white/20 backdrop-blur-[20px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-							<Label value="El enlace de tu vídeo de YouTube (opcional)" />
+							<Label value="The link to YouTube video" />
 							<div className="flex flex-col sm:flex-row gap-4 items-center justify-between mb-4">
 								<TextInput
 									className="flex-grow w-full"
@@ -379,7 +385,7 @@ const DashAdmin = () => {
 							theme="snow"
 							placeholder="Write something...."
 							className="h-72 mb-16 sm:mb-12"
-							required
+							disabled={loading || imageUploading}
 							onChange={(value) =>
 								setFormData({ ...formData, aboutContent: value })
 							}
@@ -394,7 +400,7 @@ const DashAdmin = () => {
 							theme="snow"
 							placeholder="Write something...."
 							className="h-72 mb-16 sm:mb-12"
-							required
+							disabled={loading || imageUploading}
 							onChange={(value) =>
 								setFormData({ ...formData, privacyContent: value })
 							}
@@ -409,7 +415,7 @@ const DashAdmin = () => {
 							theme="snow"
 							placeholder="Write something...."
 							className="h-72 mb-16 sm:mb-12"
-							required
+							disabled={loading || imageUploading}
 							onChange={(value) =>
 								setFormData({ ...formData, legalContent: value })
 							}
@@ -420,8 +426,16 @@ const DashAdmin = () => {
 						type="submit"
 						gradientDuoTone="purpleToPink"
 						outline
+						disabled={loading || imageUploading}
 						className="focus:ring-1 uppercase">
-						Confirmar
+						{loading ? (
+							<>
+								<Spinner size="sm" />
+								<span className="pl-3">Cargando.... Espere por favor!</span>
+							</>
+						) : (
+							"Confirm"
+						)}
 					</Button>
 				</form>
 				{updatedMsg && (

@@ -177,11 +177,11 @@ const Home = () => {
 					</a>
 				</div>
 				<div className="min-h-96">
-					{/* <img
-						className="w-full relative z-0"
-						src={homeLight}
+					<img
+						className="w-full object-cover relative z-0"
+						src={storage.backgroundImage}
 						alt="home-light"
-					/> */}
+					/>
 				</div>
 			</div>
 			<div

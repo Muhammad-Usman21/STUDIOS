@@ -143,3 +143,24 @@ input {
 		display: none;
 	}
 }
+
+
+.react-player {
+	width: 100% !important;
+	height: 180px !important;
+}
+.react-player video {
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+}
+
+.video-wrapper-form {
+	width: 100% !important;
+	/* height: 200px !important; */
+}
+.react-player-form {
+	object-fit: cover;
+	width: 100% !important;
+	height: 100% !important;
+}

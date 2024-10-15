@@ -108,24 +108,24 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
 									</p>
 								)}
 
-								{currentUser &&
-									(currentUser._id === comment.userId._id ||
-										(currentUser.isAdmin && !user.isAdmin)) && (
-										<div className="flex gap-2 ml-4">
+								{currentUser && currentUser._id === comment.userId._id && (
+									<div className="flex gap-2 ml-4">
+										{currentUser._id === comment.userId._id && (
 											<button
 												type="button"
 												onClick={handleEdit}
 												className="dark:text-gray-300 text-gray-700 hover:text-blue-500 dark:hover:text-blue-500">
 												Editar
 											</button>
-											<button
-												type="button"
-												onClick={() => onDelete(comment._id)}
-												className="dark:text-gray-300 text-gray-700 hover:text-red-500 dark:hover:text-red-500">
-												Borrar
-											</button>
-										</div>
-									)}
+										)}
+										<button
+											type="button"
+											onClick={() => onDelete(comment._id)}
+											className="dark:text-gray-300 text-gray-700 hover:text-red-500 dark:hover:text-red-500">
+											Borrar
+										</button>
+									</div>
+								)}
 							</div>
 						)}
 					</>
