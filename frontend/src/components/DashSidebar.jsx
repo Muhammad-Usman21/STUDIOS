@@ -49,7 +49,7 @@ const DashSidebar = () => {
 							Usuario
 						</Sidebar.Item>
 					</Link>
-					{currentUser && (
+					{currentUser.isAdmin && (
 						<Link to="/dashboard?tab=admin">
 							<Sidebar.Item active={tab === "admin"} icon={HiUser} as="div">
 								Administrador

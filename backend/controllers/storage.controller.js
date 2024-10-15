@@ -51,16 +51,16 @@ export const updateInfo = async (req, res, next) => {
 			storage.youtubeLinks = youtubeLinks;
 			storage.aboutContent = aboutContent;
 			storage.privacyContent = privacyContent;
-			Storage.legalContent = legalContent;
+			storage.legalContent = legalContent;
 			const updatedStorage = await storage.save();
 			//   console.log(updatedStorage);
 			//   console.log(updatedStorage._doc);
 			return res.status(201).json({
-				backgroundImage: newStorage.backgroundImage,
-				youtubeLinks: newStorage.youtubeLinks,
-				aboutContent: newStorage.aboutContent,
-				privacyContent: newStorage.privacyContent,
-				legalContent: newStorage.legalContent,
+				backgroundImage: updatedStorage.backgroundImage,
+				youtubeLinks: updatedStorage.youtubeLinks,
+				aboutContent: updatedStorage.aboutContent,
+				privacyContent: updatedStorage.privacyContent,
+				legalContent: updatedStorage.legalContent,
 				found: true,
 			});
 		}

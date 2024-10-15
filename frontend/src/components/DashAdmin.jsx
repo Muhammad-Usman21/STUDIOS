@@ -15,29 +15,31 @@ import {
 } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { MdCancelPresentation } from "react-icons/md";
-// import ReactPlayer from "react-player";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
 import { app } from "../firebase";
 import { useSelector } from "react-redux";
+import { CircularProgressbar } from "react-circular-progressbar";
 
 const DashAdmin = () => {
 	const [formData, setFormData] = useState({
-		recommended: [],
-		pdfs: [],
+		youtubeLinks: [],
 	});
-	const [speakers, setSpeakers] = useState([]);
-	const [showMore, setShowMore] = useState(true);
-	const [addRemoveError, setAddRemoveError] = useState(null);
+
 	const [updatedMsg, setUpdatedMsg] = useState(null);
 	const [updatedError, setUpdatedError] = useState(null);
-	const [pdfFile, setPdfFile] = useState(null);
-	const [pdfUploadErrorMsg, setPdfUploadErrorMsg] = useState(null);
-	const [pdfUploading, setPdfUploading] = useState(false);
 	const [prevUrlData, setPrevUrlData] = useState([]);
 	const { currentUser } = useSelector((state) => state.user);
-	const [users, setUsers] = useState([]);
-	const [showMoreUsers, setShowMoreUsers] = useState(true);
-	const [freePremiumError, setFreePremiumError] = useState(null);
+	const [ytLink, setYTLink] = useState("");
+	const [videosErrorMsg, setVideosErrorMsg] = useState(null);
+
+	const [imageUploadProgress, setImageUploadProgress] = useState(null);
+	const [imageUploadErrorMsg, setImageUploadErrorMsg] = useState(null);
+	const [imageUploading, setImageUploading] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [file, setFile] = useState(null);
 
 	console.log(formData);
 
@@ -59,6 +61,8 @@ const DashAdmin = () => {
 		e.preventDefault();
 		setUpdatedMsg(null);
 		setUpdatedError(null);
+		setLoading(true);
+
 		try {
 			if (!formData.found) {
 				console.log(formData.found);
@@ -75,6 +79,7 @@ const DashAdmin = () => {
 				} else {
 					setFormData(data);
 					prevUrlData.map((item, index) => deleteFileByUrl(item));
+					setLoading(false);
 					return setUpdatedMsg("Actualizado exitosamente");
 				}
 			}
@@ -92,6 +97,7 @@ const DashAdmin = () => {
 				} else {
 					setFormData(data);
 					prevUrlData.map((item, index) => deleteFileByUrl(item));
+					setLoading(false);
 					return setUpdatedMsg("Actualizado exitosamente");
 				}
 			}
@@ -100,224 +106,85 @@ const DashAdmin = () => {
 		}
 	};
 
-	useEffect(() => {
-		fetchSpeaker();
-	}, []);
-
-	const fetchSpeaker = async () => {
-		// console.log(voiceType, country);
-		try {
-			const response = await fetch(
-				`/api/speaker/getspeakers?&sort=${"desc"}&limit=10`
-			);
-			const data = await response.json();
-			// console.log(data);
-			setSpeakers(data);
-			if (data.length < 10) {
-				setShowMore(false);
-			}
-		} catch (error) {
-			console.error("Failed to fetch speaker", error);
+	const handleAddVideos = () => {
+		setVideosErrorMsg(null);
+		if (ytLink && ytLink !== "") {
+			setFormData({
+				...formData,
+				youtubeLinks: [...formData.youtubeLinks, ytLink],
+			});
+			setYTLink("");
 		}
 	};
 
-	const handleShowMore = async () => {
-		try {
-			const startIndex = speakers.length;
-			const response = await fetch(
-				`/api/speaker/getspeakers?startIndex=${startIndex}&sort=${"desc"}&limit=10`
-			);
-			const data = await response.json();
-			// console.log(data);
-			if (data.length < 10) {
-				setShowMore(false);
-			}
-			setSpeakers([...speakers, ...data]);
-		} catch (error) {
-			console.error("Failed to fetch speaker", error);
-		}
-	};
-
-	const handleAddSpeaker = (speakerId) => {
-		if (formData.recommended?.length === 6) {
-			return setAddRemoveError(
-				"Puedes agregar hasta 6 parlantes a los recomendados."
-			);
-		}
+	const handleRemoveVideo = (index) => {
 		setFormData({
 			...formData,
-			recommended: [...formData.recommended, speakerId],
-		});
-	};
-	const handleRemoveSpeaker = (speakerId) => {
-		setFormData({
-			...formData,
-			recommended: formData.recommended.filter((id, index) => id !== speakerId),
+			youtubeLinks: formData.youtubeLinks.filter((x, i) => i !== index),
 		});
 	};
 
-	const handleUploadPdf = async () => {
-		setPdfUploadErrorMsg(null);
-		setPdfUploading(true);
+	const handleUploadImage = async () => {
+		setImageUploadErrorMsg(null);
+		setImageUploading(true);
 		try {
-			if (!pdfFile || pdfFile.length === 0) {
-				setPdfUploadErrorMsg("Seleccione un archivo PDF.");
-				setPdfUploading(false);
+			if (!file) {
+				setImageUploading(false);
+				setImageUploadErrorMsg("¡Seleccione una imagen!");
 				return;
 			}
-			if (pdfFile.length + formData.pdfs?.length > 6) {
-				setPdfUploadErrorMsg("Puede cargar hasta 6 archivos PDF");
-				setPdfUploading(false);
+			if (!file.type.includes("image/")) {
+				setImageUploading(false);
+				setImageUploadErrorMsg(
+					"El tipo de archivo no es imagen.\n¡Seleccione un archivo de imagen!"
+				);
+				return;
+			}
+			if (file.size >= 5 * 1024 * 1024) {
+				setImageUploading(false);
+				setImageUploadErrorMsg(
+					"El tamaño de la imagen debe ser inferior a 5 MB.!"
+				);
 				return;
 			}
 
-			for (let i = 0; i < pdfFile.length; i++) {
-				if (pdfFile[i].size >= 20 * 1024 * 1024) {
-					setPdfUploadErrorMsg(
-						"El tamaño del archivo PDF debe ser inferior a 20 MB."
-					);
-					setPdfUploading(false);
-					return;
-				}
-			}
-
-			const promises = [];
-
-			for (let i = 0; i < pdfFile.length; i++) {
-				promises.push(storePdf(pdfFile[i]));
-			}
-
-			Promise.all(promises)
-				.then((urls) => {
-					setFormData({
-						...formData,
-						pdfs: formData.pdfs.concat(urls),
-					});
-					setPdfUploadErrorMsg(null);
-					setPdfUploading(false);
-				})
-				.catch((err) => {
-					setPdfUploadErrorMsg(err);
-					setPdfUploading(false);
-				});
-		} catch (error) {
-			setPdfUploadErrorMsg(error.message);
-			setPdfUploading(false);
-		}
-	};
-
-	const storePdf = async (pdf) => {
-		return new Promise((resolve, reject) => {
 			const storage = getStorage(app);
-			const fileName = new Date().getTime() + pdf.name;
-			const stoageRef = ref(storage, fileName);
+			const fileName = new Date().getTime() + "-" + file.name;
+			const storgeRef = ref(storage, fileName);
 			const metadata = {
 				customMetadata: {
 					uid: currentUser.firebaseId,
 				},
 			};
-			const uploadTask = uploadBytesResumable(stoageRef, pdf, metadata);
+			const uploadTask = uploadBytesResumable(storgeRef, file, metadata);
 			uploadTask.on(
 				"state_changed",
 				(snapshot) => {
 					const progress =
 						(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-					console.log(`Upload is ${progress}% done`);
+					setImageUploadProgress(progress.toFixed(0));
 				},
 				(error) => {
-					reject(error);
+					setImageUploading(false);
+					setImageUploadProgress(null);
+					setImageUploadErrorMsg(
+						"Error al cargar la imagen. Intentar otra vez!"
+					);
 				},
 				() => {
-					getDownloadURL(uploadTask.snapshot.ref).then((downlaodURL) => {
-						resolve(downlaodURL);
+					getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+						if (formData.backgroundImage) {
+							setPrevUrlData([...prevUrlData, formData.backgroundImage]);
+						}
+						setImageUploadProgress(null);
+						setFormData({ ...formData, backgroundImage: downloadURL });
+						setImageUploading(false);
 					});
 				}
 			);
-		});
-	};
-
-	const handleRemovePdf = (index, url) => {
-		setFormData({
-			...formData,
-			pdfs: formData.pdfs.filter((x, i) => i !== index),
-		});
-		setPrevUrlData([...prevUrlData, url]);
-	};
-
-	useEffect(() => {
-		fetchUsers();
-	}, []);
-
-	const fetchUsers = async () => {
-		// console.log(voiceType, country);
-		try {
-			const response = await fetch(
-				`/api/user/getusers?&sort=${"desc"}&limit=10`
-			);
-			const data = await response.json();
-			// console.log(data);
-			setUsers(data.users);
-			if (data.users.length < 10) {
-				setShowMoreUsers(false);
-			}
 		} catch (error) {
-			console.error("Failed to fetch speaker", error);
-		}
-	};
-
-	const handleShowMoreUsers = async () => {
-		try {
-			const startIndex = speakers.length;
-			const response = await fetch(
-				`/api/user/getusers?startIndex=${startIndex}&sort=${"desc"}&limit=10`
-			);
-			const data = await response.json();
-			// console.log(data);
-			if (data.users.length < 10) {
-				setShowMoreUsers(false);
-			}
-			setUsers([...users, ...data.users]);
-		} catch (error) {
-			console.error("Failed to fetch speaker", error);
-		}
-	};
-
-	const handlePremiumUser = async (userId) => {
-		try {
-			const res = await fetch(`/api/user/makePremium/${userId}`, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
-			if (res.ok) {
-				setUsers((prevUsers) =>
-					prevUsers.map((user) =>
-						user._id === userId ? { ...user, isPremium: true } : user
-					)
-				);
-			}
-		} catch (error) {
-			console.log(error.message);
-		}
-	};
-	const handleFreeUser = async (userId) => {
-		try {
-			const res = await fetch(`/api/user/makeFree/${userId}`, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
-			if (res.ok) {
-				setUsers((prevUsers) =>
-					prevUsers.map((user) =>
-						user._id === userId ? { ...user, isPremium: false } : user
-					)
-				);
-			}
-		} catch (error) {
-			console.log(error.message);
+			setImageUploadErrorMsg("Error al cargar la imagen. Intentar otra vez!");
+			setImageUploading(false);
 		}
 	};
 
@@ -326,13 +193,229 @@ const DashAdmin = () => {
 			className="w-full bg-cover bg-center
 			bg-[url('../../bg-light.jpg')] dark:bg-[url('../../bg2-dark.jpg')]">
 			<div
-				className="max-w-6xl my-5 sm:my-10 mx-3 p-3 sm:mx-12 lg:mx-auto sm:p-10 self-center dark:shadow-whiteLg
-			bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[20px] rounded-lg shadow-xl">
+				className="max-w-4xl my-5 sm:my-10 mx-3 p-3 sm:mx-12 lg:mx-auto sm:p-10 self-center dark:shadow-whiteLg
+			bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-xl">
 				<h2 className="self-center text-2xl text-center font-semibold">
 					Sólo para administrador
 				</h2>
 				<form className="my-10 flex flex-col gap-10" onSubmit={handleSubmit}>
-					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[20px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg"></div>
+					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
+						<h2 className="self-center text-xl text-center font-semibold mb-2">
+							Background Image
+						</h2>
+						<div className="bg-transparent border-2 border-white/20 backdrop-blur-[20px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
+							{/* <Label value="Cargue una imagen (tamaño máximo 5 MB) (obligatorio)" /> */}
+							<div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
+								<FileInput
+									type="file"
+									accept="image/*"
+									onChange={(e) => setFile(e.target.files[0])}
+									className="w-full sm:w-auto"
+									disabled={loading || imageUploading}
+								/>
+								<Button
+									type="button"
+									gradientDuoTone="purpleToBlue"
+									size="sm"
+									outline
+									className="focus:ring-1 w-full sm:w-auto"
+									onClick={handleUploadImage}
+									disabled={imageUploadProgress || loading || imageUploading}>
+									{imageUploadProgress ? (
+										<div className="flex items-center">
+											<CircularProgressbar
+												className="h-5"
+												value={imageUploadProgress}
+											/>
+											<span className="ml-1">
+												Subiendo... Espere por favor!
+											</span>
+										</div>
+									) : (
+										"Subir imagen"
+									)}
+								</Button>
+							</div>
+							{imageUploadErrorMsg && (
+								<Alert className="flex-auto" color="failure" withBorderAccent>
+									<div className="flex justify-between">
+										<span>{imageUploadErrorMsg}</span>
+										<span className="w-5 h-5">
+											<MdCancelPresentation
+												className="cursor-pointer w-6 h-6"
+												onClick={() => setImageUploadErrorMsg(null)}
+											/>
+										</span>
+									</div>
+								</Alert>
+							)}
+							{formData.backgroundImage && (
+								<img
+									src={formData.backgroundImage}
+									alt="upload"
+									className="w-full h-auto object-cover border 
+								border-gray-500 dark:border-gray-300 mt-4"
+								/>
+							)}
+						</div>
+					</div>
+					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
+						<h2 className="self-center text-xl text-center font-semibold mb-2">
+							Guiones para practicar
+						</h2>
+						<div className="bg-transparent border-2 border-white/20 backdrop-blur-[20px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
+							<Label value="El enlace de tu vídeo de YouTube (opcional)" />
+							<div className="flex flex-col sm:flex-row gap-4 items-center justify-between mb-4">
+								<TextInput
+									className="flex-grow w-full"
+									type="text"
+									placeholder="Enlace de Youtube"
+									onChange={(e) => setYTLink(e.target.value)}
+									disabled={loading || imageUploading}
+									value={ytLink}
+								/>
+								<Button
+									type="button"
+									gradientDuoTone="purpleToBlue"
+									size="sm"
+									outline
+									className="focus:ring-1 w-full sm:w-auto"
+									onClick={handleAddVideos}
+									disabled={
+										imageUploadProgress || loading || imageUploading || !ytLink
+									}>
+									Agregar
+								</Button>
+							</div>
+							{ytLink && (
+								<div className="video-wrapper-form h-[180px] sm:h-[270px] md:h-[260px] lg:h-[370px] w-full">
+									<ReactPlayer
+										url={ytLink}
+										controls
+										loop
+										config={{
+											youtube: {
+												playerVars: {
+													modestbranding: 1, // Hide the YouTube logo
+													rel: 0, // Minimizes related videos
+													showinfo: 0, // Hides video title and info (deprecated but still useful in some cases)
+													disablekb: 1, // Disables keyboard shortcuts
+												},
+											},
+										}}
+										width={"100%"}
+										className="react-player-form"
+									/>
+								</div>
+							)}
+							{videosErrorMsg && (
+								<Alert className="flex-auto" color="failure" withBorderAccent>
+									<div className="flex justify-between">
+										<span
+											dangerouslySetInnerHTML={{ __html: videosErrorMsg }}
+										/>
+										<span className="w-5 h-5">
+											<MdCancelPresentation
+												className="cursor-pointer w-6 h-6"
+												onClick={() => setVideosErrorMsg(null)}
+											/>
+										</span>
+									</div>
+								</Alert>
+							)}
+							{formData.youtubeLinks?.length > 0 &&
+								formData.youtubeLinks.map((url, index) => (
+									<>
+										<hr className="border-2 my-2" />
+										<div
+											key={url}
+											className="flex-col md:flex-row justify-between px-2 py-1 items-center">
+											<div className="video-wrapper-form h-[180px] sm:h-[270px] md:h-[260px] lg:h-[370px] w-full">
+												<ReactPlayer
+													url={url}
+													controls
+													loop
+													config={{
+														youtube: {
+															playerVars: {
+																modestbranding: 1, // Hide the YouTube logo
+																rel: 0, // Minimizes related videos
+																showinfo: 0, // Hides video title and info (deprecated but still useful in some cases)
+																disablekb: 1, // Disables keyboard shortcuts
+															},
+														},
+													}}
+													width={"100%"}
+													className="react-player-form"
+												/>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between px-3 py-3 border items-center gap-1">
+												<Label className="flex-grow">
+													<a
+														href={url}
+														target="_blank"
+														rel="noopener noreferrer">
+														{url}
+													</a>
+												</Label>
+												<button
+													disabled={loading || imageUploading}
+													type="button"
+													onClick={() => handleRemoveVideo(index)}
+													className="px-3 text-red-700 rounded-lg uppercase hover:opacity-75">
+													Borrar
+												</button>
+											</div>
+										</div>
+									</>
+								))}
+						</div>
+					</div>
+					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
+						<h2 className="self-center text-xl text-center font-semibold mb-2">
+							¿Quiénes somos?
+						</h2>
+						<ReactQuill
+							theme="snow"
+							placeholder="Write something...."
+							className="h-72 mb-16 sm:mb-12"
+							required
+							onChange={(value) =>
+								setFormData({ ...formData, aboutContent: value })
+							}
+							value={formData.aboutContent}
+						/>
+					</div>
+					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
+						<h2 className="self-center text-xl text-center font-semibold mb-2">
+							Política de privacidad
+						</h2>
+						<ReactQuill
+							theme="snow"
+							placeholder="Write something...."
+							className="h-72 mb-16 sm:mb-12"
+							required
+							onChange={(value) =>
+								setFormData({ ...formData, privacyContent: value })
+							}
+							value={formData.privacyContent}
+						/>
+					</div>
+					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
+						<h2 className="self-center text-xl text-center font-semibold mb-2">
+							Términos legales
+						</h2>
+						<ReactQuill
+							theme="snow"
+							placeholder="Write something...."
+							className="h-72 mb-16 sm:mb-12"
+							required
+							onChange={(value) =>
+								setFormData({ ...formData, legalContent: value })
+							}
+							value={formData.legalContent}
+						/>
+					</div>
 					<Button
 						type="submit"
 						gradientDuoTone="purpleToPink"

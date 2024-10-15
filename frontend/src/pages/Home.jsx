@@ -21,6 +21,22 @@ const Home = () => {
 	const navigate = useNavigate(); // Replaces useHistory
 	// const [country, setCountry] = useState("");
 
+	const [storage, setStorage] = useState({ youtubeLinks: [] });
+
+	useEffect(() => {
+		const fetchStorage = async () => {
+			try {
+				const response = await fetch("/api/storage/get-storage");
+				const data = await response.json();
+				setStorage(data);
+			} catch (error) {
+				console.log(error.message);
+			}
+		};
+
+		fetchStorage();
+	}, []);
+
 	const handleChange = (e) => {
 		setFormData({
 			...formData,
