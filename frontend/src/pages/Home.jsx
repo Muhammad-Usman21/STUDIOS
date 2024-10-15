@@ -159,11 +159,9 @@ const Home = () => {
 					<h1 className=" text-blue-600 font-extrabold text-3xl md:text-6xl">
 						Estudio Alquila
 					</h1>
-					{/* <p className="w-64 md:w-96 text-sm md:text-lg inline">
-						Discover and book the perfect studio for your next project with
-						ease. Explore top-rated spaces tailored to your creative needs, all
-						in one place
-					</p> */}
+					<p className="w-64 md:w-96 text-sm md:text-lg inline text-center text-white">
+					Descubra y reserve fácilmente el estudio perfecto para su próximo proyecto.
+					</p>
 					<a
 						className="self-center mt-5 inline"
 						href="#search"
@@ -175,7 +173,7 @@ const Home = () => {
 						}}>
 						<button className=" flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br  from-green-200  via-blue-300  to-blue-200  group-hover:from-red-200 group-hover:via-red-300  dark:text-white dark:hover:text-gray-900 focus:ring-1 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400">
 							<span className=" px-5 py-2.5 transition-all ease-in duration-75 bg-blue-300 dark:bg-blue-500 rounded-md group-hover:bg-opacity-0 text-xl">
-								View Studios!
+							¡Ver estudios!
 							</span>
 						</button>
 					</a>
@@ -245,7 +243,7 @@ const Home = () => {
 					className="flex flex-col w-full items-center justify-center gap-6 lg:gap-10 px-3 lg:px-10 py-5 lg:py-10
 				bg-transparent backdrop-blur-[30px]">
 					<span className="text-lg md:text-2xl text-center font-semibold">
-						Book Your Studio in Seconds!
+					¡Reserve su estudio en segundos!
 					</span>
 					<div className="flex flex-col gap-2 md:gap-4 w-full">
 						<div className="flex flex-col gap-2 md:gap-4 max-w-3xl self-center w-full">
@@ -348,7 +346,7 @@ const Home = () => {
 									className="flex-grow w-full"
 									type="text"
 									name="searchTerm"
-									placeholder="Search"
+									placeholder="Buscar"
 									value={formData.searchTerm}
 									onChange={handleChange}
 								/>
@@ -357,7 +355,7 @@ const Home = () => {
 									gradientDuoTone={"purpleToPink"}
 									onClick={() => handleSearch(formData)} // Pass current formData directly
 								>
-									Search
+									Buscar
 								</Button>
 							</div>
 						</div>
@@ -368,7 +366,7 @@ const Home = () => {
 					{searchResults.length > 0 && (
 						<>
 							<Select
-								className="w-full md:w-40 self-end lg:mr-36"
+								className="w-full md:w-52 self-end lg:mr-36"
 								value={formData.sort}
 								onChange={(e) => {
 									setFormData((prevFormData) => {
@@ -380,12 +378,12 @@ const Home = () => {
 										return updatedFormData;
 									});
 								}}>
-								<option value="desc">Latest Studio</option>
-								<option value="asc">Oldest Studio</option>
-								<option value="priceDesc">Highest Price</option>
-								<option value="priceAsc">Lowest Price</option>
-								<option value="facilityDesc">Highest Benefits</option>
-								<option value="facilityAsc">Lowest Benefits</option>
+								<option value="desc">Último estudio</option>
+								<option value="asc">Estudio más antiguo</option>
+								<option value="priceDesc">Precio más alto</option>
+								<option value="priceAsc">Precio más bajo</option>
+								<option value="facilityDesc">Beneficios más altos</option>
+								<option value="facilityAsc">Beneficios más bajos</option>
 							</Select>
 
 							<div className="flex flex-wrap gap-5 items-center justify-center w-full">

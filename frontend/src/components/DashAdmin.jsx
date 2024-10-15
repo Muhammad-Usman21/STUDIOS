@@ -214,7 +214,7 @@ const DashAdmin = () => {
 							<div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
 								<FileInput
 									type="file"
-									accept="image/*"
+									accept=".jpg, .jpeg, .png"
 									onChange={(e) => setFile(e.target.files[0])}
 									className="w-full sm:w-auto"
 									disabled={loading || imageUploading}

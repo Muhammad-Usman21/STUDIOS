@@ -65,7 +65,7 @@ const StudioCard = ({ studio }) => {
 							dark:hover:bg-gray-700 dark:hover:text-gray-100 hover:text-white
 							transition-all duration-300 py-2 rounded-md !rounded-tl-none
 							!rounded-br-none m-2 mt-0">
-								Book Studio
+								Estudio de libros
 							</Link>
 						</div>
 					</div>

@@ -282,11 +282,11 @@ const EditStudio = () => {
 				<form className={`flex py-5 flex-col gap-6`} onSubmit={handleSubmit}>
 					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
 						<div className="flex gap-2 sm:flex-row flex-col sm:items-center justify-center px-3 pt-3">
-							<Label value="Title" />
+							<Label value="Título" />
 							<TextInput
 								className="flex-grow w-full"
 								type="text"
-								placeholder="Title"
+								placeholder="Título"
 								onChange={(e) =>
 									setFormData({ ...formData, title: e.target.value })
 								}
@@ -300,7 +300,7 @@ const EditStudio = () => {
 							<TextInput
 								className="flex-grow w-full ml-1"
 								type="text"
-								placeholder="Calendar Appointment Link"
+								placeholder="Enlace de cita del calendario"
 								onChange={(e) =>
 									setFormData({ ...formData, calendarUrl: e.target.value })
 								}
@@ -310,11 +310,11 @@ const EditStudio = () => {
 							/>
 						</div>
 						<div className="flex flex-col gap-2 sm:items-center justify-center p-3">
-							<Label value="Description" />
+							<Label value="Descripción" />
 							<Textarea
 								className=""
 								rows="4"
-								placeholder="Write someting about your studio...."
+								placeholder="Escribe algo sobre tu estudio....."
 								onChange={(e) =>
 									setFormData({ ...formData, description: e.target.value })
 								}
@@ -325,7 +325,7 @@ const EditStudio = () => {
 						</div>
 						<div className="flex flex-col lg:flex-row w-full lg:w-auto justify-around gap-3">
 							<div className="flex flex-col w-full lg:w-auto gap-1">
-								<Label value="Type" className="" />
+								<Label value="Tipo" className="" />
 								<Select
 									disabled={loading || imageUploading}
 									className="w-full lg:w-64"
@@ -342,7 +342,7 @@ const EditStudio = () => {
 								</Select>
 							</div>
 							<div className="flex flex-col w-full lg:w-auto gap-1">
-								<Label value="Price ($) per Hour" className="" />
+								<Label value="Precio ($) por Hora" className="" />
 								<TextInput
 									className="flex-grow w-full md:ml-1"
 									type="number"
@@ -358,7 +358,7 @@ const EditStudio = () => {
 							</div>
 						</div>
 
-						<Label value="Facilities" className="self-center mt-5" />
+						<Label value="Beneficios" className="self-center mt-5" />
 						<div className="flex flex-col md:flex-row gap-2 md:flex-wrap md:justify-between lg:justify-around my-1">
 							<ToggleSwitch
 								// className="focus:ring-1"
