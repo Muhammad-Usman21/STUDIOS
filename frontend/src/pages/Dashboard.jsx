@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import DashUser from "../components/DashUser";
 import CreateStudio from "../components/CreateStudio";
 import EditStudio from "../components/EditStudio";
+import DashAdmin from "../components/DashAdmin";
 
 const Dashboard = () => {
 	const location = useLocation();
@@ -27,7 +28,7 @@ const Dashboard = () => {
 			{tab === "user" && <DashUser />}
 			{tab === "studio" && <CreateStudio />}
 			{currentUser.isStudio && tab === "edit-studio" && <EditStudio />}
-			{currentUser.isAdmin && tab === "admin" && <DashAdmin />}
+			{currentUser && tab === "admin" && <DashAdmin />}
 		</div>
 	);
 };
