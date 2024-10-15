@@ -17,7 +17,7 @@ export const signup = async (req, res, next) => {
 	const newUser = new User({
 		name,
 		email,
-		firebaseId
+		firebaseId,
 	});
 
 	try {
@@ -74,7 +74,6 @@ export const signout = (req, res, next) => {
 		next(error);
 	}
 };
-
 
 export const google = async (req, res, next) => {
 	const { email, name, googlePhotoUrl, firebaseId } = req.body;
