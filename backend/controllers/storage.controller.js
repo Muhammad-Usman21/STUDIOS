@@ -3,20 +3,30 @@ import Storage from "../models/storage.model.js";
 export const storeInfo = async (req, res, next) => {
 	try {
 		if (req.user.isAdmin) {
-			const { youtubeLink, recommended, pdfs } = req.body;
+			const {
+				backgroundImage,
+				youtubeLinks,
+				aboutContent,
+				privacyContent,
+				legalContent,
+			} = req.body;
 
 			const newStorage = new Storage({
-				youtubeLink,
-				recommended,
-				pdfs,
+				backgroundImage,
+				youtubeLinks,
+				aboutContent,
+				privacyContent,
+				legalContent,
 			});
 
 			await newStorage.save();
 
 			return res.status(201).json({
-				youtubeLink: newStorage.youtubeLink,
-				recommended: newStorage.recommended,
-				pdfs: newStorage.pdfs,
+				backgroundImage: newStorage.backgroundImage,
+				youtubeLinks: newStorage.youtubeLinks,
+				aboutContent: newStorage.aboutContent,
+				privacyContent: newStorage.privacyContent,
+				legalContent: newStorage.legalContent,
 				found: true,
 			});
 		}
@@ -28,19 +38,29 @@ export const storeInfo = async (req, res, next) => {
 export const updateInfo = async (req, res, next) => {
 	try {
 		if (req.user.isAdmin) {
-			const { youtubeLink, recommended, pdfs } = req.body;
+			const {
+				backgroundImage,
+				youtubeLinks,
+				aboutContent,
+				privacyContent,
+				legalContent,
+			} = req.body;
 
 			const storage = await Storage.findOne();
-			storage.youtubeLink = youtubeLink;
-			storage.recommended = recommended;
-			storage.pdfs = pdfs;
+			storage.backgroundImage = backgroundImage;
+			storage.youtubeLinks = youtubeLinks;
+			storage.aboutContent = aboutContent;
+			storage.privacyContent = privacyContent;
+			Storage.legalContent = legalContent;
 			const updatedStorage = await storage.save();
 			//   console.log(updatedStorage);
 			//   console.log(updatedStorage._doc);
 			return res.status(201).json({
-				youtubeLink: updatedStorage.youtubeLink,
-				recommended: updatedStorage.recommended,
-				pdfs: updatedStorage.pdfs,
+				backgroundImage: newStorage.backgroundImage,
+				youtubeLinks: newStorage.youtubeLinks,
+				aboutContent: newStorage.aboutContent,
+				privacyContent: newStorage.privacyContent,
+				legalContent: newStorage.legalContent,
 				found: true,
 			});
 		}
@@ -57,16 +77,20 @@ export const getInfo = async (req, res, next) => {
 		// Check if any documents are found and respond accordingly
 		if (data.length > 0) {
 			res.json({
-				youtubeLink: data[0].youtubeLink,
-				recommended: data[0].recommended,
-				pdfs: data[0].pdfs,
+				backgroundImage: data[0].backgroundImage,
+				youtubeLinks: data[0].youtubeLinks,
+				aboutContent: data[0].aboutContent,
+				privacyContent: data[0].privacyContent,
+				legalContent: data[0].legalContent,
 				found: true,
 			});
 		} else {
 			res.json({
-				youtubeLink: "",
-				recommended: [],
-				pdfs: [],
+				backgroundImage: "",
+				youtubeLinks: [],
+				aboutContent: "",
+				privacyContent: "",
+				legalContent: "",
 				found: false,
 			});
 		}

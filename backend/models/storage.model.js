@@ -2,16 +2,21 @@ import mongoose from "mongoose";
 
 const storageSchema = new mongoose.Schema(
 	{
-		youtubeLink: {
+		backgroundImage: {
 			type: String,
 		},
-		recommended: {
+		youtubeLinks: {
 			type: Array,
 			default: [],
 		},
-		pdfs: {
-			type: Array,
-			default: [],
+		aboutContent: {
+			type: String,
+		},
+		privacyContent: {
+			type: String,
+		},
+		legalContent: {
+			type: String,
 		},
 	},
 	{ timestamps: true }
