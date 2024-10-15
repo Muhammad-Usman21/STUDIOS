@@ -150,18 +150,22 @@ const Home = () => {
 
 	return (
 		<div className="min-h-screen w-full">
-			<div className="w-full relative bg-white dark:bg-black bg-opacity-80 dark:bg-opacity-60">
-				<div className="flex flex-col gap-2 z-20 self-center justify-center items-center pt-36">
-					<h1 className=" text-blue-600 font-extrabold md:text-6xl">
+			<div
+				style={{
+					backgroundImage: `url(${storage.backgroundImage})`,
+				}}
+				className={`w-full relative bg-opacity-80 dark:bg-opacity-60 bg-center bg-no-repeat bg-cover bg-fixed min-h-screen`}>
+				<div className="flex flex-col gap-2 z-20 self-center justify-center items-center py-36">
+					<h1 className=" text-blue-600 font-extrabold text-3xl md:text-6xl">
 						Estudio Alquila
 					</h1>
-					<p className="w-96 text-xs md:text-lg hidden sm:inline">
+					<p className="w-64 md:w-96 text-sm md:text-lg inline">
 						Discover and book the perfect studio for your next project with
 						ease. Explore top-rated spaces tailored to your creative needs, all
 						in one place
 					</p>
 					<a
-						className="self-center mt-5 hidden sm:inline"
+						className="self-center mt-5 inline"
 						href="#search"
 						onClick={(e) => {
 							e.preventDefault();
@@ -176,17 +180,10 @@ const Home = () => {
 						</button>
 					</a>
 				</div>
-				<div className="min-h-96">
-					<img
-						className="w-full object-cover relative z-0"
-						src={storage.backgroundImage}
-						alt="home-light"
-					/>
-				</div>
 			</div>
 			<div
 				id="search"
-				className="items-center justify-center flex flex-col gap-12 lg:gap-24">
+				className="items-center justify-center flex flex-col gap-12 lg:gap-24 pt-20 bg-transparent backdrop-blur-[30px]">
 				{/* <div className="flex flex-col items-center justify-center gap-4 md:gap-8 p-5 md:p-10 bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
 					<span className="text-2xl md:text-4xl text-center">
 						Capture Your Creative Moments
@@ -245,7 +242,7 @@ const Home = () => {
 				</div> */}
 
 				<div
-					className="flex flex-col w-full items-center justify-center gap-6 lg:gap-10 px-3 lg:px-10 py-5 lg:py-20
+					className="flex flex-col w-full items-center justify-center gap-6 lg:gap-10 px-3 lg:px-10 py-5 lg:py-10
 				bg-transparent backdrop-blur-[30px]">
 					<span className="text-lg md:text-2xl text-center font-semibold">
 						Book Your Studio in Seconds!
@@ -371,7 +368,7 @@ const Home = () => {
 					{searchResults.length > 0 && (
 						<>
 							<Select
-								className="w-full md:w-52 self-end mr-36"
+								className="w-full md:w-52 self-end lg:mr-36"
 								value={formData.sort}
 								onChange={(e) => {
 									setFormData((prevFormData) => {
