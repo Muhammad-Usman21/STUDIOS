@@ -51,7 +51,7 @@ const FooterComp = () => {
 						<div>
 							<Footer.LinkGroup col className="space-y-2">
 								<div className="flex gap-8 md:gap-8 md:flex-row justify-around">
-									<Link to="/practice">Guiones para practicar</Link>
+									<Link to="/practice">Tutorials</Link>
 									<Link to="/about">¿Quiénes somos?</Link>
 								</div>
 							</Footer.LinkGroup>

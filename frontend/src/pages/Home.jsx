@@ -159,11 +159,11 @@ const Home = () => {
 					<h1 className=" text-blue-600 font-extrabold text-3xl md:text-6xl">
 						Estudio Alquila
 					</h1>
-					<p className="w-64 md:w-96 text-sm md:text-lg inline">
+					{/* <p className="w-64 md:w-96 text-sm md:text-lg inline">
 						Discover and book the perfect studio for your next project with
 						ease. Explore top-rated spaces tailored to your creative needs, all
 						in one place
-					</p>
+					</p> */}
 					<a
 						className="self-center mt-5 inline"
 						href="#search"
@@ -368,7 +368,7 @@ const Home = () => {
 					{searchResults.length > 0 && (
 						<>
 							<Select
-								className="w-full md:w-52 self-end lg:mr-36"
+								className="w-full md:w-40 self-end lg:mr-36"
 								value={formData.sort}
 								onChange={(e) => {
 									setFormData((prevFormData) => {
