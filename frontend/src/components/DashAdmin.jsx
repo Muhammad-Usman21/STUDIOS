@@ -25,9 +25,7 @@ import { useSelector } from "react-redux";
 import { CircularProgressbar } from "react-circular-progressbar";
 
 const DashAdmin = () => {
-	const [formData, setFormData] = useState({
-		youtubeLinks: [],
-	});
+	const [formData, setFormData] = useState(null);
 
 	const [updatedMsg, setUpdatedMsg] = useState(null);
 	const [updatedError, setUpdatedError] = useState(null);
@@ -202,242 +200,244 @@ const DashAdmin = () => {
 				<h2 className="self-center text-2xl text-center font-semibold">
 					Sólo para administrador
 				</h2>
-				<form
-					className="mt-10 mb-5 flex flex-col gap-10"
-					onSubmit={handleSubmit}>
-					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-						<h2 className="self-center text-xl text-center font-semibold mb-2">
-							Background Image
-						</h2>
-						<div className="bg-transparent border-2 border-white/20 backdrop-blur-[20px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-							{/* <Label value="Cargue una imagen (tamaño máximo 5 MB) (obligatorio)" /> */}
-							<div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
-								<FileInput
-									type="file"
-									accept=".jpg, .jpeg, .png"
-									onChange={(e) => setFile(e.target.files[0])}
-									className="w-full sm:w-auto"
-									disabled={loading || imageUploading}
-								/>
-								<Button
-									type="button"
-									gradientDuoTone="purpleToBlue"
-									size="sm"
-									outline
-									className="focus:ring-1 w-full sm:w-auto"
-									onClick={handleUploadImage}
-									disabled={imageUploadProgress || loading || imageUploading}>
-									{imageUploadProgress ? (
-										<div className="flex items-center">
-											<CircularProgressbar
-												className="h-5"
-												value={imageUploadProgress}
-											/>
-											<span className="ml-1">
-												Subiendo... Espere por favor!
+				{formData && (
+					<form
+						className="mt-10 mb-5 flex flex-col gap-10"
+						onSubmit={handleSubmit}>
+						<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
+							<h2 className="self-center text-xl text-center font-semibold mb-2">
+								Background Image
+							</h2>
+							<div className="bg-transparent border-2 border-white/20 backdrop-blur-[20px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
+								{/* <Label value="Cargue una imagen (tamaño máximo 5 MB) (obligatorio)" /> */}
+								<div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
+									<FileInput
+										type="file"
+										accept=".jpg, .jpeg, .png"
+										onChange={(e) => setFile(e.target.files[0])}
+										className="w-full sm:w-auto"
+										disabled={loading || imageUploading}
+									/>
+									<Button
+										type="button"
+										gradientDuoTone="purpleToBlue"
+										size="sm"
+										outline
+										className="focus:ring-1 w-full sm:w-auto"
+										onClick={handleUploadImage}
+										disabled={imageUploadProgress || loading || imageUploading}>
+										{imageUploadProgress ? (
+											<div className="flex items-center">
+												<CircularProgressbar
+													className="h-5"
+													value={imageUploadProgress}
+												/>
+												<span className="ml-1">
+													Subiendo... Espere por favor!
+												</span>
+											</div>
+										) : (
+											"Subir imagen"
+										)}
+									</Button>
+								</div>
+								{imageUploadErrorMsg && (
+									<Alert className="flex-auto" color="failure" withBorderAccent>
+										<div className="flex justify-between">
+											<span>{imageUploadErrorMsg}</span>
+											<span className="w-5 h-5">
+												<MdCancelPresentation
+													className="cursor-pointer w-6 h-6"
+													onClick={() => setImageUploadErrorMsg(null)}
+												/>
 											</span>
 										</div>
-									) : (
-										"Subir imagen"
-									)}
-								</Button>
-							</div>
-							{imageUploadErrorMsg && (
-								<Alert className="flex-auto" color="failure" withBorderAccent>
-									<div className="flex justify-between">
-										<span>{imageUploadErrorMsg}</span>
-										<span className="w-5 h-5">
-											<MdCancelPresentation
-												className="cursor-pointer w-6 h-6"
-												onClick={() => setImageUploadErrorMsg(null)}
-											/>
-										</span>
-									</div>
-								</Alert>
-							)}
-							{formData.backgroundImage && (
-								<img
-									src={formData.backgroundImage}
-									alt="upload"
-									className="w-full h-auto object-cover border 
+									</Alert>
+								)}
+								{formData.backgroundImage && (
+									<img
+										src={formData.backgroundImage}
+										alt="upload"
+										className="w-full h-auto object-cover border 
 								border-gray-500 dark:border-gray-300 mt-4"
-								/>
-							)}
-						</div>
-					</div>
-					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-						<h2 className="self-center text-xl text-center font-semibold mb-2">
-							Guiones para practicar
-						</h2>
-						<div className="bg-transparent border-2 border-white/20 backdrop-blur-[20px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-							<Label value="The link to YouTube video" />
-							<div className="flex flex-col sm:flex-row gap-4 items-center justify-between mb-4">
-								<TextInput
-									className="flex-grow w-full"
-									type="text"
-									placeholder="Enlace de Youtube"
-									onChange={(e) => setYTLink(e.target.value)}
-									disabled={loading || imageUploading}
-									value={ytLink}
-								/>
-								<Button
-									type="button"
-									gradientDuoTone="purpleToBlue"
-									size="sm"
-									outline
-									className="focus:ring-1 w-full sm:w-auto"
-									onClick={handleAddVideos}
-									disabled={
-										imageUploadProgress || loading || imageUploading || !ytLink
-									}>
-									Agregar
-								</Button>
-							</div>
-							{ytLink && (
-								<div className="video-wrapper-form h-[180px] sm:h-[270px] md:h-[260px] lg:h-[370px] w-full">
-									<ReactPlayer
-										url={ytLink}
-										controls
-										loop
-										config={{
-											youtube: {
-												playerVars: {
-													modestbranding: 1, // Hide the YouTube logo
-													rel: 0, // Minimizes related videos
-													showinfo: 0, // Hides video title and info (deprecated but still useful in some cases)
-													disablekb: 1, // Disables keyboard shortcuts
-												},
-											},
-										}}
-										width={"100%"}
-										className="react-player-form"
 									/>
-								</div>
-							)}
-							{videosErrorMsg && (
-								<Alert className="flex-auto" color="failure" withBorderAccent>
-									<div className="flex justify-between">
-										<span
-											dangerouslySetInnerHTML={{ __html: videosErrorMsg }}
-										/>
-										<span className="w-5 h-5">
-											<MdCancelPresentation
-												className="cursor-pointer w-6 h-6"
-												onClick={() => setVideosErrorMsg(null)}
-											/>
-										</span>
-									</div>
-								</Alert>
-							)}
-							{formData.youtubeLinks?.length > 0 &&
-								formData.youtubeLinks.map((url, index) => (
-									<>
-										<hr className="border-2 my-2" />
-										<div
-											key={url}
-											className="flex-col md:flex-row justify-between px-2 py-1 items-center">
-											<div className="video-wrapper-form h-[180px] sm:h-[270px] md:h-[260px] lg:h-[370px] w-full">
-												<ReactPlayer
-													url={url}
-													controls
-													loop
-													config={{
-														youtube: {
-															playerVars: {
-																modestbranding: 1, // Hide the YouTube logo
-																rel: 0, // Minimizes related videos
-																showinfo: 0, // Hides video title and info (deprecated but still useful in some cases)
-																disablekb: 1, // Disables keyboard shortcuts
-															},
-														},
-													}}
-													width={"100%"}
-													className="react-player-form"
-												/>
-											</div>
-											<div className="flex flex-col md:flex-row justify-between px-3 py-3 border items-center gap-1">
-												<Label className="flex-grow">
-													<a
-														href={url}
-														target="_blank"
-														rel="noopener noreferrer">
-														{url}
-													</a>
-												</Label>
-												<button
-													disabled={loading || imageUploading}
-													type="button"
-													onClick={() => handleRemoveVideo(index)}
-													className="px-3 text-red-700 rounded-lg uppercase hover:opacity-75">
-													Borrar
-												</button>
-											</div>
-										</div>
-									</>
-								))}
+								)}
+							</div>
 						</div>
-					</div>
-					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-						<h2 className="self-center text-xl text-center font-semibold mb-2">
-							¿Quiénes somos?
-						</h2>
-						<ReactQuill
-							theme="snow"
-							placeholder="Write something...."
-							className="h-72 mb-16 sm:mb-12"
+						<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
+							<h2 className="self-center text-xl text-center font-semibold mb-2">
+								Guiones para practicar
+							</h2>
+							<div className="bg-transparent border-2 border-white/20 backdrop-blur-[20px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
+								<Label value="The link to YouTube video" />
+								<div className="flex flex-col sm:flex-row gap-4 items-center justify-between mb-4">
+									<TextInput
+										className="flex-grow w-full"
+										type="text"
+										placeholder="Enlace de Youtube"
+										onChange={(e) => setYTLink(e.target.value)}
+										disabled={loading || imageUploading}
+										value={ytLink}
+									/>
+									<Button
+										type="button"
+										gradientDuoTone="purpleToBlue"
+										size="sm"
+										outline
+										className="focus:ring-1 w-full sm:w-auto"
+										onClick={handleAddVideos}
+										disabled={
+											imageUploadProgress || loading || imageUploading || !ytLink
+										}>
+										Agregar
+									</Button>
+								</div>
+								{ytLink && (
+									<div className="video-wrapper-form h-[180px] sm:h-[270px] md:h-[260px] lg:h-[370px] w-full">
+										<ReactPlayer
+											url={ytLink}
+											controls
+											loop
+											config={{
+												youtube: {
+													playerVars: {
+														modestbranding: 1, // Hide the YouTube logo
+														rel: 0, // Minimizes related videos
+														showinfo: 0, // Hides video title and info (deprecated but still useful in some cases)
+														disablekb: 1, // Disables keyboard shortcuts
+													},
+												},
+											}}
+											width={"100%"}
+											className="react-player-form"
+										/>
+									</div>
+								)}
+								{videosErrorMsg && (
+									<Alert className="flex-auto" color="failure" withBorderAccent>
+										<div className="flex justify-between">
+											<span
+												dangerouslySetInnerHTML={{ __html: videosErrorMsg }}
+											/>
+											<span className="w-5 h-5">
+												<MdCancelPresentation
+													className="cursor-pointer w-6 h-6"
+													onClick={() => setVideosErrorMsg(null)}
+												/>
+											</span>
+										</div>
+									</Alert>
+								)}
+								{formData.youtubeLinks?.length > 0 &&
+									formData.youtubeLinks.map((url, index) => (
+										<>
+											<hr className="border-2 my-2" />
+											<div
+												key={url}
+												className="flex-col md:flex-row justify-between px-2 py-1 items-center">
+												<div className="video-wrapper-form h-[180px] sm:h-[270px] md:h-[260px] lg:h-[370px] w-full">
+													<ReactPlayer
+														url={url}
+														controls
+														loop
+														config={{
+															youtube: {
+																playerVars: {
+																	modestbranding: 1, // Hide the YouTube logo
+																	rel: 0, // Minimizes related videos
+																	showinfo: 0, // Hides video title and info (deprecated but still useful in some cases)
+																	disablekb: 1, // Disables keyboard shortcuts
+																},
+															},
+														}}
+														width={"100%"}
+														className="react-player-form"
+													/>
+												</div>
+												<div className="flex flex-col md:flex-row justify-between px-3 py-3 border items-center gap-1">
+													<Label className="flex-grow">
+														<a
+															href={url}
+															target="_blank"
+															rel="noopener noreferrer">
+															{url}
+														</a>
+													</Label>
+													<button
+														disabled={loading || imageUploading}
+														type="button"
+														onClick={() => handleRemoveVideo(index)}
+														className="px-3 text-red-700 rounded-lg uppercase hover:opacity-75">
+														Borrar
+													</button>
+												</div>
+											</div>
+										</>
+									))}
+							</div>
+						</div>
+						<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
+							<h2 className="self-center text-xl text-center font-semibold mb-2">
+								¿Quiénes somos?
+							</h2>
+							<ReactQuill
+								theme="snow"
+								placeholder="Write something...."
+								className="h-72 mb-16 sm:mb-12"
+								disabled={loading || imageUploading}
+								onChange={(value) =>
+									setFormData({ ...formData, aboutContent: value })
+								}
+								value={formData.aboutContent}
+							/>
+						</div>
+						<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
+							<h2 className="self-center text-xl text-center font-semibold mb-2">
+								Política de privacidad
+							</h2>
+							<ReactQuill
+								theme="snow"
+								placeholder="Write something...."
+								className="h-72 mb-16 sm:mb-12"
+								disabled={loading || imageUploading}
+								onChange={(value) =>
+									setFormData({ ...formData, privacyContent: value })
+								}
+								value={formData.privacyContent}
+							/>
+						</div>
+						<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
+							<h2 className="self-center text-xl text-center font-semibold mb-2">
+								Términos legales
+							</h2>
+							<ReactQuill
+								theme="snow"
+								placeholder="Write something...."
+								className="h-72 mb-16 sm:mb-12"
+								disabled={loading || imageUploading}
+								onChange={(value) =>
+									setFormData({ ...formData, legalContent: value })
+								}
+								value={formData.legalContent}
+							/>
+						</div>
+						<Button
+							type="submit"
+							gradientDuoTone="purpleToPink"
+							outline
 							disabled={loading || imageUploading}
-							onChange={(value) =>
-								setFormData({ ...formData, aboutContent: value })
-							}
-							value={formData.aboutContent}
-						/>
-					</div>
-					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-						<h2 className="self-center text-xl text-center font-semibold mb-2">
-							Política de privacidad
-						</h2>
-						<ReactQuill
-							theme="snow"
-							placeholder="Write something...."
-							className="h-72 mb-16 sm:mb-12"
-							disabled={loading || imageUploading}
-							onChange={(value) =>
-								setFormData({ ...formData, privacyContent: value })
-							}
-							value={formData.privacyContent}
-						/>
-					</div>
-					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-						<h2 className="self-center text-xl text-center font-semibold mb-2">
-							Términos legales
-						</h2>
-						<ReactQuill
-							theme="snow"
-							placeholder="Write something...."
-							className="h-72 mb-16 sm:mb-12"
-							disabled={loading || imageUploading}
-							onChange={(value) =>
-								setFormData({ ...formData, legalContent: value })
-							}
-							value={formData.legalContent}
-						/>
-					</div>
-					<Button
-						type="submit"
-						gradientDuoTone="purpleToPink"
-						outline
-						disabled={loading || imageUploading}
-						className="focus:ring-1 uppercase">
-						{loading ? (
-							<>
-								<Spinner size="sm" />
-								<span className="pl-3">Cargando.... Espere por favor!</span>
-							</>
-						) : (
-							"Confirm"
-						)}
-					</Button>
-				</form>
+							className="focus:ring-1 uppercase">
+							{loading ? (
+								<>
+									<Spinner size="sm" />
+									<span className="pl-3">Cargando.... Espere por favor!</span>
+								</>
+							) : (
+								"Confirm"
+							)}
+						</Button>
+					</form>
+				)}
 				{updatedMsg && (
 					<Alert className="flex-auto" color="success" withBorderAccent>
 						<div className="flex justify-between">
