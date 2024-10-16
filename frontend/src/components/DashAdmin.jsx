@@ -210,7 +210,7 @@ const DashAdmin = () => {
 							Background Image
 						</h2>
 						<div className="bg-transparent border-2 border-white/20 backdrop-blur-[20px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-							{/* <Label value="Cargue una imagen (tamaño máximo 5 MB) (obligatorio)" /> */}
+							<Label value="Background image must be in .jpg, .jpeg or .png format" />
 							<div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
 								<FileInput
 									type="file"
