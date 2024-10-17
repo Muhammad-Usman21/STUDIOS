@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { Button, Select, TextInput, Checkbox } from "flowbite-react";
 import { useLocation, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory
 import StudioCard from "../components/StudioCard";
-import homeLight from "../public/home-light5.png";
 import { countries } from "countries-list";
 
 const benefitsOptions = ["wifi", "parking", "air", "remote"];
