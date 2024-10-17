@@ -157,7 +157,7 @@ const Home = () => {
 				className={`w-full relative bg-opacity-80 dark:bg-opacity-60 bg-center bg-no-repeat bg-cover bg-fixed min-h-screen`}>
 				<div className="flex flex-col gap-2 z-20 self-center justify-center items-center py-36">
 					<h1 className=" text-blue-600 font-extrabold text-3xl md:text-6xl">
-						Estudio Alquila
+						Sesion Agendada
 					</h1>
 					<p className="w-64 md:w-96 text-sm md:text-lg inline text-center text-white">
 						Descubra y reserve fácilmente el estudio perfecto para su próximo
