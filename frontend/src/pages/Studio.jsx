@@ -28,7 +28,7 @@ const Studio = () => {
 					<>
 						<div
 							className="flex py-3 md:py-10 w-full p-3 md:p-16 max-w-4xl mx-5 sm:mx-10 md:mx-20 lg:mx-auto flex-col md:items-center gap-2 md:gap-5
-				bg-transparent backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
+				bg-transparent backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg bg-white bg-opacity-35 dark:bg-transparent dark:bg-opacity-100">
 							<img
 								src={studio.images[0].url}
 								alt={studio.name}
@@ -64,7 +64,7 @@ const Studio = () => {
 						{/* Tab Navigation */}
 						<div
 							className="flex flex-col md:flex-row md:sticky md:top-[60px] z-10 px-6 py-4 max-w-2xl w-full mx-5 sm:mx-10 md:mx-20 lg:mx-auto items-center gap-2 md:gap-10 justify-between
-						bg-transparent backdrop-blur-[30px] rounded-full shadow-2xl dark:shadow-whiteLg bg-white dark:bg-black bg-opacity-60 dark:bg-opacity-60">
+						bg-transparent backdrop-blur-[30px] rounded-full shadow-2xl dark:shadow-whiteLg  dark:bg-black bg-white bg-opacity-35 dark:bg-transparent dark:bg-opacity-100">
 							<button
 								className={`px-5 py-2 text-lg max-w-64 md:max-w-40 w-full font-semibold transition-colors duration-200 bg-slate-400 rounded-3xl ${
 									activeTab === "details"

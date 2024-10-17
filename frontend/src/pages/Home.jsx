@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Button, Select, TextInput, Checkbox } from "flowbite-react";
+import { Button, Select, TextInput, Checkbox, Label } from "flowbite-react";
 import { useLocation, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory
 import StudioCard from "../components/StudioCard";
 import { countries } from "countries-list";
@@ -182,7 +182,7 @@ const Home = () => {
 			</div>
 			<div
 				id="search"
-				className="items-center justify-center flex flex-col gap-12 lg:gap-24 pt-20 bg-transparent backdrop-blur-[30px]">
+				className="items-center justify-center flex flex-col gap-12 lg:gap-24 pt-20 bg-white bg-opacity-35 dark:bg-transparent dark:bg-opacity-100 backdrop-blur-[30px]">
 				{/* <div className="flex flex-col items-center justify-center gap-4 md:gap-8 p-5 md:p-10 bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
 					<span className="text-2xl md:text-4xl text-center">
 						Capture Your Creative Moments
@@ -367,27 +367,28 @@ const Home = () => {
 					</h1>
 					{searchResults.length > 0 && (
 						<>
-							<Select
-								className="w-full md:w-52 self-end lg:mr-36"
-								value={formData.sort}
-								onChange={(e) => {
-									setFormData((prevFormData) => {
-										const updatedFormData = {
-											...prevFormData,
-											sort: e.target.value,
-										};
-										handleSearch(updatedFormData); // Pass the updated state to handleSearch if necessary
-										return updatedFormData;
-									});
-								}}>
-								<option value="desc">Último estudio</option>
-								<option value="asc">Estudio más antiguo</option>
-								<option value="priceDesc">Precio más alto</option>
-								<option value="priceAsc">Precio más bajo</option>
-								<option value="facilityDesc">Beneficios más altos</option>
-								<option value="facilityAsc">Beneficios más bajos</option>
-							</Select>
-
+							<div className="w-44 self-end lg:mr-36">
+								<Label>Filtros</Label>
+								<Select
+									value={formData.sort}
+									onChange={(e) => {
+										setFormData((prevFormData) => {
+											const updatedFormData = {
+												...prevFormData,
+												sort: e.target.value,
+											};
+											handleSearch(updatedFormData); // Pass the updated state to handleSearch if necessary
+											return updatedFormData;
+										});
+									}}>
+									<option value="desc">Último estudio</option>
+									<option value="asc">Estudio más antiguo</option>
+									<option value="priceDesc">Precio más alto</option>
+									<option value="priceAsc">Precio más bajo</option>
+									<option value="facilityDesc">Beneficios más altos</option>
+									<option value="facilityAsc">Beneficios más bajos</option>
+								</Select>
+							</div>
 							<div className="flex flex-wrap gap-5 items-center justify-center w-full">
 								{searchResults.map((studio) => (
 									<StudioCard key={studio._id} studio={studio} />

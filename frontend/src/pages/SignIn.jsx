@@ -103,7 +103,7 @@ const SignIn = () => {
 		<div className="min-h-screen py-10">
 			<div
 				className="flex p-5 md:p-10 max-w-4xl mx-5 sm:mx-10 md:mx-20 lg:mx-auto flex-col md:flex-row md:items-center gap-10 lg:min-h-[540px]
-				bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
+				bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg bg-white bg-opacity-35 dark:bg-transparent dark:bg-opacity-100">
 				<div className="flex-1 md:px-5 flex flex-col gap-10 md:border-r-4 border-b-4 pb-10 md:border-b-0 border-gray-400">
 					<Link
 						to="/"

@@ -18,7 +18,7 @@ const StudioDetails = ({ studio }) => {
 		<div className="min-h-screen w-full sm:px-10 ">
 			<div
 				className="flex p-3 md:p-16 max-w-4xl w-full lg:mx-auto flex-col md:items-center gap-6 md:gap-10
-				bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
+				bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg bg-white bg-opacity-35 dark:bg-transparent dark:bg-opacity-100">
 				{/* Studio Facilities */}
 				<div className="w-full">
 					<h1 className="text-2xl font-semibold mb-2">Beneficios:</h1>
