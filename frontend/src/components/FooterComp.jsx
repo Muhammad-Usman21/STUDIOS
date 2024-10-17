@@ -10,6 +10,7 @@ import {
 	BsDiscord,
 } from "react-icons/bs";
 import { useState } from "react";
+import logo from "../public/logo.gif";
 
 const FooterComp = () => {
 	const [language, setLanguage] = useState("english");
@@ -25,21 +26,21 @@ const FooterComp = () => {
 						<Link
 							to="/"
 							className="font-semibold dark:text-white text-md sm:text-xl flex items-center h-10 sm:h-24">
-							{/* <img
-								src="logo3.png"
+							<img
+								src={logo}
 								alt="logo"
 								className="object-cover w-20 h-20 sm:w-24 sm:h-24"
 							/>
-							<img
+							{/* <img
 								src="logo2.png"
 								alt="logo"
 								className="object-cover h-8 sm:h-14"
 							/> */}
-							<div className="flex items-center justify-center">
+							{/* <div className="flex items-center justify-center">
 								<span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent font-extrabold text-xl sm:text-2xl tracking-wide">
 									RentStudio
 								</span>
-							</div>
+							</div> */}
 						</Link>
 					</div>
 					<div

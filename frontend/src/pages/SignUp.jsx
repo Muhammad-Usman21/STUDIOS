@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import OAuth from "../components/OAuth";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { app } from "../firebase";
+import logo from "../public/logo1.gif";
 
 const SignUp = () => {
 	const [formData, setFormData] = useState({});
@@ -98,7 +99,7 @@ const SignUp = () => {
 			setErrorMessage(error.message);
 			setLoading(false);
 		}
-	};
+	};	
 
 	return (
 		<div className="min-h-screen py-10">
@@ -109,21 +110,21 @@ const SignUp = () => {
 					<Link
 						to="/"
 						className="font-semibold dark:text-white text-md md:text-3xl flex items-center justify-center">
-						{/* <img
-							src="logo3.png"
-							alt="logo"
-							className="object-cover w-10 h-10"
-						/>
 						<img
+							src={logo}
+							alt="logo"
+							className="object-cover w-52"
+						/>
+						{/* <img
 							src="logo2.png"
 							alt="logo"
 							className="object-cover h-6 sm:h-8"
 						/> */}
-						<div className="flex items-center justify-center">
+						{/* <div className="flex items-center justify-center">
 							<span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent font-extrabold text-2xl sm:text-4xl tracking-wide">
 								RentStudio
 							</span>
-						</div>
+						</div> */}
 					</Link>
 					<div className="w-full flex flex-col gap-1 text-center">
 						<span className="text-center">

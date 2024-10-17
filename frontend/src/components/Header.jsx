@@ -13,6 +13,7 @@ import { signOutSuccess } from "../redux/user/userSlice";
 import "react-toastify/dist/ReactToastify.css";
 import { getAuth, signOut } from "firebase/auth";
 import { app } from "../firebase";
+import logo from "../public/logo.gif";
 
 const Header = () => {
 	const path = useLocation().pathname;
@@ -46,13 +47,13 @@ const Header = () => {
 			<Link
 				to="/"
 				className="font-semibold dark:text-white text-md sm:text-xl flex items-center justify-center">
-				{/* <img src="logo3.png" alt="logo" className="object-cover w-10 h-10" />
-				<img src="logo2.png" alt="logo" className="object-cover h-6 sm:h-8" /> */}
-				<div className="flex items-center justify-center">
+				<img src={logo} alt="logo" className="object-cover w-16 rounded-full" />
+				{/* <img src="logo2.png" alt="logo" className="object-cover h-6 sm:h-8" /> */}
+				{/* <div className="flex items-center justify-center">
 					<span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent font-extrabold text-xl sm:text-2xl tracking-wide">
 						RentStudio
 					</span>
-				</div>
+				</div> */}
 			</Link>
 			<div className=" flex gap-2 md:order-2 items-center">
 				<Button
