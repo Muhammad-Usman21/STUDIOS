@@ -10,6 +10,7 @@ const Home = () => {
 		searchTerm: "",
 		sort: "desc",
 		country: "",
+		type: "",
 		// minPrice: "",
 		// maxPrice: "",
 		// benefits: [],
@@ -18,7 +19,6 @@ const Home = () => {
 	const [searchResults, setSearchResults] = useState([]);
 	const location = useLocation();
 	const navigate = useNavigate(); // Replaces useHistory
-	const [country, setCountry] = useState("");
 
 	const [storage, setStorage] = useState({ youtubeLinks: [] });
 
@@ -52,6 +52,7 @@ const Home = () => {
 		const searchTerm = params.get("searchTerm") || "";
 		const sort = params.get("sort") || "desc";
 		const country = params.get("country") || "";
+		const type = params.get("type") || "";
 		// const minPrice = params.get("minPrice") || "";
 		// const maxPrice = params.get("maxPrice") || "";
 		// const benefitList = params.getAll("benefits") || [];
@@ -65,12 +66,13 @@ const Home = () => {
 		// }
 
 		// setFormData({ searchTerm, sort, country, minPrice, maxPrice, benefits });
-		setFormData({ searchTerm, sort, country });
+		setFormData({ searchTerm, sort, country, type });
 
 		fetchSearchResults({
 			searchTerm,
 			sort,
 			country,
+			type,
 			// minPrice,
 			// maxPrice,
 			// benefits,
@@ -337,7 +339,7 @@ const Home = () => {
 									onChange={handleChange}
 								/>
 								<Select
-									className="w-full md:w-48"
+									className="w-full md:w-96"
 									value={formData.country}
 									onChange={(e) =>
 										setFormData({ ...formData, country: e.target.value })
@@ -352,8 +354,20 @@ const Home = () => {
 										</option>
 									))}
 								</Select>
+								<Select
+									className="w-full md:w-96"
+									value={formData.type}
+									onChange={(e) =>
+										setFormData({ ...formData, type: e.target.value })
+									}>
+									<option value="">Seleccione un tipo</option>
+									<option value="music">Estudio de música</option>
+									<option value="recording">Estudio de grabación</option>
+									<option value="podcast">Estudio de podcasts</option>
+									<option value="rehersal">Estudio de ensayo</option>
+								</Select>
 								<Button
-									className="w-full md:w-44 focus:ring-1"
+									className="w-full md:w-64 focus:ring-1"
 									gradientDuoTone={"purpleToPink"}
 									onClick={() => handleSearch(formData)} // Pass current formData directly
 								>

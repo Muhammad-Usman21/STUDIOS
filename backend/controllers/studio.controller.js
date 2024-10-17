@@ -13,6 +13,7 @@ export const search = async (req, res) => {
 			minPrice,
 			maxPrice,
 			benefits,
+			type,
 		} = req.query;
 
 		console.log(req.query);
@@ -66,6 +67,10 @@ export const search = async (req, res) => {
 		// Add the country condition if provided
 		if (country) {
 			searchQuery.country = country;
+		}
+
+		if (type && type !== "") {
+			searchQuery.type = type;
 		}
 
 		// Add price range filtering

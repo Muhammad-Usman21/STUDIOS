@@ -90,7 +90,7 @@ const Studio = () => {
 										: "text-gray-500"
 								}`}
 								onClick={() => setActiveTab("portfolio")}>
-								Portfolio
+								Imagenes
 							</button>
 						</div>
 
