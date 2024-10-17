@@ -121,7 +121,7 @@ const Header = () => {
 								path === "/dashboard?tab=edit-studio"
 							}
 							as={"div"}>
-							Studio
+							Estudio
 						</Navbar.Link>
 					</Link>
 				)}

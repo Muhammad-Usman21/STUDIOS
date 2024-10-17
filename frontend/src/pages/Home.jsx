@@ -397,7 +397,7 @@ const Home = () => {
 								<button
 									onClick={handleShowMore}
 									className="text-center self-center">
-									Show More
+									Mostrar más
 								</button>
 							)}
 						</>

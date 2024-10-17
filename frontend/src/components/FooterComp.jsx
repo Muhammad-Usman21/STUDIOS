@@ -55,7 +55,7 @@ const FooterComp = () => {
 						<div>
 							<Footer.LinkGroup col className="space-y-2">
 								<div className="flex gap-8 md:gap-8 md:flex-row justify-around">
-									<Link to="/practice">Tutorials</Link>
+									<Link to="/practice">Tutoriales</Link>
 									<Link to="/about">¿Quiénes somos?</Link>
 								</div>
 							</Footer.LinkGroup>
@@ -81,7 +81,7 @@ const FooterComp = () => {
 					</Select> */}
 					<Footer.Copyright
 						href="#"
-						by="Studio"
+						by="Estudio"
 						year={new Date().getFullYear()}
 					/>
 					<div className="flex gap-4">

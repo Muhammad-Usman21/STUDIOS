@@ -508,7 +508,7 @@ const EditStudio = () => {
 					</div>
 
 					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-						<Label value="Upload images. First image will be cover" />
+						<Label value="Sube imágenes. La primera imagen será la portada." />
 						<div className="flex flex-col mb-4 w-full gap-4 items-center justify-between">
 							<div className="w-full">
 								<TextInput

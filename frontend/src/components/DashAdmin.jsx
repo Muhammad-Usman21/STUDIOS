@@ -211,10 +211,10 @@ const DashAdmin = () => {
 						onSubmit={handleSubmit}>
 						<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
 							<h2 className="self-center text-xl text-center font-semibold mb-2">
-								Background Image
+								Imagen de fondo
 							</h2>
 							<div className="bg-transparent border-2 border-white/20 backdrop-blur-[20px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-								<Label value="Background image must be in .jpg, .jpeg or .png format" />
+								<Label value="La imagen de fondo debe estar en formato .jpg, .jpeg o .png" />
 								<div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
 									<FileInput
 										type="file"
@@ -271,13 +271,13 @@ const DashAdmin = () => {
 						</div>
 						<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
 							<h2 className="self-center text-xl text-center font-semibold mb-2">
-								Guiones para practicar
+								Tutoriales
 							</h2>
 							<div className="bg-transparent border-2 border-white/20 backdrop-blur-[20px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-								<Label value="The link to YouTube video" />
+								<Label value="El enlace al vídeo de YouTube." />
 								<TextInput
 									type="text"
-									placeholder="Title"
+									placeholder="Título"
 									value={ytTitle}
 									onChange={(e) => setYtTitle(e.target.value)}
 									disabled={loading || imageUploading}
@@ -452,7 +452,7 @@ const DashAdmin = () => {
 									<span className="pl-3">Cargando.... Espere por favor!</span>
 								</>
 							) : (
-								"Confirm"
+								"Confirmar"
 							)}
 						</Button>
 					</form>

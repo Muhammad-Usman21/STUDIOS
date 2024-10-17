@@ -27,7 +27,7 @@ const Practice = () => {
 				className="max-w-4xl my-10 mx-3 p-3 sm:mx-12 lg:mx-auto sm:p-10 self-center dark:shadow-whiteLg items-center justify-center flex flex-col
 			bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-xl text-justify">
 				<h1 className="text-2xl font-semibold text-center uppercase">
-					Guiones para practicar
+					Tutoriales
 				</h1>
 				{formData.youtubeLinks && (
 					<div className="flex w-full flex-col text-justify mt-4 bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-xl p-4 dark:shadow-whiteLg">
