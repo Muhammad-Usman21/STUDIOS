@@ -5,10 +5,12 @@ const storageSchema = new mongoose.Schema(
 		backgroundImage: {
 			type: String,
 		},
-		youtubeLinks: {
-			type: Array,
-			default: [],
-		},
+		youtubeLinks: [
+			{
+				title: { type: String, required: true },
+				url: { type: String, required: true },
+			},
+		],
 		aboutContent: {
 			type: String,
 		},

@@ -35,11 +35,14 @@ const Practice = () => {
 							formData.youtubeLinks.map((url, index) => (
 								<>
 									<div
-										key={url}
+										key={index}
 										className="flex-col md:flex-row justify-between px-2 py-2 items-center gap-2">
+										<div className="flex flex-col md:flex-row justify-between px-3 py-3 border items-center gap-1">
+											<Label className="flex-grow">{url.title}</Label>
+										</div>
 										<div className="video-wrapper-form h-[180px] sm:h-[270px] md:h-[260px] lg:h-[400px] w-full">
 											<ReactPlayer
-												url={url}
+												url={url.url}
 												controls
 												loop
 												config={{
@@ -58,8 +61,11 @@ const Practice = () => {
 										</div>
 										<div className="flex flex-col md:flex-row justify-between px-3 py-3 border items-center gap-1">
 											<Label className="flex-grow">
-												<a href={url} target="_blank" rel="noopener noreferrer">
-													{url}
+												<a
+													href={url.url}
+													target="_blank"
+													rel="noopener noreferrer">
+													{url.url}
 												</a>
 											</Label>
 										</div>

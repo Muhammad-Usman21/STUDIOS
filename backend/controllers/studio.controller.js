@@ -25,18 +25,41 @@ export const search = async (req, res) => {
 		let searchQuery = {};
 
 		// Add the searchTerm condition for city, description, title, and address
+		// if (searchTerm) {
+		// 	searchQuery = {
+		// 		...searchQuery,
+		// 		$or: [
+		// 			{ title: { $regex: searchTerm, $options: "i" } },
+		// 			{ type: { $regex: searchTerm, $options: "i" } },
+		// 			{ description: { $regex: searchTerm, $options: "i" } },
+		// 			{ address: { $regex: searchTerm, $options: "i" } },
+		// 			{ city: { $regex: searchTerm, $options: "i" } },
+		// 			{ state: { $regex: searchTerm, $options: "i" } },
+		// 			{ country: { $regex: searchTerm, $options: "i" } },
+		// 		],
+		// 	};
+		// }
+
 		if (searchTerm) {
+			// Split searchTerm into individual words
+			const searchWords = searchTerm.split(" ");
+
+			// Create $or array for each word, searching each word in any of the fields
+			const searchConditions = searchWords.map((word) => ({
+				$or: [
+					{ title: { $regex: word, $options: "i" } },
+					{ type: { $regex: word, $options: "i" } },
+					{ address: { $regex: word, $options: "i" } },
+					{ city: { $regex: word, $options: "i" } },
+					{ state: { $regex: word, $options: "i" } },
+					{ country: { $regex: word, $options: "i" } },
+				],
+			}));
+
+			// Combine all conditions with $and so that all words must match at least one field
 			searchQuery = {
 				...searchQuery,
-				$or: [
-					{ title: { $regex: searchTerm, $options: "i" } },
-					{ type: { $regex: searchTerm, $options: "i" } },
-					{ description: { $regex: searchTerm, $options: "i" } },
-					{ address: { $regex: searchTerm, $options: "i" } },
-					{ city: { $regex: searchTerm, $options: "i" } },
-					{ state: { $regex: searchTerm, $options: "i" } },
-					{ country: { $regex: searchTerm, $options: "i" } },
-				],
+				$or: searchConditions,
 			};
 		}
 

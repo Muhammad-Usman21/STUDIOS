@@ -32,6 +32,7 @@ const DashAdmin = () => {
 	const [prevUrlData, setPrevUrlData] = useState([]);
 	const { currentUser } = useSelector((state) => state.user);
 	const [ytLink, setYTLink] = useState("");
+	const [ytTitle, setYtTitle] = useState("");
 	const [videosErrorMsg, setVideosErrorMsg] = useState(null);
 
 	const [imageUploadProgress, setImageUploadProgress] = useState(null);
@@ -110,12 +111,16 @@ const DashAdmin = () => {
 
 	const handleAddVideos = () => {
 		setVideosErrorMsg(null);
-		if (ytLink && ytLink !== "") {
+		if (ytLink && ytLink !== "" && ytTitle && ytTitle !== "") {
 			setFormData({
 				...formData,
-				youtubeLinks: [...formData.youtubeLinks, ytLink],
+				youtubeLinks: [
+					...formData.youtubeLinks,
+					{ title: ytTitle, url: ytLink },
+				],
 			});
 			setYTLink("");
+			setYtTitle("");
 		}
 	};
 
@@ -209,7 +214,7 @@ const DashAdmin = () => {
 								Background Image
 							</h2>
 							<div className="bg-transparent border-2 border-white/20 backdrop-blur-[20px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-								<Label value="Background image must be in .jpg, .jpeg or .png format" />{" "}
+								<Label value="Background image must be in .jpg, .jpeg or .png format" />
 								<div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
 									<FileInput
 										type="file"
@@ -270,6 +275,13 @@ const DashAdmin = () => {
 							</h2>
 							<div className="bg-transparent border-2 border-white/20 backdrop-blur-[20px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
 								<Label value="The link to YouTube video" />
+								<TextInput
+									type="text"
+									placeholder="Title"
+									value={ytTitle}
+									onChange={(e) => setYtTitle(e.target.value)}
+									disabled={loading || imageUploading}
+								/>
 								<div className="flex flex-col sm:flex-row gap-4 items-center justify-between mb-4">
 									<TextInput
 										className="flex-grow w-full"
@@ -290,7 +302,8 @@ const DashAdmin = () => {
 											imageUploadProgress ||
 											loading ||
 											imageUploading ||
-											!ytLink
+											!ytLink ||
+											!ytTitle
 										}>
 										Agregar
 									</Button>
@@ -336,11 +349,14 @@ const DashAdmin = () => {
 										<>
 											<hr className="border-2 my-2" />
 											<div
-												key={url}
+												key={index}
 												className="flex-col md:flex-row justify-between px-2 py-1 items-center">
+												<div className="flex flex-col md:flex-row justify-between px-3 py-3 border items-center gap-1">
+													<Label className="flex-grow">{url.title}</Label>
+												</div>
 												<div className="video-wrapper-form h-[180px] sm:h-[270px] md:h-[260px] lg:h-[370px] w-full">
 													<ReactPlayer
-														url={url}
+														url={url.url}
 														controls
 														loop
 														config={{
@@ -360,10 +376,10 @@ const DashAdmin = () => {
 												<div className="flex flex-col md:flex-row justify-between px-3 py-3 border items-center gap-1">
 													<Label className="flex-grow">
 														<a
-															href={url}
+															href={url.url}
 															target="_blank"
 															rel="noopener noreferrer">
-															{url}
+															{url.url}
 														</a>
 													</Label>
 													<button

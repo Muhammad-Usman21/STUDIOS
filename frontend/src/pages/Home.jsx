@@ -91,6 +91,7 @@ const Home = () => {
 
 	// Handle search button click
 	const handleSearch = async (formData) => {
+		setShowMore(true);
 		const query = new URLSearchParams(formData).toString();
 		navigate(`?${query}`, { replace: true }); // Replaces history.push()
 		fetchSearchResults(formData);
@@ -160,7 +161,8 @@ const Home = () => {
 						Estudio Alquila
 					</h1>
 					<p className="w-64 md:w-96 text-sm md:text-lg inline text-center text-white">
-					Descubra y reserve fácilmente el estudio perfecto para su próximo proyecto.
+						Descubra y reserve fácilmente el estudio perfecto para su próximo
+						proyecto.
 					</p>
 					<a
 						className="self-center mt-5 inline"
@@ -173,7 +175,7 @@ const Home = () => {
 						}}>
 						<button className=" flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br  from-green-200  via-blue-300  to-blue-200  group-hover:from-red-200 group-hover:via-red-300  dark:text-white dark:hover:text-gray-900 focus:ring-1 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400">
 							<span className=" px-5 py-2.5 transition-all ease-in duration-75 bg-blue-300 dark:bg-blue-500 rounded-md group-hover:bg-opacity-0 text-xl">
-							¡Ver estudios!
+								¡Ver estudios!
 							</span>
 						</button>
 					</a>
@@ -243,7 +245,7 @@ const Home = () => {
 					className="flex flex-col w-full items-center justify-center gap-6 lg:gap-10 px-3 lg:px-10 py-5 lg:py-10
 				bg-transparent backdrop-blur-[30px]">
 					<span className="text-lg md:text-2xl text-center font-semibold">
-					¡Reserve su estudio en segundos!
+						¡Reserve su estudio en segundos!
 					</span>
 					<div className="flex flex-col gap-2 md:gap-4 w-full">
 						<div className="flex flex-col gap-2 md:gap-4 max-w-3xl self-center w-full">
