@@ -35,7 +35,11 @@ const FooterComp = () => {
 								alt="logo"
 								className="object-cover h-8 sm:h-14"
 							/> */}
-							<span className="ml-1 text-2xl sm:ml-2 sm:4xl">STUDIO</span>
+							<div className="flex items-center justify-center">
+								<span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent font-extrabold text-xl sm:text-2xl tracking-wide">
+									RentStudio
+								</span>
+							</div>
 						</Link>
 					</div>
 					<div

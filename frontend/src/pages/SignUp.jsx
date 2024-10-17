@@ -119,11 +119,15 @@ const SignUp = () => {
 							alt="logo"
 							className="object-cover h-6 sm:h-8"
 						/> */}
-						<span className="ml-1 text-3xl sm:ml-2 md:text-5xl">ESTUDIO</span>
+						<div className="flex items-center justify-center">
+							<span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent font-extrabold text-2xl sm:text-4xl tracking-wide">
+								RentStudio
+							</span>
+						</div>
 					</Link>
 					<div className="w-full flex flex-col gap-1 text-center">
 						<span className="text-center">
-						¿Continuar con tu cuenta de Google?
+							¿Continuar con tu cuenta de Google?
 						</span>
 						<OAuth />
 					</div>
