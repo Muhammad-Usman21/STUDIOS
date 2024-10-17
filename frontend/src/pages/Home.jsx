@@ -10,7 +10,7 @@ const Home = () => {
 	const [formData, setFormData] = useState({
 		searchTerm: "",
 		sort: "desc",
-		// country: "",
+		country: "",
 		// minPrice: "",
 		// maxPrice: "",
 		// benefits: [],
@@ -19,7 +19,7 @@ const Home = () => {
 	const [searchResults, setSearchResults] = useState([]);
 	const location = useLocation();
 	const navigate = useNavigate(); // Replaces useHistory
-	// const [country, setCountry] = useState("");
+	const [country, setCountry] = useState("");
 
 	const [storage, setStorage] = useState({ youtubeLinks: [] });
 
@@ -52,7 +52,7 @@ const Home = () => {
 		const params = new URLSearchParams(location.search);
 		const searchTerm = params.get("searchTerm") || "";
 		const sort = params.get("sort") || "desc";
-		// const country = params.get("country") || "";
+		const country = params.get("country") || "";
 		// const minPrice = params.get("minPrice") || "";
 		// const maxPrice = params.get("maxPrice") || "";
 		// const benefitList = params.getAll("benefits") || [];
@@ -66,12 +66,12 @@ const Home = () => {
 		// }
 
 		// setFormData({ searchTerm, sort, country, minPrice, maxPrice, benefits });
-		setFormData({ searchTerm, sort });
+		setFormData({ searchTerm, sort, country });
 
 		fetchSearchResults({
 			searchTerm,
 			sort,
-			// country,
+			country,
 			// minPrice,
 			// maxPrice,
 			// benefits,
@@ -206,22 +206,7 @@ const Home = () => {
 								onChange={handleChange}
 							/>
 
-							<Select
-								className="w-full md:w-48"
-								value={formData.country}
-								onChange={(e) =>
-									setFormData({ ...formData, country: e.target.value })
-								}>
-								<option value="" disabled>
-									Seleccione un país
-								</option>
-								<option value="all">Todos los países</option>
-								{countryOptions.map((country, index) => (
-									<option key={index} value={country}>
-										{country}
-									</option>
-								))}
-							</Select>
+							
 							<Select
 								className="w-full md:w-36"
 								value={formData.sort}
@@ -352,6 +337,22 @@ const Home = () => {
 									value={formData.searchTerm}
 									onChange={handleChange}
 								/>
+								<Select
+									className="w-full md:w-48"
+									value={formData.country}
+									onChange={(e) =>
+										setFormData({ ...formData, country: e.target.value })
+									}>
+									<option value="" disabled>
+										Seleccione un país
+									</option>
+									<option value="all">Todos los países</option>
+									{countryOptions.map((country, index) => (
+										<option key={index} value={country}>
+											{country}
+										</option>
+									))}
+								</Select>
 								<Button
 									className="w-full md:w-44 focus:ring-1"
 									gradientDuoTone={"purpleToPink"}
