@@ -381,7 +381,7 @@ const Home = () => {
 					</h1>
 					{searchResults.length > 0 && (
 						<>
-							<div className="w-44 self-end lg:mr-36">
+							<div className="w-48 self-end lg:mr-36">
 								<Label className="pl-2">Filtros</Label>
 								<Select
 									value={formData.sort}

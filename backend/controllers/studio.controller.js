@@ -192,7 +192,8 @@ export const createStudio = async (req, res) => {
 	// Extract the part of the email before the '@'
 	const emailUsername = mail.split("@")[0];
 	// Combine the title, the word 'by', and the email username
-	const studioSlug = `${formattedTitle}-by-${emailUsername}`;
+	const slug = `${formattedTitle}-by-${emailUsername}`;
+	const studioSlug = slug.replace(/\./g, "");
 
 	const { userId } = req.params;
 	try {
@@ -270,7 +271,8 @@ export const editStudio = async (req, res) => {
 	// Extract the part of the email before the '@'
 	const emailUsername = mail.split("@")[0];
 	// Combine the title, the word 'by', and the email username
-	const studioSlug = `${formattedTitle}-by-${emailUsername}`;
+	const slug = `${formattedTitle}-by-${emailUsername}`;
+	const studioSlug = slug.replace(/\./g, "");
 
 	try {
 		// Check if studio exists for this user
