@@ -119,7 +119,7 @@ const EditStudio = () => {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify(formData),
+				body: JSON.stringify({ ...formData, mail: currentUser.email }),
 			});
 			const data = await res.json();
 			if (!res.ok) {

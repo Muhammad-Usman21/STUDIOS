@@ -12,6 +12,11 @@ const studioSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		studioSlug: {
+			type: String,
+			required: true,
+			unique: true,
+		},
 		phone: {
 			type: String,
 		},

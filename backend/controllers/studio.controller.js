@@ -134,7 +134,9 @@ export const search = async (req, res) => {
 
 		// Fetch studios from the database
 		const studios = await Studio.find(searchQuery)
-			.select("_id title address city images price benefits facility")
+			.select(
+				"_id title address city images price benefits facility studioSlug"
+			)
 			.sort(sortOption)
 			.skip(parseInt(startIndex))
 			.limit(parseInt(limit));
@@ -146,15 +148,18 @@ export const search = async (req, res) => {
 };
 
 export const getStudio = async (req, res) => {
-	const { studioId } = req.params;
+	const { studioSlug } = req.params; // Change to studioSlug
 	try {
-		const studio = await Studio.findById(studioId).populate(
+		// Find the studio by its slug
+		const studio = await Studio.findOne({ studioSlug }).populate(
 			"userId",
 			"name email profilePicture"
 		);
+
 		if (!studio) {
 			return res.status(404).json({ message: "Studio not found." });
 		}
+
 		res.status(200).json(studio);
 	} catch (error) {
 		console.error("Error fetching studio:", error);
@@ -179,7 +184,15 @@ export const createStudio = async (req, res) => {
 		calendarUrl,
 		location,
 		description,
+		mail,
 	} = req.body;
+
+	// Replace all spaces in the studio title with dashes
+	const formattedTitle = title.replace(/\s+/g, "-");
+	// Extract the part of the email before the '@'
+	const emailUsername = mail.split("@")[0];
+	// Combine the title, the word 'by', and the email username
+	const studioSlug = `${formattedTitle}-by-${emailUsername}`;
 
 	const { userId } = req.params;
 	try {
@@ -208,6 +221,7 @@ export const createStudio = async (req, res) => {
 			calendarUrl,
 			location,
 			description,
+			studioSlug,
 		});
 
 		// Save to the database
@@ -248,7 +262,15 @@ export const editStudio = async (req, res) => {
 		calendarUrl,
 		location,
 		description,
+		mail,
 	} = req.body;
+
+	// Replace all spaces in the studio title with dashes
+	const formattedTitle = title.replace(/\s+/g, "-");
+	// Extract the part of the email before the '@'
+	const emailUsername = mail.split("@")[0];
+	// Combine the title, the word 'by', and the email username
+	const studioSlug = `${formattedTitle}-by-${emailUsername}`;
 
 	try {
 		// Check if studio exists for this user
@@ -261,6 +283,7 @@ export const editStudio = async (req, res) => {
 
 		// Update the studio fields with the new values (if provided)
 		if (title) existingStudio.title = title;
+		if (title) existingStudio.studioSlug = studioSlug;
 		if (phone) existingStudio.phone = phone;
 		if (images) existingStudio.images = images;
 		if (address) existingStudio.address = address;

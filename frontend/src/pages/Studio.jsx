@@ -8,18 +8,20 @@ import Comments from "../components/Comments";
 import { FaLocationDot } from "react-icons/fa6";
 
 const Studio = () => {
-	const { id } = useParams();
+	// const { id } = useParams();
+	const { slug } = useParams();
 	const [studio, setStudio] = useState(null);
 	const [activeTab, setActiveTab] = useState("details"); // Track active tab
+	console.log(slug);
 
 	useEffect(() => {
 		const fetchStudio = async () => {
-			const response = await fetch(`/api/studio/${id}`);
+			const response = await fetch(`/api/studio/${slug}`);
 			const data = await response.json();
 			setStudio(data);
 		};
 		fetchStudio();
-	}, [id]);
+	}, [slug]);
 
 	return (
 		<div className="min-h-screen w-full px-3 sm:px-5">

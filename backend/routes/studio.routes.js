@@ -14,6 +14,6 @@ router.get("/search", search);
 router.post("/create-studio/:userId", verifyToken, createStudio);
 router.put("/edit-studio/:userId", verifyToken, editStudio);
 router.get("/getstudio/:userId", verifyToken, getStudioByUserId);
-router.get("/:studioId", getStudio);
+router.get("/:studioSlug", getStudio);
 
 export default router;

@@ -8,7 +8,7 @@ const StudioCard = ({ studio }) => {
 	return (
 		<>
 			{studio && (
-				<Link to={`/studio/${studio._id}`}>
+				<Link to={`/studio/${studio.studioSlug}`}>
 					<div
 						className="group relative w-full border-teal-500 h-[420px] overflow-hidden
             hover:border-2 sm:w-[370px] transition-all dark:shadow-whiteLg
