@@ -432,7 +432,7 @@ const EditStudio = () => {
 						</div>
 						<div className="flex flex-col sm:flex-row gap-4 justify-around items-center p-3 w-full">
 							<div className="flex flex-col gap-1 flex-grow w-full">
-								<Label value="DIRECCIÓN" />
+								<Label value="Dirección" />
 								<TextInput
 									className="flex-grow w-full"
 									type="text"

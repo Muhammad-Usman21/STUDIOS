@@ -125,10 +125,9 @@ const StudioDetails = ({ studio }) => {
 							href={studio.socialMedia.deposit}
 							target="_blank"
 							rel="noreferrer">
-							<FaMoneyBill1Wave className="inline-block mr-2 text-3xl hover:text-green-500" />
+							<FaMoneyBill1Wave className="inline-block mr-2 text-3xl hover:text-blue-500" />
 						</a>
 					)}
-					
 				</div>
 			</div>
 		</div>

@@ -212,7 +212,7 @@ const CommentSection = ({ studioId }) => {
 						className="bg-transparent border-2 border-white/40 dark:border-white/20 
                             backdrop-blur-[9px] rounded-lg shadow-xl p-3 dark:shadow-whiteLg">
 						<Textarea
-							placeholder="Add a comment..."
+							placeholder="Añade un comentario..."
 							rows="3"
 							maxLength="200"
 							value={comment}
@@ -257,7 +257,7 @@ const CommentSection = ({ studioId }) => {
 				<div className="text-sm text-teal-500 my-5 flex gap-2 dark:text-gray-500 ml-3">
 					<p>Debes iniciar sesión para comentar.</p>
 					<Link className="text-blue-500 hover:underline" to={"/sign-in"}>
-					Iniciar sesión
+						Iniciar sesión
 					</Link>
 				</div>
 			)}
@@ -312,11 +312,11 @@ const CommentSection = ({ studioId }) => {
 								<div className="flex items-center mb-8 gap-8 self-center">
 									<HiOutlineExclamationCircle className="h-14 w-14 text-gray-500 dark:text-gray-200" />
 									<span className="text-2xl text-gray-600 dark:text-gray-200">
-									Eliminar comentario
+										Eliminar comentario
 									</span>
 								</div>
 								<h3 className="my-5 text-lg text-gray-600 dark:text-gray-300">
-								¿Estás seguro de que quieres eliminar este comentario?
+									¿Estás seguro de que quieres eliminar este comentario?
 								</h3>
 								<div className="flex justify-around">
 									<Button

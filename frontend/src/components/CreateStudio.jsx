@@ -395,7 +395,7 @@ const CreateStudio = () => {
 						</div>
 						<div className="flex flex-col sm:flex-row gap-4 justify-around items-center py-3 w-full">
 							<div className="flex flex-col gap-1 flex-grow w-full">
-								<Label value="DIRECCIÓN" />
+								<Label value="Dirección" />
 								<TextInput
 									className="flex-grow w-full"
 									type="text"
@@ -481,7 +481,7 @@ const CreateStudio = () => {
 					</div>
 
 					<div className="bg-transparent border-2 border-white/20 backdrop-blur-[30px] rounded-lg shadow-md p-3 flex flex-col gap-2  dark:shadow-whiteLg">
-						<Label value="Upload images. First image will be cover" />
+						<Label value="Sube imágenes. La primera imagen será la portada." />
 						<div className="flex flex-col mb-4 w-full gap-4 items-center justify-between">
 							<div className="w-full">
 								<TextInput
@@ -674,7 +674,7 @@ const CreateStudio = () => {
 									disabled={loading || imageUploading}
 								/>
 							</div>
-							<div className="flex sm:flex-row flex-col gap-2 items-center sm:pl-2">
+							<div className="flex sm:flex-row flex-col gap-2 items-center">
 								<div className="flex items-center justify-center gap-2">
 									<FaMoneyBill1Wave />
 									<Label value="Deposito" />

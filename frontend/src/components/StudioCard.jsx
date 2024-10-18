@@ -58,11 +58,11 @@ const StudioCard = ({ studio }) => {
 							</span>
 
 							<Link
-								to={`/studio/${studio._id}`}
+								to={`/studio/${studio.studioSlug}`}
 								className="z-10 group-hover:bottom-0 absolute bottom-[-200px]
 							text-center left-0 right-0 border border-teal-400 text-teal-500
 							hover:bg-teal-400 dark:border-gray-700 dark:text-gray-300
-							dark:hover:bg-gray-700 dark:hover:text-gray-100 hover:text-white
+							dark:hover:bg-[#010e16] dark:hover:text-gray-100 hover:text-white
 							transition-all duration-300 py-2 rounded-md !rounded-tl-none
 							!rounded-br-none m-2 mt-0">
 								Escoger Estudio
