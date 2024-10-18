@@ -719,7 +719,7 @@ const EditStudio = () => {
 								<span className="pl-3">Actualizando... Por favor espera!</span>
 							</>
 						) : (
-							"Update Studio"
+							"Actualizar estudio"
 						)}
 					</Button>
 				</form>

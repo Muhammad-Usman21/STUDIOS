@@ -184,7 +184,7 @@ const Home = () => {
 			</div>
 			<div
 				id="search"
-				className="items-center justify-center flex flex-col gap-12 lg:gap-24 pt-20 bg-white bg-opacity-35 dark:bg-transparent dark:bg-opacity-100 backdrop-blur-[30px]">
+				className="items-center justify-center flex flex-col gap-12 lg:gap-24 bg-white bg-opacity-35 dark:bg-transparent dark:bg-opacity-100 backdrop-blur-[30px]">
 				{/* <div className="flex flex-col items-center justify-center gap-4 md:gap-8 p-5 md:p-10 bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-2xl dark:shadow-whiteLg">
 					<span className="text-2xl md:text-4xl text-center">
 						Capture Your Creative Moments
@@ -229,7 +229,7 @@ const Home = () => {
 
 				<div
 					className="flex flex-col w-full items-center justify-center gap-6 lg:gap-10 px-3 lg:px-10 py-5 lg:py-10
-				bg-transparent backdrop-blur-[30px]">
+				bg-transparent backdrop-blur-[30px] pt-20">
 					<span className="text-lg md:text-2xl text-center font-semibold">
 						¡Reserve su estudio en segundos!
 					</span>
