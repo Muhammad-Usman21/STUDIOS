@@ -22,14 +22,14 @@ const FooterComp = () => {
 			bg-[url('../../h&f-light.jpg')] dark:bg-[url('../../footer-dark.jpg')]">
 			<div className="w-full max-w-7xl mx-auto">
 				<div className="flex flex-col items-center gap-4 w-full sm:flex-row sm:justify-between">
-					<div className="mt-4 sm:mt-0">
+					<div className="mt-4 sm:mt-0 mb-1">
 						<Link
 							to="/"
 							className="font-semibold dark:text-white text-md sm:text-xl flex items-center h-10 sm:h-24">
 							<img
 								src={logo}
 								alt="logo"
-								className="object-cover w-20 h-20 sm:w-24 sm:h-24"
+								className="object-cover w-20 h-20 sm:w-24 sm:h-24 rounded-full"
 							/>
 							{/* <img
 								src="logo2.png"

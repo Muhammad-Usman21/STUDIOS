@@ -234,7 +234,7 @@ const Home = () => {
 						¡Reserve su estudio en segundos!
 					</span>
 					<div className="flex flex-col gap-2 md:gap-4 w-full">
-						<div className="flex flex-col gap-2 md:gap-4 max-w-3xl self-center w-full">
+						<div className="flex flex-col gap-2 md:gap-4 max-w-4xl self-center w-full">
 							{/* <div className="flex flex-col md:flex-row gap-2 md:gap-4">
 								<TextInput
 									className="flex-grow"
@@ -339,7 +339,7 @@ const Home = () => {
 									onChange={handleChange}
 								/>
 								<Select
-									className="w-full md:w-96"
+									className="w-full md:w-[470px]"
 									value={formData.country}
 									onChange={(e) =>
 										setFormData({ ...formData, country: e.target.value })
@@ -355,7 +355,7 @@ const Home = () => {
 									))}
 								</Select>
 								<Select
-									className="w-full md:w-96"
+									className="w-full md:w-[470px]"
 									value={formData.type}
 									onChange={(e) =>
 										setFormData({ ...formData, type: e.target.value })
@@ -382,7 +382,7 @@ const Home = () => {
 					{searchResults.length > 0 && (
 						<>
 							<div className="w-44 self-end lg:mr-36">
-								<Label>Filtros</Label>
+								<Label className="pl-2">Filtros</Label>
 								<Select
 									value={formData.sort}
 									onChange={(e) => {
