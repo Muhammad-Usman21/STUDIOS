@@ -230,7 +230,7 @@ const Home = () => {
 				<div
 					className="flex flex-col w-full items-center justify-center gap-6 lg:gap-10 px-3 lg:px-10 py-5 lg:py-10
 				bg-transparent backdrop-blur-[30px] pt-20">
-					<span className="text-lg md:text-2xl text-center font-semibold">
+					<span className="text-lg md:text-2xl text-center font-semibold mt-20">
 						¡Reserve su estudio en segundos!
 					</span>
 					<div className="flex flex-col gap-2 md:gap-4 w-full">
