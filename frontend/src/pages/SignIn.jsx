@@ -70,6 +70,7 @@ const SignIn = () => {
 				setLoading(false);
 				dispatch(signInSuccess(data));
 				navigate("/");
+				return;
 			}
 		} catch (error) {
 			setErrorMessage(error.message);

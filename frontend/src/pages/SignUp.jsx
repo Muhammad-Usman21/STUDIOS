@@ -94,6 +94,7 @@ const SignUp = () => {
 			if (res.ok && firebaseUser && firebaseUser.user) {
 				setLoading(false);
 				navigate("/sign-in");
+				return;
 			}
 		} catch (error) {
 			setErrorMessage(error.message);
