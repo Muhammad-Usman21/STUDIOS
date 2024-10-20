@@ -328,23 +328,23 @@ const EditStudio = () => {
 								<Label value="Tipo" className="" />
 								<Select
 									disabled={loading || imageUploading}
-									className="w-full lg:w-64"
+									className="w-full lg:w-60"
 									required
 									value={formData.type}
 									onChange={(e) =>
 										setFormData({ ...formData, type: e.target.value })
 									}>
 									<option value="">Seleccione un tipo</option>
-									<option value="music">Estudio de música</option>
+									{/* <option value="music">Estudio de música</option> */}
 									<option value="recording">Estudio de grabación</option>
-									<option value="podcast">Estudio de podcasts</option>
-									<option value="rehersal">Estudio de ensayo</option>
+									{/* <option value="podcast">Estudio de podcasts</option> */}
+									<option value="rehersal">Sala de ensayo</option>
 								</Select>
 							</div>
 							<div className="flex flex-col w-full lg:w-auto gap-1">
 								<Label value="Precio ($) por Hora" className="" />
 								<TextInput
-									className="flex-grow w-full md:ml-1"
+									className="flex-grow w-full lg:w-60"
 									type="number"
 									placeholder=""
 									value={formData.price}

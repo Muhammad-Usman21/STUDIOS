@@ -361,10 +361,10 @@ const Home = () => {
 										setFormData({ ...formData, type: e.target.value })
 									}>
 									<option value="">Seleccione un tipo</option>
-									<option value="music">Estudio de música</option>
+									{/* <option value="music">Estudio de música</option> */}
 									<option value="recording">Estudio de grabación</option>
-									<option value="podcast">Estudio de podcasts</option>
-									<option value="rehersal">Estudio de ensayo</option>
+									{/* <option value="podcast">Estudio de podcasts</option> */}
+									<option value="rehersal">Sala de ensayo</option>
 								</Select>
 								<Button
 									className="w-full md:w-64 focus:ring-1"

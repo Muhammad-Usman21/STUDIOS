@@ -40,14 +40,14 @@ const Studio = () => {
 								{studio.title}
 							</h1>
 							<h1 className="text-xl lg:text-3xl font-semibold text-center">
-								{studio.type === "music"
-									? "Estudio de música"
-									: studio.type === "recording"
+								{/* {studio.type === "music"
+									? "Estudio de música" */}
+								{studio.type === "recording"
 									? "Estudio de grabación"
-									: studio.type === "podcast"
-									? "Estudio de podcasts"
-									: studio.type === "rehersal"
-									? "Estudio de ensayo"
+									: // : studio.type === "podcast"
+									// ? "Estudio de podcasts"
+									studio.type === "rehersal"
+									? "Sala de ensayo"
 									: ""}
 							</h1>
 							<p className="text-lg lg:text-xl text-center">
