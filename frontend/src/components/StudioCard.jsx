@@ -8,7 +8,7 @@ const StudioCard = ({ studio }) => {
 	return (
 		<>
 			{studio && (
-				<Link to={`/studio/${studio.studioSlug}`}>
+				<Link to={`/${studio.studioSlug}`}>
 					<div
 						className="group relative w-full border-teal-500 h-[420px] overflow-hidden
             hover:border-2 sm:w-[370px] transition-all dark:shadow-whiteLg
@@ -58,7 +58,7 @@ const StudioCard = ({ studio }) => {
 							</span>
 
 							<Link
-								to={`/studio/${studio.studioSlug}`}
+								to={`/${studio.studioSlug}`}
 								className="z-10 group-hover:bottom-0 absolute bottom-[-200px]
 							text-center left-0 right-0 border border-teal-400 text-teal-500
 							hover:bg-teal-400 dark:border-gray-700 dark:text-gray-300
