@@ -11,10 +11,7 @@ export const updateUser = async (req, res, next) => {
 	}
 
 	// let hashedPassword;
-	const {
-		name,
-		profilePicture,
-	} = req.body;
+	const { name, profilePicture } = req.body;
 
 	const validUser = await User.findById(req.params.userId);
 	if (!validUser) {
@@ -38,7 +35,6 @@ export const updateUser = async (req, res, next) => {
 		next(error);
 	}
 };
-
 
 export const getUsers = async (req, res, next) => {
 	try {

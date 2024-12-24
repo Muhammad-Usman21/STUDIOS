@@ -100,7 +100,7 @@ const SignUp = () => {
 			setErrorMessage(error.message);
 			setLoading(false);
 		}
-	};	
+	};
 
 	return (
 		<div className="min-h-screen py-10">
@@ -111,11 +111,7 @@ const SignUp = () => {
 					<Link
 						to="/"
 						className="font-semibold dark:text-white text-md md:text-3xl flex items-center justify-center">
-						<img
-							src={logo}
-							alt="logo"
-							className="object-cover w-52"
-						/>
+						<img src={logo} alt="logo" className="object-cover w-52" />
 						{/* <img
 							src="logo2.png"
 							alt="logo"

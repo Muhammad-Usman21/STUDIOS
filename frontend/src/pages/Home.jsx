@@ -157,29 +157,31 @@ const Home = () => {
 					backgroundImage: `url(${storage.backgroundImage})`,
 				}}
 				className={`w-full relative bg-opacity-80 dark:bg-opacity-60 bg-center bg-no-repeat bg-cover bg-fixed min-h-screen`}>
-				<div className="flex flex-col gap-2 z-20 self-center justify-center items-center py-36">
-					<h1 className=" text-blue-600 font-extrabold text-3xl md:text-6xl">
-						Sesion Agendada
-					</h1>
-					<p className="w-64 md:w-96 text-sm md:text-lg inline text-center text-white">
-						Descubra y reserve fácilmente el estudio perfecto para su próximo
-						proyecto.
-					</p>
-					<a
-						className="self-center mt-5 inline"
-						href="#search"
-						onClick={(e) => {
-							e.preventDefault();
-							document
-								.getElementById("search")
-								.scrollIntoView({ behavior: "smooth" });
-						}}>
-						<button className=" flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br  from-green-200  via-blue-300  to-blue-200  group-hover:from-red-200 group-hover:via-red-300  dark:text-white dark:hover:text-gray-900 focus:ring-1 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400">
-							<span className=" px-5 py-2.5 transition-all ease-in duration-75 bg-blue-300 dark:bg-blue-500 rounded-md group-hover:bg-opacity-0 text-xl">
-								¡Ver estudios!
-							</span>
-						</button>
-					</a>
+				<div className="flex flex-col gap-2 z-20 self-center justify-center items-center py-36 ">
+					<div className=" self-center justify-center items-center gap-4 px-10 py-5 flex flex-col text-justify mt-4 bg-transparent border-2 border-white/40 dark:border-white/20 backdrop-blur-[30px] rounded-lg shadow-xl p-4 dark:shadow-whiteLg">
+						<h1 className=" text-blue-600 font-extrabold text-3xl md:text-6xl">
+							Sesion Agendada
+						</h1>
+						<p className="w-64 md:w-96 text-sm md:text-lg inline text-center text-white">
+							Descubra y reserve fácilmente el estudio perfecto para su próximo
+							proyecto.
+						</p>
+						<a
+							className="self-center mt-5 inline"
+							href="#search"
+							onClick={(e) => {
+								e.preventDefault();
+								document
+									.getElementById("search")
+									.scrollIntoView({ behavior: "smooth" });
+							}}>
+							<button className=" flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br  from-green-200  via-blue-300  to-blue-200  group-hover:from-red-200 group-hover:via-red-300  dark:text-white dark:hover:text-gray-900 focus:ring-1 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400">
+								<span className=" px-5 py-2.5 transition-all ease-in duration-75 bg-blue-300 dark:bg-blue-500 rounded-md group-hover:bg-opacity-0 text-xl">
+									¡Ver estudios!
+								</span>
+							</button>
+						</a>
+					</div>
 				</div>
 			</div>
 			<div
